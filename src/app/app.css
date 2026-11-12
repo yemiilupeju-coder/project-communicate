@@ -1,0 +1,556 @@
+/*
+ * Communicator styles. Colour follows the Modified Fitzgerald Key so word
+ * types are recognisable, but colour is never the only cue: each type also
+ * has its own border style, and every button has a text label.
+ */
+
+:root {
+  --bg: #f6f5f1;
+  --surface: #ffffff;
+  --ink: #1b1b1b;
+  --muted: #5a5a5a;
+  --accent: #1f4f8b;
+  --focus: #ffb000;
+  --pronoun: #fff3b0;
+  --question: #e8dcf7;
+  --verb: #d4f0d4;
+  --describer: #d6e6fb;
+  --social: #fbdde8;
+  --nav: #ececec;
+  --model: #ff7a00;
+  --gap: clamp(4px, 0.8vmin, 10px);
+  --radius: 12px;
+  font-family:
+    "Atkinson Hyperlegible",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-text-size-adjust: 100%;
+}
+
+:root.high-contrast {
+  --bg: #000000;
+  --surface: #000000;
+  --ink: #ffffff;
+  --muted: #e0e0e0;
+  --accent: #ffff00;
+  --pronoun: #000000;
+  --question: #000000;
+  --verb: #000000;
+  --describer: #000000;
+  --social: #000000;
+  --nav: #000000;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  overflow: hidden;
+  overscroll-behavior: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+
+button:focus-visible,
+select:focus-visible,
+input:focus-visible,
+a:focus-visible {
+  outline: 4px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  padding: calc(var(--gap) + env(safe-area-inset-top)) calc(var(--gap) + env(safe-area-inset-right))
+    calc(var(--gap) + env(safe-area-inset-bottom)) calc(var(--gap) + env(safe-area-inset-left));
+}
+
+/* ── Message bar ─────────────────────────────────────────────────────────── */
+
+.message-bar {
+  display: flex;
+  gap: var(--gap);
+  flex: 0 0 auto;
+  min-height: 72px;
+}
+
+.message-text {
+  flex: 1;
+  text-align: left;
+  background: var(--surface);
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  padding: 8px 14px;
+  font-size: clamp(20px, 3.4vmin, 36px);
+  line-height: 1.3;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  white-space: pre-wrap;
+}
+
+.token.draft {
+  text-decoration: underline;
+  text-decoration-style: dotted;
+}
+
+.placeholder {
+  color: var(--muted);
+  font-size: 0.7em;
+}
+
+.message-actions {
+  display: flex;
+  gap: var(--gap);
+}
+
+.action {
+  min-width: 84px;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--surface);
+  font-size: clamp(14px, 2vmin, 20px);
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+.action.speak {
+  background: var(--accent);
+  color: #fff;
+  min-width: 110px;
+}
+
+:root.high-contrast .action.speak {
+  color: #000;
+}
+
+.action:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+/* ── Cells (shared by board, strip, keyboard, rail) ─────────────────────── */
+
+.cell {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  border: 2px solid rgba(0, 0, 0, 0.35);
+  border-radius: var(--radius);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 4px;
+  font-weight: 650;
+  font-size: clamp(14px, 2.6vmin, 28px);
+  line-height: 1.1;
+  overflow: hidden;
+  transition: transform 60ms ease-out;
+  /* Labels size to their own button, so a word is never split mid-word. */
+  container-type: inline-size;
+}
+
+.cell:active {
+  transform: scale(0.97);
+  filter: brightness(0.92);
+}
+
+.cell .symbol {
+  width: auto;
+  height: 58%;
+  max-height: 64px;
+  min-height: 0;
+  pointer-events: none;
+}
+
+.cell .label {
+  font-size: clamp(11px, 17cqi, 28px);
+  overflow-wrap: normal;
+  word-break: keep-all;
+  hyphens: none;
+  text-align: center;
+}
+
+.voice-strip .cell .label {
+  font-size: clamp(11px, 10cqi, 22px);
+}
+
+.keyboard .cell .label {
+  font-size: clamp(16px, 40cqi, 40px);
+}
+
+.keyboard .key-space .label,
+.keyboard .key-backspace .label {
+  font-size: clamp(14px, 30cqi, 28px);
+}
+
+.kind-pronoun {
+  background: var(--pronoun);
+  border-style: solid;
+}
+.kind-question {
+  background: var(--question);
+  border-style: double;
+  border-width: 4px;
+}
+.kind-verb {
+  background: var(--verb);
+  border-style: solid;
+  border-width: 3px;
+}
+.kind-describer {
+  background: var(--describer);
+  border-style: dashed;
+}
+.kind-social {
+  background: var(--social);
+  border-style: solid;
+  border-radius: 999px;
+}
+.kind-nav {
+  background: var(--nav);
+}
+
+:root.high-contrast .cell {
+  border-color: #ffffff;
+}
+:root.high-contrast .cell .symbol {
+  background: #ffffff;
+  border-radius: 6px;
+}
+
+.cell.modeled {
+  outline: 6px solid var(--model);
+  outline-offset: -3px;
+  z-index: 1;
+}
+
+.cell.current {
+  outline: 4px solid var(--accent);
+  outline-offset: -4px;
+}
+
+/* ── Voice strip ─────────────────────────────────────────────────────────── */
+
+.voice-strip {
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: var(--gap);
+  height: clamp(56px, 11vmin, 110px);
+}
+
+.voice-strip .cell {
+  flex-direction: row;
+  gap: 6px;
+  font-size: clamp(13px, 2.2vmin, 22px);
+}
+
+.voice-strip .cell .symbol {
+  height: 60%;
+}
+
+/* ── Workspace: page + fixed rail ────────────────────────────────────────── */
+
+.workspace {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  gap: var(--gap);
+}
+
+.page {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+.grid {
+  height: 100%;
+  display: grid;
+  gap: var(--gap);
+}
+
+.rail {
+  flex: 0 0 clamp(84px, 12vmin, 140px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.rail > .cell {
+  flex: 0 0 22%;
+}
+
+.rail-spacer {
+  flex: 1;
+}
+
+/* ── Adult hold ──────────────────────────────────────────────────────────── */
+
+.adult-hold {
+  position: relative;
+  flex: 0 0 auto;
+  min-height: 64px;
+  border: 2px dashed var(--muted);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--muted);
+  font-size: 13px;
+  overflow: hidden;
+}
+
+.adult-hold-ring {
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  opacity: 0.25;
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+
+.adult-hold.holding .adult-hold-ring {
+  transform: scaleX(1);
+  transition: transform 3s linear;
+}
+
+.adult-hold-label {
+  position: relative;
+}
+
+/* ── Banners, fallback ──────────────────────────────────────────────────── */
+
+.modeling-banner,
+.no-speech {
+  margin: 0;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  font-size: 16px;
+}
+
+.modeling-banner {
+  background: var(--model);
+  color: #000;
+}
+
+.modeling-banner button {
+  margin-left: auto;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 2px solid #000;
+  background: #fff;
+  font-weight: 700;
+}
+
+.no-speech {
+  background: #fff1c2;
+  color: #000;
+}
+
+.speech-fallback {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5vmin;
+  text-align: center;
+}
+
+.fallback-text {
+  font-size: clamp(36px, 10vmin, 120px);
+  font-weight: 750;
+  margin: 0 0 0.4em;
+  overflow-wrap: anywhere;
+}
+
+.fallback-note {
+  color: var(--muted);
+  font-size: 18px;
+}
+
+.speech-fallback button {
+  font-size: 22px;
+  padding: 12px 32px;
+  border-radius: var(--radius);
+  border: 2px solid var(--ink);
+  background: var(--surface);
+}
+
+/* ── Adult menu ─────────────────────────────────────────────────────────── */
+
+.adult-menu {
+  width: min(720px, 96vw);
+  max-height: 92vh;
+  border: none;
+  border-radius: 16px;
+  padding: 0;
+  background: var(--surface);
+  color: var(--ink);
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+.adult-menu::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.adult-menu header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: var(--surface);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.adult-menu h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.adult-menu h3 {
+  margin: 0 0 8px;
+  font-size: 17px;
+}
+
+.adult-menu section {
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.adult-menu .notice {
+  background: #e9f1fb;
+}
+
+.adult-menu button {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 2px solid var(--accent);
+  background: var(--surface);
+  font-weight: 600;
+}
+
+.adult-menu .close {
+  background: var(--accent);
+  color: #fff;
+}
+
+.adult-menu .toggle,
+.adult-menu .field {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 8px 0;
+  font-size: 16px;
+}
+
+.adult-menu .field {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.adult-menu .toggle input {
+  width: 24px;
+  height: 24px;
+}
+
+.adult-menu select,
+.adult-menu input[type="range"] {
+  font: inherit;
+  min-height: 40px;
+}
+
+.adult-menu .hint {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.adult-menu .warn {
+  color: #8a3b00;
+}
+
+.adult-menu .status {
+  margin-left: 10px;
+}
+
+.adult-menu ul {
+  padding-left: 20px;
+  line-height: 1.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cell,
+  .adult-hold.holding .adult-hold-ring {
+    transition: none;
+  }
+}
+
+/* Phones in portrait: stack the rail under the board. */
+@media (max-aspect-ratio: 3/4) {
+  .workspace {
+    flex-direction: column;
+  }
+  .rail {
+    flex: 0 0 64px;
+    flex-direction: row;
+  }
+  .rail > .cell {
+    flex: 1 1 0;
+  }
+  .rail-spacer {
+    display: none;
+  }
+  .adult-hold {
+    flex: 1 1 0;
+  }
+  .message-actions .action {
+    min-width: 60px;
+  }
+  .voice-strip {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    height: auto;
+    grid-auto-rows: 52px;
+  }
+}
