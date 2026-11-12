@@ -11,7 +11,10 @@
  * rather than given a misleading picture.
  */
 
-export type WordKind = "pronoun" | "question" | "verb" | "describer" | "social";
+import type { WordKindName } from "../../core/profile";
+
+/** Word type; sets the button colour (Modified Fitzgerald Key) and word endings. */
+export type WordKind = WordKindName;
 
 export interface Cell {
   readonly id: string;

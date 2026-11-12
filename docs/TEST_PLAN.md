@@ -98,3 +98,39 @@ Real-device checks (each on iPad Safari home-screen app, Chromebook Chrome, Andr
   offline; no console errors or failed requests.
 - **Not yet verified:** real speech output (the test browser has no voices), any real device,
   screen readers, switch access.
+
+## Release 2 — vocabulary, endings, students, editor
+
+Automated (CI): `topics.test.ts` (unique in-bounds places, **no released word moved**
+against `vocabulary.lock.json`, room for personal words, safety words present, symbols shipped,
+private words text-only), `morphology.test.ts`, `messageForms.test.ts`, `profile.test.ts`
+(add only in empty places, hiding keeps the place, untrusted data cleaned), `pin.test.ts`,
+`store.test.ts` (IndexedDB and memory stores; backup round-trip with photos; bad files rejected).
+
+Real-device checks (iPad home-screen app, Chromebook, Android):
+
+1. Topics → each of the 12 pages opens; the grid sits in the same place on every page.
+2. My body opens in one tap from Words, Topics and Keyboard.
+3. I → go → Endings → went → Places → outside → Speak says "I went outside".
+4. Adult menu → Edit words → People → + → add a name with a photo taken on the device; the photo
+   shows on the button and the word speaks.
+5. Hide "mom"; its place stays empty and no other word moves. Show it again.
+6. Set a PIN; the hold then asks for it; 5 wrong tries lock the pad.
+7. Add a second student; their boards don't show the first student's words.
+8. Download a backup; on a second device restore it; the words and photo are there.
+9. Close and reopen the app offline: students, words, photos and saved sentences are all there.
+10. A teacher, an SLP and (where possible) an AAC user review the topic pages and say what's
+    missing or wrong for their students; record it before changing anything.
+
+## Verified so far (Release 2, Nov 12, 2026)
+
+- Unit tests: 83 passing.
+- Headless Chrome smoke test under `/project-communicate/` (36 checks): topic navigation and
+  fixed grid area; fringe words in sentences; My body in one tap, private words text-only; go →
+  went via Endings; save and replay sentences; set PIN, wrong PIN refused, right PIN accepted;
+  rename a student, add a word with a symbol in an empty place at the right position, hide a word
+  without moving others; possessive ending on an added name; backup download contents; second
+  student has separate words; students, words, hidden words and saved sentences survive reload;
+  topic symbols load offline; Release 1 checks still pass; no console errors.
+- **Not yet verified:** photos from a real camera, restore on a second device, any real tablet,
+  screen readers and switch access for the new pages, and review by an SLP or AAC user.

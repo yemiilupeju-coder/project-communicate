@@ -1,8 +1,21 @@
 import { useEffect, useRef, useState } from "react";
+import { MAX_NAME, type Profile } from "../../core/profile";
 import type { KeyboardLayout, Settings } from "../../core/settings";
 import { listVoices, sortVoices, speak, speechAvailable, type VoiceInfo } from "../../core/speech";
 import { isStandalone, readStorageStatus, requestPersistence } from "../../shared/environment";
 import { ATTRIBUTIONS } from "../communicator/vocabulary";
+
+export interface StudentActions {
+  switchTo: (id: string) => void;
+  add: (name: string) => void;
+  rename: (name: string) => void;
+  remove: () => void;
+  editWords: () => void;
+  setPin: () => void;
+  removePin: () => void;
+  downloadBackup: () => Promise<string>;
+  restoreBackup: (file: File) => Promise<string>;
+}
 
 interface AdultMenuProps {
   settings: Settings;
@@ -11,6 +24,11 @@ interface AdultMenuProps {
   onModeling: (on: boolean) => void;
   applyUpdate: (() => void) | null;
   settingsSaved: boolean;
+  profile: Profile;
+  profiles: readonly Profile[];
+  pinSet: boolean;
+  storageDurable: boolean;
+  actions: StudentActions;
   onClose: () => void;
 }
 
@@ -28,8 +46,21 @@ export function AdultMenu({
   onModeling,
   applyUpdate,
   settingsSaved,
+  profile,
+  profiles,
+  pinSet,
+  storageDurable,
+  actions,
   onClose,
 }: AdultMenuProps) {
+  const [newName, setNewName] = useState("");
+  const [rename, setRename] = useState(profile.name);
+  const [confirmRemove, setConfirmRemove] = useState(false);
+  const [backupStatus, setBackupStatus] = useState("");
+  useEffect(() => {
+    setRename(profile.name);
+    setConfirmRemove(false);
+  }, [profile.id, profile.name]);
   const dialog = useRef<HTMLDialogElement>(null);
   const [voices, setVoices] = useState<VoiceInfo[]>([]);
   const [persist, setPersist] = useState<Persist>("unknown");
@@ -101,6 +132,98 @@ export function AdultMenu({
           </button>
         </section>
       )}
+
+      <section>
+        <h3>Student</h3>
+        <label className="field">
+          This device is talking for
+          <select value={profile.id} onChange={(e) => actions.switchTo(e.target.value)}>
+            {profiles.map((p) => (
+              <option key={p.id} value={p.id}>
+                {p.name}
+              </option>
+            ))}
+          </select>
+        </label>
+        <div className="row">
+          <label className="field grow">
+            Name or nickname
+            <input
+              type="text"
+              value={rename}
+              maxLength={MAX_NAME}
+              onChange={(e) => setRename(e.target.value)}
+            />
+          </label>
+          <button
+            type="button"
+            disabled={rename.trim() === profile.name || rename.trim() === ""}
+            onClick={() => actions.rename(rename)}
+          >
+            Rename
+          </button>
+        </div>
+        <p className="hint">
+          A first name or nickname is enough. Each student has their own words, voice and settings.
+        </p>
+        <div className="row">
+          <label className="field grow">
+            Add another student
+            <input
+              type="text"
+              value={newName}
+              maxLength={MAX_NAME}
+              placeholder="Name or nickname"
+              onChange={(e) => setNewName(e.target.value)}
+            />
+          </label>
+          <button
+            type="button"
+            disabled={newName.trim() === ""}
+            onClick={() => {
+              actions.add(newName);
+              setNewName("");
+            }}
+          >
+            Add
+          </button>
+        </div>
+        {profiles.length > 1 &&
+          (confirmRemove ? (
+            <div className="row">
+              <button type="button" className="danger" onClick={actions.remove}>
+                Yes, remove {profile.name} and their words
+              </button>
+              <button type="button" onClick={() => setConfirmRemove(false)}>
+                Keep
+              </button>
+            </div>
+          ) : (
+            <button type="button" onClick={() => setConfirmRemove(true)}>
+              Remove {profile.name} from this device…
+            </button>
+          ))}
+      </section>
+
+      <section>
+        <h3>Words</h3>
+        <p className="hint">
+          Add this student's own words (names, family foods, favourite things) in empty places, or
+          hide words they don't need yet. Words never move, so the student's motor memory stays the
+          same.
+        </p>
+        <button type="button" onClick={actions.editWords}>
+          Edit words
+        </button>
+        <label className="toggle">
+          <input
+            type="checkbox"
+            checked={settings.returnToWords}
+            onChange={(event) => set("returnToWords", event.target.checked)}
+          />
+          After a word on a topic page, go back to Words
+        </label>
+      </section>
 
       <section>
         <h3>Model language</h3>
@@ -240,14 +363,68 @@ export function AdultMenu({
             )}
           </li>
           <li>
-            Settings saved on this device: <strong>{settingsSaved ? "yes" : "no"}</strong>
-            {!settingsSaved && <span className="hint"> — private browsing may block saving.</span>}
+            Words and settings saved on this device:{" "}
+            <strong>{storageDurable && settingsSaved ? "yes" : "only until the app closes"}</strong>
+            {!(storageDurable && settingsSaved) && (
+              <span className="hint">
+                {" "}
+                — private browsing may block saving. The built-in words always work.
+              </span>
+            )}
           </li>
           <li>
             Works offline:{" "}
             <strong>{navigator.serviceWorker?.controller ? "yes" : "after reload"}</strong>
           </li>
         </ul>
+      </section>
+
+      <section>
+        <h3>Adult PIN</h3>
+        <p className="hint">
+          {pinSet
+            ? "The adult menu asks for the PIN after the 3-second hold."
+            : "Add a PIN so only adults can open this menu. It isn't stored, only a scrambled check of it."}
+        </p>
+        <div className="row">
+          <button type="button" onClick={actions.setPin}>
+            {pinSet ? "Change PIN" : "Set a PIN"}
+          </button>
+          {pinSet && (
+            <button type="button" onClick={actions.removePin}>
+              Remove PIN
+            </button>
+          )}
+        </div>
+      </section>
+
+      <section>
+        <h3>Backup</h3>
+        <p className="hint">
+          Download a backup after adding words, and keep it somewhere safe and private. It holds{" "}
+          {profile.name}'s name, words and photos. If this device is cleared or replaced, restore it
+          here.
+        </p>
+        <div className="row">
+          <button type="button" onClick={() => void actions.downloadBackup().then(setBackupStatus)}>
+            Download backup
+          </button>
+          <label className="file-button">
+            Restore from a backup…
+            <input
+              type="file"
+              accept="application/json,.json"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                e.target.value = "";
+                if (file) void actions.restoreBackup(file).then(setBackupStatus);
+              }}
+            />
+          </label>
+        </div>
+        <p className="status" role="status">
+          {backupStatus}
+        </p>
       </section>
 
       <section>
@@ -263,7 +440,7 @@ export function AdultMenu({
           ))}
         </ul>
         <p className="hint">
-          Version {__BUILD_ID__}. No student information leaves this device in this release.
+          Version {__BUILD_ID__}. Nothing about the student leaves this device.
         </p>
       </section>
     </dialog>

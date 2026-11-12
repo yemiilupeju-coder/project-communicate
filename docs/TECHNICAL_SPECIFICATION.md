@@ -1,11 +1,11 @@
 # Project Communicate — Technical Specification (web-first)
 
-**Version:** 2.1
-**Date:** November 11, 2026
+**Version:** 2.2
+**Date:** November 12, 2026
 **Status:** Approved direction (W1–W8 approved Nov 9, 2026; browser-only reaffirmed Nov 11, 2026,
-ADR 0007); Release 1 (student communicator) built
+ADR 0007); Releases 1–2 built
 **Supersedes:** Technical Specification 1.0 (Flutter native), retained in project history
-**Related:** `PRODUCT_REQUIREMENTS.md`, `adr/0001`–`0007`, the review docs
+**Related:** `PRODUCT_REQUIREMENTS.md`, `adr/0001`–`0008`, the review docs
 "MVP Architecture Review & Implementation Plan" and "Web-first Architecture Concepts"
 
 ---
@@ -225,6 +225,10 @@ Simulated or headless-browser numbers are never reported as device performance.
    Universal Core home board, keyboard, "My voice" strip, modeling mode, system-voice speech
    with large-text fallback, adult menu. Settings only; no student data. Released ahead of
    Phases 1–2 so teachers and students can use it while the data layer is built.
+   **Release 2 (built Nov 12, 2026, ADR 0008)** — 12 research-based topic pages, word endings,
+   student profiles, word editor (add in empty places, hide), saved sentences, adult PIN,
+   backup files. Interim IndexedDB store behind the `AppStore` interface until the SQLite/OPFS
+   store (ADR 0003) passes Gate 0.
 1. **Phase 1** — app shell, offline cache, DB worker + migrations, core board.
 2. **Phase 2** — communicator: grid, sentence bar, clip playback, navigation.
    _Gate A: offline communication on iPad and Android._

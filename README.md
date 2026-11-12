@@ -16,7 +16,21 @@ computer, and keeps working offline after the first visit. No app store, no part
 - modeling mode for adults, and an adult menu (hold the **Adults** button for 3 seconds) for voice,
   speed, symbols, high contrast, keyboard layout and device readiness.
 
+**Release 2 — vocabulary for school, home and growth:**
+
+- twelve topic pages chosen from AAC research (People, Feelings, My body, Food & drink, Places,
+  School, Play, Actions, Describe, Where & when, Little words, Chat), about 400 more words, every
+  one in a fixed place;
+- **My body** one tap away on every page: hurt, sick, bathroom, pain, body parts and safety words;
+- **Endings**: other forms of the last word (go → goes, going, went, gone);
+- **My sentences**: save a message to say again, and a list of what was said today;
+- **students**: each has their own name, voice, settings and words;
+- **Edit words**: adults add words (with a symbol or photo) in empty places, or hide words —
+  nothing ever moves;
+- an optional **adult PIN**, and **backup files** to move a student's words to another device.
+
 See [`docs/adr/0007-release-1-student-communicator.md`](docs/adr/0007-release-1-student-communicator.md)
+and [`docs/adr/0008-research-based-vocabulary.md`](docs/adr/0008-research-based-vocabulary.md)
 for the research behind each feature.
 
 The Phase 0 device tests are still at `/spikes/`:
@@ -81,9 +95,12 @@ The full pass/fail criteria are in [`docs/TEST_PLAN.md`](docs/TEST_PLAN.md).
 index.html                  The communicator (Release 1)
 src/app/                    App entry, layout and styles
 src/core/                   Message model, settings, speech, repeat guard (pure, unit-tested)
-src/features/communicator/  Vocabulary, board, keyboard, "My voice" strip
-src/features/adult/         Adult hold button and adult menu
-public/symbols/openmoji/    The 36 symbols used (OpenMoji, CC BY-SA 4.0)
+src/core/                   …also morphology (endings), profiles, PIN, on-device store, backup
+src/features/communicator/  Vocabulary, topic boards, board grid, keyboard, "My voice" strip
+src/features/adult/         Adult hold, PIN pad, adult menu, word editor
+scripts/                    Symbol selection for topic words (OpenMoji)
+test/vocabulary.lock.json   Every released word's place; CI fails if one moves
+public/symbols/openmoji/    The ~215 symbols used (OpenMoji, CC BY-SA 4.0)
 spikes/                     Phase 0 device-test hub and pages
 src/shared/                 Environment, stats, report export, service worker registration
 src/spikes/storage/         SQLite-in-OPFS worker, integrity checks, canaries, UI
@@ -95,8 +112,10 @@ docs/                       Requirements, spec, schema, API, security, test plan
 
 ## Privacy
 
-The communicator stores only its display and voice settings, on the device, and sends nothing
-anywhere. Speech uses the device's own voices; a voice labelled "needs internet" in the adult menu
+The communicator stores students' names (or nicknames), settings, added words and photos on the
+device only, and sends nothing anywhere. Backup files hold that information unencrypted, so keep
+them somewhere safe and private. Get the school's privacy approval before entering real students'
+information. Speech uses the device's own voices; a voice labelled "needs internet" in the adult menu
 sends the spoken text to the browser maker's service, so choose an on-device voice for students.
 The spikes use synthetic data only and collect nothing. Exported reports contain timings, the
 browser's user-agent string, storage figures and the test phrases — no personal information. The

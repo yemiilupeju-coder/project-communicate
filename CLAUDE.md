@@ -50,6 +50,16 @@ Communicator rules added in Release 1:
 - If speech can't play, show the words large. Never fail silently on a whole-message speak.
 - Pure logic lives in `src/core` with unit tests; components stay thin.
 
+Release 2 (ADR 0008): topic boards, word endings, profiles, editor, PIN, backup.
+
+- `test/vocabulary.lock.json` pins every released topic word and folder. Adding words is fine;
+  editing the lock file is a product decision that must be called out in the commit message.
+- Adults only add words in empty places or hide words. Code must never re-pack or re-sort cells.
+- New vocabulary needs a research basis noted in `topics.ts` (`basis`) and ADR 0008.
+- Symbols: exact OpenMoji name matches or a reviewed choice in `scripts/symbol-choices.json`;
+  "-" (text only) beats a misleading picture. Private body-part words stay text-only.
+- Everything personal stays behind `AppStore` (IndexedDB now, SQLite/OPFS later).
+
 ## Technology Stack
 
 App:

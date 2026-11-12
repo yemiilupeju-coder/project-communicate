@@ -19,6 +19,8 @@ export interface Settings {
   readonly keyboardLayout: KeyboardLayout;
   /** Ignore a repeat tap of the same button within this many ms. */
   readonly repeatGuardMs: number;
+  /** After a word on a topic page, go back to the Words page (off by default). */
+  readonly returnToWords: boolean;
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -30,6 +32,7 @@ export const DEFAULT_SETTINGS: Settings = {
   showSymbols: true,
   keyboardLayout: "qwerty",
   repeatGuardMs: 300,
+  returnToWords: false,
 };
 
 export const SETTINGS_KEY = "communicate.settings.v1";
@@ -56,6 +59,7 @@ export function parseSettings(raw: unknown): Settings {
     showSymbols: bool("showSymbols", DEFAULT_SETTINGS.showSymbols),
     keyboardLayout: input.keyboardLayout === "abc" ? "abc" : "qwerty",
     repeatGuardMs: Math.round(num("repeatGuardMs", DEFAULT_SETTINGS.repeatGuardMs, 0, 2000)),
+    returnToWords: bool("returnToWords", DEFAULT_SETTINGS.returnToWords),
   };
 }
 
