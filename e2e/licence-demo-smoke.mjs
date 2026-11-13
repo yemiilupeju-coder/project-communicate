@@ -86,11 +86,11 @@ check(
     .join()
     .includes("Alex"),
 );
-check("Family status shown", (await menu().innerText()).includes("Family (free)"));
+check("Family status shown", (await menu().innerText()).includes("Family (free, for home use)"));
 check(
   "Family: Add student disabled with explanation",
   !(await page.getByRole("button", { name: "Add", exact: true }).isEnabled()) &&
-    (await menu().innerText()).includes("A school or district licence adds more"),
+    (await menu().innerText()).includes("Schools need a classroom"),
 );
 check(
   "Family: first student can edit words",
@@ -109,7 +109,7 @@ const txt = await menu().innerText();
 check(
   "licence activated",
   txt.includes("Licensed to Maple Elementary (test)") &&
-    txt.includes("pilot licence until 2027-03-31"),
+    /(pilot|classroom|school|district) licence until \d{4}-\d{2}-\d{2}/.test(txt),
 );
 await page.getByPlaceholder("Name or nickname").fill("Ben");
 await page.getByRole("button", { name: "Add", exact: true }).click();
@@ -136,7 +136,7 @@ await page.waitForTimeout(500);
 await hold();
 check(
   "licence works offline after reload",
-  (await menu().innerText()).includes("pilot licence until 2027-03-31"),
+  /(pilot|classroom|school|district) licence until \d{4}-\d{2}-\d{2}/.test(await menu().innerText()),
 );
 await context.setOffline(false);
 

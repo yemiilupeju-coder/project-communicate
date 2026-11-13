@@ -7,6 +7,7 @@ import {
   normaliseCode,
   teamToolsAllowed,
   toBase64Url,
+  tierName,
   verifyLicence,
   type LicencePayload,
 } from "../src/core/licence";
@@ -67,6 +68,14 @@ describe("licence files", () => {
         verifyLicence(await sign(bad, pair.privateKey), pair.publicKey),
       ).rejects.toThrow();
     }
+  });
+
+  it("accepts a five-student classroom licence and names it", async () => {
+    const pair = await keys();
+    const classroom = { ...base, tier: "classroom" as const, seats: 5 };
+    const file = await sign(classroom, pair.privateKey);
+    expect(await verifyLicence(file, pair.publicKey)).toEqual(classroom);
+    expect(tierName("classroom")).toBe("classroom");
   });
 });
 

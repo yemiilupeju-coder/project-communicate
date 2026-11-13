@@ -77,8 +77,8 @@ export function AdultMenu({
   const [licenceMessage, setLicenceMessage] = useState("");
   const needsLicence = (
     <p className="hint">
-      Family (free) covers one student on this device. A school or district licence adds more
-      students.
+      Family (free, for home use) covers one student on this device. Schools need a classroom,
+      school or district licence, which adds more students.
     </p>
   );
   useEffect(() => {

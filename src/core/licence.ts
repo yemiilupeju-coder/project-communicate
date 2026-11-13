@@ -13,7 +13,7 @@
  * nothing a student already has is ever removed.
  */
 
-export type Tier = "pilot" | "school" | "district";
+export type Tier = "pilot" | "classroom" | "school" | "district";
 
 export interface LicencePayload {
   readonly v: 1;
@@ -85,8 +85,9 @@ export function parsePayload(raw: unknown): LicencePayload {
   if (typeof r.code !== "string" || !CODE_PATTERN.test(r.code)) throw new LicenceError("Bad code");
   if (typeof r.customer !== "string" || r.customer.trim() === "" || r.customer.length > 120)
     throw new LicenceError("Bad customer");
-  if (r.tier !== "pilot" && r.tier !== "school" && r.tier !== "district")
-    throw new LicenceError("Bad tier");
+  const tiers: readonly Tier[] = ["pilot", "classroom", "school", "district"];
+  const tier = tiers.find((t) => t === r.tier);
+  if (!tier) throw new LicenceError("Bad tier");
   if (typeof r.seats !== "number" || !Number.isInteger(r.seats) || r.seats < 1 || r.seats > 1e6)
     throw new LicenceError("Bad seats");
   if (!isDate(r.starts) || !isDate(r.ends) || r.ends < r.starts)
@@ -99,7 +100,7 @@ export function parsePayload(raw: unknown): LicencePayload {
     v: 1,
     code: r.code,
     customer: r.customer.trim(),
-    tier: r.tier,
+    tier,
     seats: r.seats,
     starts: r.starts,
     ends: r.ends,
@@ -184,7 +185,7 @@ export function describeStatus(status: LicenceStatus): string {
     case "demo":
       return "Demo: every feature is on.";
     case "family":
-      return "Family (free): every word and voice, and team tools for one student.";
+      return "Family (free, for home use): every word and voice, and team tools for one student. Schools need a school licence.";
     case "not-yet":
       return `${status.licence.customer}: licence starts ${status.licence.starts}.`;
     case "active":
@@ -197,4 +198,4 @@ export function describeStatus(status: LicenceStatus): string {
 }
 
 export const tierName = (tier: Tier) =>
-  tier === "pilot" ? "pilot" : tier === "school" ? "school" : "district";
+  ({ pilot: "pilot", classroom: "classroom", school: "school", district: "district" })[tier];
