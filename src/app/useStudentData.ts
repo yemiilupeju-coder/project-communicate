@@ -2,9 +2,24 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { makeBackup, restoreBackup, BackupError } from "../core/backup";
 import { afterFailure, checkPin, hashPin, isLocked, LOCK_KEY, NO_LOCK, PIN_KEY } from "../core/pin";
 import type { LockState, PinRecord } from "../core/pin";
+import {
+  canAddStudent,
+  importPublicKey,
+  isLicensed,
+  LICENCE_KEY,
+  LicenceError,
+  licenceStatus,
+  normaliseCode,
+  CODE_PATTERN,
+  verifyLicence,
+  type LicencePayload,
+  type SignedLicence,
+} from "../core/licence";
+import { LICENCE_PUBLIC_KEY, LICENCE_SERVICE } from "../core/licenceKey";
 import { newProfile, type Profile } from "../core/profile";
 import { DEFAULT_SETTINGS, loadSettings, saveSettings, type Settings } from "../core/settings";
-import { openStore, type AppStore } from "../core/store";
+import { MemoryStore, openStore, type AppStore } from "../core/store";
+import { demoProfile } from "./demoData";
 
 const ACTIVE_KEY = "activeProfile";
 
@@ -22,10 +37,33 @@ interface Boot {
   activeId: string;
   pin: PinRecord | null;
   lock: LockState;
+  licence: LicencePayload | null;
 }
 
 // Boot once per page, even when React mounts effects twice in development.
 let bootPromise: Promise<Boot> | null = null;
+
+let keyPromise: Promise<CryptoKey | null> | null = null;
+function publicKey(): Promise<CryptoKey | null> {
+  keyPromise ??= LICENCE_PUBLIC_KEY
+    ? importPublicKey(LICENCE_PUBLIC_KEY).catch(() => null)
+    : Promise.resolve(null);
+  return keyPromise;
+}
+
+async function loadLicence(store: AppStore): Promise<LicencePayload | null> {
+  const file = await store.getMeta<SignedLicence>(LICENCE_KEY).catch(() => null);
+  const key = await publicKey();
+  if (!file || !key) return null;
+  return verifyLicence(file, key).catch(() => null);
+}
+
+async function bootDemo(): Promise<Boot> {
+  const store = new MemoryStore();
+  const alex = demoProfile();
+  await store.saveProfile(alex);
+  return { store, profiles: [alex], activeId: alex.id, pin: null, lock: NO_LOCK, licence: null };
+}
 
 async function boot(): Promise<Boot> {
   const store = await openStore();
@@ -39,6 +77,7 @@ async function boot(): Promise<Boot> {
   const active = await store.getMeta<string>(ACTIVE_KEY).catch(() => null);
   const pin = await store.getMeta<PinRecord>(PIN_KEY).catch(() => null);
   const lock = (await store.getMeta<LockState>(LOCK_KEY).catch(() => null)) ?? NO_LOCK;
+  const licence = await loadLicence(store);
   const first = profiles[0] as Profile;
   return {
     store,
@@ -46,16 +85,22 @@ async function boot(): Promise<Boot> {
     activeId: profiles.some((p) => p.id === active) ? (active as string) : first.id,
     pin,
     lock,
+    licence,
   };
 }
+
+/** A profile nobody has set up yet (safe to replace with a restored backup). */
+const isPristine = (p: Profile) =>
+  p.name === "Student" && p.added.length === 0 && p.saved.length === 0 && p.hidden.length === 0;
 
 /**
  * Students, their words and the adult PIN. Until storage has opened, the app
  * runs on the built-in boards and last-saved settings, so a slow or broken
  * store never stops a student from talking.
  */
-export function useStudentData() {
+export function useStudentData({ demo = false }: { demo?: boolean } = {}) {
   const [store, setStore] = useState<AppStore | null>(null);
+  const [licence, setLicence] = useState<LicencePayload | null>(null);
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [pin, setPin] = useState<PinRecord | null>(null);
@@ -68,7 +113,7 @@ export function useStudentData() {
 
   useEffect(() => {
     let alive = true;
-    bootPromise ??= boot();
+    bootPromise ??= demo ? bootDemo() : boot();
     void bootPromise.then((b) => {
       if (!alive) return;
       setStore(b.store);
@@ -76,6 +121,7 @@ export function useStudentData() {
       setActiveId(b.activeId);
       setPin(b.pin);
       setLock(b.lock);
+      setLicence(b.licence);
     });
     return () => {
       alive = false;
@@ -83,6 +129,8 @@ export function useStudentData() {
   }, []);
 
   const profile = profiles.find((p) => p.id === activeId) ?? null;
+  const profileIndex = profile ? profiles.findIndex((p) => p.id === profile.id) : 0;
+  const status = licenceStatus(licence, Date.now(), demo);
   const settings = profile?.settings ?? fallbackSettings;
 
   /** Saves in order, so a quick run of edits can't land out of sequence. */
@@ -111,7 +159,7 @@ export function useStudentData() {
   const setSettings = useCallback(
     (next: Settings) => {
       // Mirror to localStorage so the last settings work even if the store fails.
-      saveSettings(safeStorage(), next);
+      if (!demo) saveSettings(safeStorage(), next);
       if (profile) updateProfile((p) => ({ ...p, settings: next }));
       else setFallbackSettings(next);
     },
@@ -123,19 +171,23 @@ export function useStudentData() {
       setActiveId(id);
       void store?.setMeta(ACTIVE_KEY, id).catch(() => undefined);
       const next = profiles.find((p) => p.id === id);
-      if (next) saveSettings(safeStorage(), next.settings);
+      if (next && !demo) saveSettings(safeStorage(), next.settings);
     },
-    [store, profiles],
+    [store, profiles, demo],
   );
 
   const addProfile = useCallback(
-    (name: string) => {
+    (name: string): string | null => {
+      if (!canAddStudent(status, profiles.length)) {
+        return "More than one student on a device needs a school or district licence.";
+      }
       const created = newProfile(name, DEFAULT_SETTINGS);
       setProfiles((list) => [...list, created]);
       persist(created);
       switchTo(created.id);
+      return null;
     },
-    [persist, switchTo],
+    [persist, switchTo, status, profiles.length],
   );
 
   const removeProfile = useCallback(async () => {
@@ -202,19 +254,116 @@ export function useStudentData() {
   const restore = useCallback(
     async (file: File): Promise<string> => {
       if (!store) return "Storage is still starting. Try again in a moment.";
+      // Family: one student. A restore may replace an untouched starter profile.
+      const replace =
+        !isLicensed(status) && profiles.length === 1 && isPristine(profiles[0] as Profile);
+      if (!isLicensed(status) && profiles.length >= 1 && !replace) {
+        return "Restoring another student onto this device needs a school or district licence.";
+      }
       try {
         const restored = await restoreBackup(store, file);
-        setProfiles((list) => [...list, restored]);
+        if (replace && profiles[0]) {
+          const old = profiles[0];
+          await store.deleteProfile(old.id).catch(() => undefined);
+          setProfiles([restored]);
+        } else {
+          setProfiles((list) => [...list, restored]);
+        }
         switchTo(restored.id);
         return `Restored ${restored.name} as a new student on this device.`;
       } catch (error) {
         return error instanceof BackupError ? error.message : "The backup couldn't be restored.";
       }
     },
-    [store, switchTo],
+    [store, switchTo, status, profiles],
   );
 
+  // ── Licence ──
+  const keyReady = LICENCE_PUBLIC_KEY !== null;
+
+  const install = useCallback(
+    async (file: unknown, expectCode?: string): Promise<string> => {
+      const key = await publicKey();
+      if (!store || !key) return "Licences aren't set up in this version yet.";
+      try {
+        const payload = await verifyLicence(file, key);
+        if (expectCode && payload.code !== expectCode)
+          return "That licence doesn't match the code.";
+        await store.setMeta(LICENCE_KEY, file);
+        setLicence(payload);
+        return `Licensed to ${payload.customer} until ${payload.ends}.`;
+      } catch (error) {
+        return error instanceof LicenceError ? error.message : "That licence couldn't be checked.";
+      }
+    },
+    [store],
+  );
+
+  const activateCode = useCallback(
+    async (input: string): Promise<string> => {
+      const code = normaliseCode(input);
+      if (!CODE_PATTERN.test(code)) return "A licence code looks like GT-7KQ4-M2XD.";
+      if (!keyReady) return "Licences aren't set up in this version yet.";
+      const controller = new AbortController();
+      const timer = window.setTimeout(() => controller.abort(), 10_000);
+      try {
+        const response = await fetch(`${LICENCE_SERVICE}${code}`, { signal: controller.signal });
+        if (response.status === 404) return "That code wasn't found. Check it and try again.";
+        if (!response.ok) return "The licence service didn't answer. Try again later.";
+        return await install(await response.json(), code);
+      } catch {
+        return "Connect to the internet once to activate. After that, no internet is needed.";
+      } finally {
+        window.clearTimeout(timer);
+      }
+    },
+    [install, keyReady],
+  );
+
+  const importLicenceFile = useCallback(
+    async (file: File): Promise<string> => {
+      if (file.size > 16_384) return "That file is too large to be a licence.";
+      try {
+        return await install(JSON.parse(await file.text()));
+      } catch {
+        return "That file isn't a GiftedTech licence.";
+      }
+    },
+    [install],
+  );
+
+  const removeLicence = useCallback(async () => {
+    setLicence(null);
+    await store?.setMeta(LICENCE_KEY, null).catch(() => undefined);
+  }, [store]);
+
+  // Device management can open the app with ?licence=GT-XXXX-XXXX to activate it.
+  const urlCodeTried = useRef(false);
+  useEffect(() => {
+    if (demo || !store || urlCodeTried.current) return;
+    urlCodeTried.current = true;
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("licence");
+    if (!code) return;
+    void activateCode(code).finally(() => {
+      params.delete("licence");
+      const query = params.toString();
+      window.history.replaceState(
+        null,
+        "",
+        `${window.location.pathname}${query ? `?${query}` : ""}`,
+      );
+    });
+  }, [demo, store, activateCode]);
+
   return {
+    demo,
+    status,
+    profileIndex,
+    keyReady,
+    activateCode,
+    importLicenceFile,
+    removeLicence,
     store,
     ready: store !== null,
     durable: store?.durable ?? false,

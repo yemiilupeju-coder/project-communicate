@@ -40,6 +40,15 @@ retention and deletion procedure, subprocessor and hosting disclosure (static ho
 PIA support, AI data-use disclosure, incident response procedure, accessibility statement
 (PRD section 11).
 
+## Licensing (ADR 0009)
+
+- Licence files hold a school or district name, tier, seats and dates — no student data — and
+  are verified on the device with ECDSA P-256. The private signing key stays on TD's computer
+  (`~/giftedtech-licensing`), backed up in a password manager, never in a repo or online.
+- `licence.giftedtech.org` serves pre-signed files by code and counts activations. Codes are
+  8 random characters from a 32-letter alphabet (about 10^12 combinations).
+- The demo runs entirely in memory with made-up data and never writes to storage.
+
 ## Release 2 notes
 
 - The PIN stops students changing their setup by accident. It is not a data-protection control;

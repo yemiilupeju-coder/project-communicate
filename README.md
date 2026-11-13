@@ -29,6 +29,11 @@ computer, and keeps working offline after the first visit. No app store, no part
   nothing ever moves;
 - an optional **adult PIN**, and **backup files** to move a student's words to another device.
 
+**Licensing and demo:** every word and voice is free on every device (Family). A school or
+district licence adds more students per device. Try everything with a made-up student at
+`/demo/` — nothing is saved. See
+[`docs/adr/0009-licensing-and-demo.md`](docs/adr/0009-licensing-and-demo.md).
+
 See [`docs/adr/0007-release-1-student-communicator.md`](docs/adr/0007-release-1-student-communicator.md)
 and [`docs/adr/0008-research-based-vocabulary.md`](docs/adr/0008-research-based-vocabulary.md)
 for the research behind each feature.

@@ -89,6 +89,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         app: page("./index.html"),
+        demo: page("./demo/index.html"),
         hub: page("./spikes/index.html"),
         storage: page("./spikes/storage/index.html"),
         voice: page("./spikes/voice/index.html"),

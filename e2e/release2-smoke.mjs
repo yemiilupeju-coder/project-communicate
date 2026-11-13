@@ -182,18 +182,14 @@ check(
     backup.profile.added.length === 1,
 );
 
-// Second student
-await page.getByPlaceholder("Name or nickname").fill("Ben");
-await page.getByRole("button", { name: "Add", exact: true }).click();
-await page.waitForTimeout(300);
+// Second student needs a licence (Family = one student per device)
+check(
+  "Family: adding a second student needs a licence",
+  !(await page.getByRole("button", { name: "Add", exact: true }).isEnabled()),
+);
 await closeMenu();
 await tap("Topics");
 await tap("People");
-check(
-  "Ben has his own board (mom visible, no Ms. Patel)",
-  (await btn("mom").isVisible()) &&
-    (await page.getByRole("button", { name: /Ms\. Patel/ }).count()) === 0,
-);
 await page.screenshot({ path: "/tmp/smoke/r2-people.png" });
 
 // Reload: everything kept; switch back to Ava
@@ -212,8 +208,7 @@ const options = await page
   .getByLabel("This device is talking for")
   .locator("option")
   .allInnerTexts();
-check(`students kept: ${options}`, options.join(",") === "Ava,Ben");
-await page.getByLabel("This device is talking for").selectOption({ label: "Ava" });
+check(`student kept: ${options}`, options.join(",") === "Ava");
 await closeMenu();
 await tap("Topics");
 await tap("People");

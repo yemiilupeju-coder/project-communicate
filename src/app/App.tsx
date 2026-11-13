@@ -24,6 +24,7 @@ import {
   type AddedWord,
 } from "../core/profile";
 import { RepeatGuard } from "../core/repeatGuard";
+import { canAddStudent, teamToolsAllowed } from "../core/licence";
 import { speak, speechAvailable, stopSpeaking } from "../core/speech";
 import {
   BoardGrid,
@@ -87,8 +88,9 @@ interface EditorState {
   word: AddedWord | null;
 }
 
-export function App() {
-  const data = useStudentData();
+export function App({ demo = false }: { demo?: boolean }) {
+  const data = useStudentData({ demo });
+  const teamTools = teamToolsAllowed(data.status, data.profileIndex);
   const { profile, settings } = data;
 
   const [message, setMessage] = useState<Message>(EMPTY_MESSAGE);
@@ -381,6 +383,13 @@ export function App() {
 
   return (
     <div className={`app${modeling ? " is-modeling" : ""}${editing ? " is-editing" : ""}`}>
+      {demo && (
+        <p className="demo-banner" role="status">
+          <strong>Demo.</strong> Try anything: nothing is saved, and it resets when you reload. To
+          open the adult menu, hold <em>Adults</em> for 3 seconds.
+          <a href="https://giftedtech.org/#contact">Request a pilot</a>
+        </p>
+      )}
       {modeling && <ModelingBanner onStop={() => setModeling(false)} />}
       {editing && <EditBanner onDone={() => setEditing(false)} />}
       {!speechAvailable() && (
@@ -494,12 +503,20 @@ export function App() {
           profiles={data.profiles}
           pinSet={data.pinSet}
           storageDurable={data.durable}
+          licence={{
+            status: data.status,
+            teamTools,
+            canAddStudent: canAddStudent(data.status, data.profiles.length),
+            keyReady: data.keyReady,
+            demo,
+          }}
           actions={{
             switchTo: data.switchTo,
             add: data.addProfile,
             rename: (name) => data.updateProfile((p) => ({ ...p, name: name.trim() || p.name })),
             remove: () => void data.removeProfile(),
             editWords: () => {
+              if (!teamTools) return;
               setMenuOpen(false);
               setModeling(false);
               setEditing(true);
@@ -512,6 +529,9 @@ export function App() {
             removePin: () => void data.clearPin(),
             downloadBackup: data.downloadBackup,
             restoreBackup: data.restore,
+            activateLicence: data.activateCode,
+            importLicence: data.importLicenceFile,
+            removeLicence: () => void data.removeLicence(),
           }}
           onClose={() => setMenuOpen(false)}
         />

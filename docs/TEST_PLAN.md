@@ -134,3 +134,17 @@ Real-device checks (iPad home-screen app, Chromebook, Android):
   topic symbols load offline; Release 1 checks still pass; no console errors.
 - **Not yet verified:** photos from a real camera, restore on a second device, any real tablet,
   screen readers and switch access for the new pages, and review by an SLP or AAC user.
+
+## Licensing and demo (Nov 13, 2026)
+
+Automated: `licence.test.ts` (genuine, tampered and wrong-key files; invalid contents; status
+through start, last day, grace and expiry; Family and licensed gating; code typing),
+`demo.test.ts`. Browser (`e2e/licence-demo-smoke.mjs`, 23 checks, against a local
+`wrangler dev` licence service): demo banner, sample student, saved sentences, demo resets on
+reload and never leaks into the real app; Family defaults; unknown code explained; activation by
+code; second student allowed and editable; licence survives an offline reload; removing it locks
+team tools for the second student only and never affects communication; `?licence=` link
+activates and is removed from the address. Release 1 and 2 browser tests still pass.
+
+Not yet verified: the live licence service, activation on real iPads and Chromebooks, and device
+management deployment with a licence link.

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { describeStatus, type LicenceStatus } from "../../core/licence";
 import { MAX_NAME, type Profile } from "../../core/profile";
 import type { KeyboardLayout, Settings } from "../../core/settings";
 import { listVoices, sortVoices, speak, speechAvailable, type VoiceInfo } from "../../core/speech";
@@ -7,7 +8,7 @@ import { ATTRIBUTIONS } from "../communicator/vocabulary";
 
 export interface StudentActions {
   switchTo: (id: string) => void;
-  add: (name: string) => void;
+  add: (name: string) => string | null;
   rename: (name: string) => void;
   remove: () => void;
   editWords: () => void;
@@ -15,6 +16,18 @@ export interface StudentActions {
   removePin: () => void;
   downloadBackup: () => Promise<string>;
   restoreBackup: (file: File) => Promise<string>;
+  activateLicence: (code: string) => Promise<string>;
+  importLicence: (file: File) => Promise<string>;
+  removeLicence: () => void;
+}
+
+export interface LicenceView {
+  status: LicenceStatus;
+  /** Team tools (edit words, backups) for the current student. */
+  teamTools: boolean;
+  canAddStudent: boolean;
+  keyReady: boolean;
+  demo: boolean;
 }
 
 interface AdultMenuProps {
@@ -28,6 +41,7 @@ interface AdultMenuProps {
   profiles: readonly Profile[];
   pinSet: boolean;
   storageDurable: boolean;
+  licence: LicenceView;
   actions: StudentActions;
   onClose: () => void;
 }
@@ -50,6 +64,7 @@ export function AdultMenu({
   profiles,
   pinSet,
   storageDurable,
+  licence,
   actions,
   onClose,
 }: AdultMenuProps) {
@@ -57,6 +72,15 @@ export function AdultMenu({
   const [rename, setRename] = useState(profile.name);
   const [confirmRemove, setConfirmRemove] = useState(false);
   const [backupStatus, setBackupStatus] = useState("");
+  const [studentStatus, setStudentStatus] = useState("");
+  const [code, setCode] = useState("");
+  const [licenceMessage, setLicenceMessage] = useState("");
+  const needsLicence = (
+    <p className="hint">
+      Family (free) covers one student on this device. A school or district licence adds more
+      students.
+    </p>
+  );
   useEffect(() => {
     setRename(profile.name);
     setConfirmRemove(false);
@@ -179,15 +203,22 @@ export function AdultMenu({
           </label>
           <button
             type="button"
-            disabled={newName.trim() === ""}
+            disabled={newName.trim() === "" || !licence.canAddStudent}
             onClick={() => {
-              actions.add(newName);
-              setNewName("");
+              const problem = actions.add(newName);
+              setStudentStatus(problem ?? "");
+              if (!problem) setNewName("");
             }}
           >
             Add
           </button>
         </div>
+        {!licence.canAddStudent && needsLicence}
+        {studentStatus && (
+          <p className="status" role="status">
+            {studentStatus}
+          </p>
+        )}
         {profiles.length > 1 &&
           (confirmRemove ? (
             <div className="row">
@@ -212,9 +243,15 @@ export function AdultMenu({
           hide words they don't need yet. Words never move, so the student's motor memory stays the
           same.
         </p>
-        <button type="button" onClick={actions.editWords}>
+        <button type="button" onClick={actions.editWords} disabled={!licence.teamTools}>
           Edit words
         </button>
+        {!licence.teamTools && (
+          <p className="hint">
+            {profile.name}'s words all still work. Editing words for a second student on this device
+            needs a school or district licence.
+          </p>
+        )}
         <label className="toggle">
           <input
             type="checkbox"
@@ -379,6 +416,71 @@ export function AdultMenu({
         </ul>
       </section>
 
+      {!licence.demo && (
+        <section>
+          <h3>Licence</h3>
+          <p>{describeStatus(licence.status)}</p>
+          {licence.keyReady ? (
+            <>
+              <div className="row">
+                <label className="field grow">
+                  Licence code from GiftedTech
+                  <input
+                    type="text"
+                    value={code}
+                    placeholder="GT-XXXX-XXXX"
+                    autoCapitalize="characters"
+                    autoComplete="off"
+                    spellCheck={false}
+                    onChange={(e) => setCode(e.target.value)}
+                  />
+                </label>
+                <button
+                  type="button"
+                  disabled={code.trim().length < 8}
+                  onClick={() =>
+                    void actions.activateLicence(code).then((m) => {
+                      setLicenceMessage(m);
+                      if (m.startsWith("Licensed")) setCode("");
+                    })
+                  }
+                >
+                  Activate
+                </button>
+              </div>
+              <div className="row">
+                <label className="file-button">
+                  Load a licence file…
+                  <input
+                    type="file"
+                    accept="application/json,.json"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      e.target.value = "";
+                      if (file) void actions.importLicence(file).then(setLicenceMessage);
+                    }}
+                  />
+                </label>
+                {licence.status.kind !== "family" && (
+                  <button type="button" onClick={actions.removeLicence}>
+                    Remove licence
+                  </button>
+                )}
+              </div>
+            </>
+          ) : (
+            <p className="hint">Licences aren't set up in this version yet.</p>
+          )}
+          <p className="status" role="status">
+            {licenceMessage}
+          </p>
+          <p className="hint">
+            A licence never limits what a student can say. Every word, page and voice works on every
+            device, licensed or not.
+          </p>
+        </section>
+      )}
+
       <section>
         <h3>Adult PIN</h3>
         <p className="hint">
@@ -406,7 +508,11 @@ export function AdultMenu({
           here.
         </p>
         <div className="row">
-          <button type="button" onClick={() => void actions.downloadBackup().then(setBackupStatus)}>
+          <button
+            type="button"
+            disabled={!licence.teamTools}
+            onClick={() => void actions.downloadBackup().then(setBackupStatus)}
+          >
             Download backup
           </button>
           <label className="file-button">

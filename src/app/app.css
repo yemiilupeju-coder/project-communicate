@@ -715,7 +715,12 @@ a:focus-visible {
 .save-current {
   flex: 0 0 auto;
   min-height: 56px;
+  min-width: 200px;
   padding: 0 16px;
+  container-type: normal;
+}
+.save-current .label {
+  font-size: 18px;
 }
 .save-current:disabled {
   opacity: 0.5;
@@ -919,4 +924,24 @@ a:focus-visible {
   .endings-bar .cell {
     min-height: 52px;
   }
+}
+
+/* Public demo */
+.demo-banner {
+  margin: 0;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  font-size: 15px;
+  background: #fff1c2;
+  color: #000;
+}
+.demo-banner a {
+  margin-left: auto;
+  font-weight: 700;
+  color: #1f4f8b;
 }
