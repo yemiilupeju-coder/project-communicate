@@ -68,26 +68,36 @@ You need [Node.js 22 LTS or newer](https://nodejs.org/) and
 
 Recommended extensions (VS Code will offer them): Prettier, Vitest.
 
+## Hosting: communicate.giftedtech.org (Cloudflare)
+
+The live app is served free by Cloudflare (Workers static assets), which allows commercial use.
+GitHub Pages does not allow sites used to run a business, so the Pages workflow is only for
+testing and should be turned off once Cloudflare is live (GitHub → **Settings → Pages →**
+unpublish, or delete `.github/workflows/pages.yml`).
+
+One-time setup in the Cloudflare dashboard:
+
+1. **Workers & Pages → Create → Import a repository**, choose `project-communicate`.
+2. Build command: `npm run build`. Deploy command: `npx wrangler deploy` (Cloudflare reads
+   `wrangler.jsonc`). Leave `BASE_PATH` unset so the app is served from `/`.
+3. After the first deploy: the project's **Settings → Domains & Routes → Add → Custom domain**:
+   `communicate.giftedtech.org`.
+
+Every push to `main` then redeploys automatically.
+
+**Moving students from the old github.io address:** each web address keeps its own data. For
+each student, open the old address → **Adults → Download backup**; then at
+`communicate.giftedtech.org` → **Adults → Restore from a backup**, and add the new address to the
+Home Screen.
+
 ## Put it on a tablet
 
-The app must be served over HTTPS so devices can install it. GitHub Pages works and needs no
-server.
-
-1. Create a **private** repository on GitHub and push this folder to it (in VS Code: the
-   **Source Control** view → **Publish to GitHub**).
-2. On GitHub: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-3. The **Deploy to GitHub Pages** workflow runs on every push to `main`. When it finishes,
-   the site is at `https://<your-user>.github.io/<repo-name>/`.
-   - Private repositories need a GitHub plan that includes Pages for private repos; otherwise make
-     the repository public (it contains no student data or secrets) or use another static host.
-4. On an iPad, open that address in **Safari** → Share → **Add to Home Screen** (keep _Open as Web
-   App_ on) and open the new icon. On a Chromebook or Android tablet, open it in Chrome and choose
-   **Install** from the address bar or menu.
-5. Open it once while online. After that it works with no internet.
-6. For the device tests, open `…/spikes/`, follow the steps on each page, and use **Export
+1. On an iPad, open `https://communicate.giftedtech.org` in **Safari** → Share → **Add to Home
+   Screen** (keep _Open as Web App_ on) and open the new icon. On a Chromebook or Android tablet,
+   open it in Chrome and choose **Install** from the address bar or menu.
+2. Open it once while online. After that it works with no internet.
+3. For the device tests, open `…/spikes/`, follow the steps on each page, and use **Export
    results** to send the files back.
-
-The full pass/fail criteria are in [`docs/TEST_PLAN.md`](docs/TEST_PLAN.md).
 
 ## Repository layout
 

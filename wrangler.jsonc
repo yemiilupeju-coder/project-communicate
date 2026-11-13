@@ -1,0 +1,11 @@
+{
+  // Cloudflare Workers, static assets only: serves the Vite build in ./dist.
+  // Cloudflare's Git integration runs `npm run build`, then `npx wrangler deploy`.
+  "name": "communicate",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "none",
+    "html_handling": "auto-trailing-slash",
+  },
+}

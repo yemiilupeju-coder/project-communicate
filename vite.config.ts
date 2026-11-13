@@ -5,9 +5,9 @@ import { VitePWA } from "vite-plugin-pwa";
 
 const page = (path: string) => fileURLToPath(new URL(path, import.meta.url));
 
-// GitHub Pages serves the site from /<repo-name>/. Set BASE_PATH in CI
-// (see .github/workflows/pages.yml); locally the app is served from "/".
-const base = process.env.BASE_PATH ?? "/";
+// Served from "/" (communicate.giftedtech.org on Cloudflare, and locally).
+// The GitHub Pages test copy sets BASE_PATH=/<repo-name>/ in pages.yml.
+const base = process.env.BASE_PATH || "/";
 
 // Third-party hosts the voice engines download from on first use. They are
 // cached so a device that has rendered once can render again offline.
