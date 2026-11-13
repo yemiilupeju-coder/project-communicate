@@ -136,7 +136,9 @@ await page.waitForTimeout(500);
 await hold();
 check(
   "licence works offline after reload",
-  /(pilot|classroom|school|district) licence until \d{4}-\d{2}-\d{2}/.test(await menu().innerText()),
+  /(pilot|classroom|school|district) licence until \d{4}-\d{2}-\d{2}/.test(
+    await menu().innerText(),
+  ),
 );
 await context.setOffline(false);
 
