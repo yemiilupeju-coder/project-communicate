@@ -75,12 +75,6 @@ export function AdultMenu({
   const [studentStatus, setStudentStatus] = useState("");
   const [code, setCode] = useState("");
   const [licenceMessage, setLicenceMessage] = useState("");
-  const needsLicence = (
-    <p className="hint">
-      Family (free, for home use) covers one student on this device. Schools need a classroom,
-      school or district licence, which adds more students.
-    </p>
-  );
   useEffect(() => {
     setRename(profile.name);
     setConfirmRemove(false);
@@ -203,7 +197,7 @@ export function AdultMenu({
           </label>
           <button
             type="button"
-            disabled={newName.trim() === "" || !licence.canAddStudent}
+            disabled={newName.trim() === ""}
             onClick={() => {
               const problem = actions.add(newName);
               setStudentStatus(problem ?? "");
@@ -213,7 +207,6 @@ export function AdultMenu({
             Add
           </button>
         </div>
-        {!licence.canAddStudent && needsLicence}
         {studentStatus && (
           <p className="status" role="status">
             {studentStatus}
@@ -243,15 +236,9 @@ export function AdultMenu({
           hide words they don't need yet. Words never move, so the student's motor memory stays the
           same.
         </p>
-        <button type="button" onClick={actions.editWords} disabled={!licence.teamTools}>
+        <button type="button" onClick={actions.editWords}>
           Edit words
         </button>
-        {!licence.teamTools && (
-          <p className="hint">
-            {profile.name}'s words all still work. Editing words for a second student on this device
-            needs a school or district licence.
-          </p>
-        )}
         <label className="toggle">
           <input
             type="checkbox"
@@ -418,13 +405,13 @@ export function AdultMenu({
 
       {!licence.demo && (
         <section>
-          <h3>Licence</h3>
+          <h3>GiftedTech partnership</h3>
           <p>{describeStatus(licence.status)}</p>
           {licence.keyReady ? (
             <>
               <div className="row">
                 <label className="field grow">
-                  Licence code from GiftedTech
+                  Partner code from GiftedTech
                   <input
                     type="text"
                     value={code}
@@ -441,16 +428,16 @@ export function AdultMenu({
                   onClick={() =>
                     void actions.activateLicence(code).then((m) => {
                       setLicenceMessage(m);
-                      if (m.startsWith("Licensed")) setCode("");
+                      if (m.startsWith("Partner code added")) setCode("");
                     })
                   }
                 >
-                  Activate
+                  Add code
                 </button>
               </div>
               <div className="row">
                 <label className="file-button">
-                  Load a licence file…
+                  Load a partner file…
                   <input
                     type="file"
                     accept="application/json,.json"
@@ -463,20 +450,20 @@ export function AdultMenu({
                 </label>
                 {licence.status.kind !== "family" && (
                   <button type="button" onClick={actions.removeLicence}>
-                    Remove licence
+                    Remove partner code
                   </button>
                 )}
               </div>
             </>
           ) : (
-            <p className="hint">Licences aren't set up in this version yet.</p>
+            <p className="hint">Partner codes aren't set up in this version yet.</p>
           )}
           <p className="status" role="status">
             {licenceMessage}
           </p>
           <p className="hint">
-            A licence never limits what a student can say. Every word, page and voice works on every
-            device, licensed or not.
+            Communicate is free for every student, with every feature. A partner code only shows
+            which school or district supports this device. It never turns anything on or off.
           </p>
         </section>
       )}
@@ -508,11 +495,7 @@ export function AdultMenu({
           here.
         </p>
         <div className="row">
-          <button
-            type="button"
-            disabled={!licence.teamTools}
-            onClick={() => void actions.downloadBackup().then(setBackupStatus)}
-          >
+          <button type="button" onClick={() => void actions.downloadBackup().then(setBackupStatus)}>
             Download backup
           </button>
           <label className="file-button">

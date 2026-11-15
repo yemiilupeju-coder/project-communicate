@@ -387,7 +387,7 @@ export function App({ demo = false }: { demo?: boolean }) {
         <p className="demo-banner" role="status">
           <strong>Demo.</strong> Try anything: nothing is saved, and it resets when you reload. To
           open the adult menu, hold <em>Adults</em> for 3 seconds.
-          <a href="https://giftedtech.org/#contact">Request a pilot</a>
+          <a href={import.meta.env.BASE_URL}>Use it free with your students</a>
         </p>
       )}
       {modeling && <ModelingBanner onStop={() => setModeling(false)} />}

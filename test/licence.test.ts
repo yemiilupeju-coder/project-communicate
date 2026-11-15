@@ -70,12 +70,14 @@ describe("licence files", () => {
     }
   });
 
-  it("accepts a five-student classroom licence and names it", async () => {
+  it("accepts partner tiers, and older tier names, and names them plainly", async () => {
     const pair = await keys();
-    const classroom = { ...base, tier: "classroom" as const, seats: 5 };
-    const file = await sign(classroom, pair.privateKey);
-    expect(await verifyLicence(file, pair.publicKey)).toEqual(classroom);
-    expect(tierName("classroom")).toBe("classroom");
+    const founding = { ...base, tier: "founding" as const, seats: 10 };
+    const file = await sign(founding, pair.privateKey);
+    expect(await verifyLicence(file, pair.publicKey)).toEqual(founding);
+    expect(tierName("founding")).toBe("Founding Partner");
+    expect(tierName("district-partner")).toBe("District Partner");
+    expect(tierName("classroom")).toBe("School Partner");
   });
 });
 
@@ -100,32 +102,29 @@ describe("licence status", () => {
     for (const now of ["2026-08-01", "2027-01-01", "2027-09-05", "2028-01-01"]) {
       expect(describeStatus(licenceStatus(base, at(now)))).toContain("Maple Elementary");
     }
-    expect(describeStatus(licenceStatus(null, 0))).toContain("Family");
+    expect(describeStatus(licenceStatus(null, 0))).toContain("Communicate is free");
   });
 });
 
-describe("what a licence unlocks", () => {
-  it("never limits the first student, so Family is fully usable", () => {
-    const family = licenceStatus(null, 0);
-    expect(teamToolsAllowed(family, 0)).toBe(true);
-    expect(canAddStudent(family, 0)).toBe(true);
+describe("Communicate is free", () => {
+  it("never limits students, team tools or backups, with or without a partner code", () => {
+    const states = [
+      licenceStatus(null, 0),
+      licenceStatus(base, at("2027-01-01")),
+      licenceStatus(base, at("2027-09-10")),
+      licenceStatus(base, at("2028-01-01")),
+    ];
+    for (const status of states) {
+      for (const n of [0, 1, 5, 30]) {
+        expect(canAddStudent(status, n)).toBe(true);
+        expect(teamToolsAllowed(status, n)).toBe(true);
+      }
+    }
   });
 
-  it("needs a licence for more students and their team tools", () => {
-    const family = licenceStatus(null, 0);
-    expect(canAddStudent(family, 1)).toBe(false);
-    expect(teamToolsAllowed(family, 1)).toBe(false);
-    const active = licenceStatus(base, at("2027-01-01"));
-    expect(isLicensed(active)).toBe(true);
-    expect(canAddStudent(active, 12)).toBe(true);
-    expect(teamToolsAllowed(active, 5)).toBe(true);
-  });
-
-  it("keeps team tools during grace and falls back to Family after", () => {
-    expect(teamToolsAllowed(licenceStatus(base, at("2027-09-10")), 3)).toBe(true);
-    const expired = licenceStatus(base, at("2028-01-01"));
-    expect(teamToolsAllowed(expired, 3)).toBe(false);
-    expect(teamToolsAllowed(expired, 0)).toBe(true);
+  it("knows when a device belongs to a current partner", () => {
+    expect(isLicensed(licenceStatus(null, 0))).toBe(false);
+    expect(isLicensed(licenceStatus(base, at("2027-01-01")))).toBe(true);
   });
 });
 

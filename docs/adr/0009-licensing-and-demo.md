@@ -1,6 +1,7 @@
 # ADR 0009 — Licensing and the public demo
 
-- Status: Accepted (TD, Nov 13, 2026), from the Licensing, Demo & District Sales Plan
+- Status: Superseded by ADR 0010 (Nov 15, 2026). The demo and the signed-file mechanism remain;
+  licence gating is removed.
 - Builds on: ADR 0008
 
 ## Decision

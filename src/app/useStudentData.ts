@@ -3,9 +3,7 @@ import { makeBackup, restoreBackup, BackupError } from "../core/backup";
 import { afterFailure, checkPin, hashPin, isLocked, LOCK_KEY, NO_LOCK, PIN_KEY } from "../core/pin";
 import type { LockState, PinRecord } from "../core/pin";
 import {
-  canAddStudent,
   importPublicKey,
-  isLicensed,
   LICENCE_KEY,
   LicenceError,
   licenceStatus,
@@ -178,9 +176,6 @@ export function useStudentData({ demo = false }: { demo?: boolean } = {}) {
 
   const addProfile = useCallback(
     (name: string): string | null => {
-      if (!canAddStudent(status, profiles.length)) {
-        return "More than one student on a device needs a school or district licence.";
-      }
       const created = newProfile(name, DEFAULT_SETTINGS);
       setProfiles((list) => [...list, created]);
       persist(created);
@@ -254,12 +249,8 @@ export function useStudentData({ demo = false }: { demo?: boolean } = {}) {
   const restore = useCallback(
     async (file: File): Promise<string> => {
       if (!store) return "Storage is still starting. Try again in a moment.";
-      // Family: one student. A restore may replace an untouched starter profile.
-      const replace =
-        !isLicensed(status) && profiles.length === 1 && isPristine(profiles[0] as Profile);
-      if (!isLicensed(status) && profiles.length >= 1 && !replace) {
-        return "Restoring another student onto this device needs a school or district licence.";
-      }
+      // A restore onto a fresh device replaces the untouched starter profile.
+      const replace = profiles.length === 1 && isPristine(profiles[0] as Profile);
       try {
         const restored = await restoreBackup(store, file);
         if (replace && profiles[0]) {
@@ -284,14 +275,14 @@ export function useStudentData({ demo = false }: { demo?: boolean } = {}) {
   const install = useCallback(
     async (file: unknown, expectCode?: string): Promise<string> => {
       const key = await publicKey();
-      if (!store || !key) return "Licences aren't set up in this version yet.";
+      if (!store || !key) return "Partner codes aren't set up in this version yet.";
       try {
         const payload = await verifyLicence(file, key);
         if (expectCode && payload.code !== expectCode)
-          return "That licence doesn't match the code.";
+          return "That partner file doesn't match the code.";
         await store.setMeta(LICENCE_KEY, file);
         setLicence(payload);
-        return `Licensed to ${payload.customer} until ${payload.ends}.`;
+        return `Partner code added: ${payload.customer}, until ${payload.ends}.`;
       } catch (error) {
         return error instanceof LicenceError ? error.message : "That licence couldn't be checked.";
       }
@@ -302,17 +293,17 @@ export function useStudentData({ demo = false }: { demo?: boolean } = {}) {
   const activateCode = useCallback(
     async (input: string): Promise<string> => {
       const code = normaliseCode(input);
-      if (!CODE_PATTERN.test(code)) return "A licence code looks like GT-7KQ4-M2XD.";
-      if (!keyReady) return "Licences aren't set up in this version yet.";
+      if (!CODE_PATTERN.test(code)) return "A partner code looks like GT-7KQ4-M2XD.";
+      if (!keyReady) return "Partner codes aren't set up in this version yet.";
       const controller = new AbortController();
       const timer = window.setTimeout(() => controller.abort(), 10_000);
       try {
         const response = await fetch(`${LICENCE_SERVICE}${code}`, { signal: controller.signal });
         if (response.status === 404) return "That code wasn't found. Check it and try again.";
-        if (!response.ok) return "The licence service didn't answer. Try again later.";
+        if (!response.ok) return "The partner service didn't answer. Try again later.";
         return await install(await response.json(), code);
       } catch {
-        return "Connect to the internet once to activate. After that, no internet is needed.";
+        return "Connect to the internet once to add the code. After that, no internet is needed.";
       } finally {
         window.clearTimeout(timer);
       }
@@ -322,11 +313,11 @@ export function useStudentData({ demo = false }: { demo?: boolean } = {}) {
 
   const importLicenceFile = useCallback(
     async (file: File): Promise<string> => {
-      if (file.size > 16_384) return "That file is too large to be a licence.";
+      if (file.size > 16_384) return "That file is too large to be a partner file.";
       try {
         return await install(JSON.parse(await file.text()));
       } catch {
-        return "That file isn't a GiftedTech licence.";
+        return "That file isn't a GiftedTech partner file.";
       }
     },
     [install],

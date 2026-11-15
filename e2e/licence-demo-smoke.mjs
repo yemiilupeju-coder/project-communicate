@@ -53,8 +53,8 @@ await page.screenshot({ path: "/tmp/smoke/demo-sentences.png" });
 await hold();
 check("demo: no PIN, menu opens", await menu().isVisible());
 check(
-  "demo: no licence section",
-  (await menu().getByRole("heading", { name: "Licence" }).count()) === 0,
+  "demo: no partnership section",
+  (await menu().getByRole("heading", { name: "GiftedTech partnership" }).count()) === 0,
 );
 await page.getByPlaceholder("Name or nickname").fill("Jordan");
 await page.getByRole("button", { name: "Add", exact: true }).click();
@@ -74,7 +74,7 @@ check(
 await page.getByRole("button", { name: "Back to talking" }).click();
 await page.screenshot({ path: "/tmp/smoke/demo-home.png" });
 
-// ── Real app: Family by default ──
+// ── Real app: free, everything on ──
 await page.goto(BASE);
 await page.waitForSelector(".board .cell");
 await page.waitForTimeout(400);
@@ -86,41 +86,37 @@ check(
     .join()
     .includes("Alex"),
 );
-check("Family status shown", (await menu().innerText()).includes("Family (free, for home use)"));
-check(
-  "Family: Add student disabled with explanation",
-  !(await page.getByRole("button", { name: "Add", exact: true }).isEnabled()) &&
-    (await menu().innerText()).includes("Schools need a classroom"),
-);
-check(
-  "Family: first student can edit words",
-  await page.getByRole("button", { name: "Edit words" }).isEnabled(),
-);
-
-// Bad code, then real code
-await page.getByLabel("Licence code from GiftedTech").fill("GT-0000-0000");
-await page.getByRole("button", { name: "Activate" }).click();
-await page.waitForTimeout(1500);
-check("unknown code explained", (await menu().innerText()).includes("wasn't found"));
-await page.getByLabel("Licence code from GiftedTech").fill(CODE.toLowerCase().replace(/-/g, " "));
-await page.getByRole("button", { name: "Activate" }).click();
-await page.waitForTimeout(1500);
-const txt = await menu().innerText();
-check(
-  "licence activated",
-  txt.includes("Licensed to Maple Elementary (test)") &&
-    /(pilot|classroom|school|district) licence until \d{4}-\d{2}-\d{2}/.test(txt),
-);
+check("free status shown", (await menu().innerText()).includes("Communicate is free"));
 await page.getByPlaceholder("Name or nickname").fill("Ben");
+check(
+  "free: Add student enabled",
+  await page.getByRole("button", { name: "Add", exact: true }).isEnabled(),
+);
 await page.getByRole("button", { name: "Add", exact: true }).click();
 await page.waitForTimeout(300);
 check(
-  "licensed: second student added",
+  "free: second student added",
   (await page.getByLabel("This device is talking for").locator("option").count()) === 2,
 );
 check(
-  "licensed: second student can edit",
-  await page.getByRole("button", { name: "Edit words" }).isEnabled(),
+  "free: second student can edit words and back up",
+  (await page.getByRole("button", { name: "Edit words" }).isEnabled()) &&
+    (await page.getByRole("button", { name: "Download backup" }).isEnabled()),
+);
+
+// Bad code, then real code
+await page.getByLabel("Partner code from GiftedTech").fill("GT-0000-0000");
+await page.getByRole("button", { name: "Add code" }).click();
+await page.waitForTimeout(1500);
+check("unknown code explained", (await menu().innerText()).includes("wasn't found"));
+await page.getByLabel("Partner code from GiftedTech").fill(CODE.toLowerCase().replace(/-/g, " "));
+await page.getByRole("button", { name: "Add code" }).click();
+await page.waitForTimeout(1500);
+const txt = await menu().innerText();
+check(
+  "partner code added",
+  txt.includes("Partner code added: Maple Elementary (test)") &&
+    /Maple Elementary \(test\) is a GiftedTech .+ until \d{4}-\d{2}-\d{2}/.test(txt),
 );
 await menu().screenshot({ path: "/tmp/smoke/licence-menu.png" });
 
@@ -135,27 +131,18 @@ await page.waitForSelector(".board .cell");
 await page.waitForTimeout(500);
 await hold();
 check(
-  "licence works offline after reload",
-  /(pilot|classroom|school|district) licence until \d{4}-\d{2}-\d{2}/.test(
-    await menu().innerText(),
-  ),
+  "partner code works offline after reload",
+  /is a GiftedTech .+ until \d{4}-\d{2}-\d{2}/.test(await menu().innerText()),
 );
 await context.setOffline(false);
 
-// Remove licence: second student keeps words, loses team tools; first keeps them
-await page.getByRole("button", { name: "Remove licence" }).click();
+// Remove partner code: nothing locks
+await page.getByRole("button", { name: "Remove partner code" }).click();
 await page.waitForTimeout(300);
 await page.getByLabel("This device is talking for").selectOption({ label: "Ben" });
 await page.waitForTimeout(300);
 check(
-  "unlicensed: Ben's Edit words locked with explanation",
-  !(await page.getByRole("button", { name: "Edit words" }).isEnabled()) &&
-    (await menu().innerText()).includes("words all still work"),
-);
-await page.getByLabel("This device is talking for").selectOption({ label: "Student" });
-await page.waitForTimeout(300);
-check(
-  "unlicensed: first student keeps team tools",
+  "no partner code: Ben can still edit words",
   await page.getByRole("button", { name: "Edit words" }).isEnabled(),
 );
 await page.getByRole("button", { name: "Back to talking" }).click();
@@ -178,7 +165,7 @@ await p2.mouse.down();
 await p2.waitForTimeout(3300);
 await p2.mouse.up();
 check(
-  "?licence= link activates",
+  "?licence= link adds the partner code",
   (await p2.locator("dialog.adult-menu").innerText()).includes("Maple Elementary (test)"),
 );
 

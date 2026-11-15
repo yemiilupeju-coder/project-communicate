@@ -13,7 +13,15 @@
  * nothing a student already has is ever removed.
  */
 
-export type Tier = "pilot" | "classroom" | "school" | "district";
+export type Tier =
+  | "founding"
+  | "school-partner"
+  | "district-partner"
+  // Older names, still accepted so any file issued before the change keeps working.
+  | "pilot"
+  | "classroom"
+  | "school"
+  | "district";
 
 export interface LicencePayload {
   readonly v: 1;
@@ -85,7 +93,15 @@ export function parsePayload(raw: unknown): LicencePayload {
   if (typeof r.code !== "string" || !CODE_PATTERN.test(r.code)) throw new LicenceError("Bad code");
   if (typeof r.customer !== "string" || r.customer.trim() === "" || r.customer.length > 120)
     throw new LicenceError("Bad customer");
-  const tiers: readonly Tier[] = ["pilot", "classroom", "school", "district"];
+  const tiers: readonly Tier[] = [
+    "founding",
+    "school-partner",
+    "district-partner",
+    "pilot",
+    "classroom",
+    "school",
+    "district",
+  ];
   const tier = tiers.find((t) => t === r.tier);
   if (!tier) throw new LicenceError("Bad tier");
   if (typeof r.seats !== "number" || !Number.isInteger(r.seats) || r.seats < 1 || r.seats > 1e6)
@@ -162,22 +178,22 @@ export function licenceStatus(
   return { kind: "expired", licence };
 }
 
-/** Licensed devices may hold several students and use team tools for each. */
+/**
+ * Communicate is free: every feature works for every student on every device.
+ * A partner code from GiftedTech only records that this device belongs to a
+ * partner school or district, so staff can see who supports them.
+ */
 export const isLicensed = (status: LicenceStatus) =>
   status.kind === "active" || status.kind === "grace" || status.kind === "demo";
 
-/**
- * Team tools (edit words, backups) for one student. Family covers the first
- * student on the device; a licence covers everyone. Communication itself is
- * never behind this check.
- */
-export function teamToolsAllowed(status: LicenceStatus, profileIndex: number): boolean {
-  return isLicensed(status) || profileIndex === 0;
+/** Team tools (edit words, backups) are free for every student. */
+export function teamToolsAllowed(_status: LicenceStatus, _profileIndex: number): boolean {
+  return true;
 }
 
-/** Adding another student needs a licence once one student exists. */
-export function canAddStudent(status: LicenceStatus, studentCount: number): boolean {
-  return isLicensed(status) || studentCount === 0;
+/** Any number of students may share a device. */
+export function canAddStudent(_status: LicenceStatus, _studentCount: number): boolean {
+  return true;
 }
 
 export function describeStatus(status: LicenceStatus): string {
@@ -185,17 +201,24 @@ export function describeStatus(status: LicenceStatus): string {
     case "demo":
       return "Demo: every feature is on.";
     case "family":
-      return "Family (free, for home use): every word and voice, and team tools for one student. Schools need a school licence.";
+      return "Communicate is free: every word, voice and feature, for every student. Schools and districts can partner with GiftedTech for named support, setup and staff training.";
     case "not-yet":
-      return `${status.licence.customer}: licence starts ${status.licence.starts}.`;
+      return `${status.licence.customer}: partnership starts ${status.licence.starts}.`;
     case "active":
-      return `${status.licence.customer}: ${tierName(status.licence.tier)} licence until ${status.licence.ends}.`;
+      return `${status.licence.customer} is a GiftedTech ${tierName(status.licence.tier)} until ${status.licence.ends}. For help, email hello@giftedtech.org and mention your school.`;
     case "grace":
-      return `${status.licence.customer}: licence ended ${status.licence.ends}. Team tools keep working for ${status.graceLeft} more days. Contact GiftedTech to renew.`;
     case "expired":
-      return `${status.licence.customer}: licence ended ${status.licence.ends}. Students keep all their words. Renew to add students or edit words for more than one student.`;
+      return `${status.licence.customer}: partnership ended ${status.licence.ends}. Everything in the app keeps working. Email hello@giftedtech.org to renew support and training.`;
   }
 }
 
 export const tierName = (tier: Tier) =>
-  ({ pilot: "pilot", classroom: "classroom", school: "school", district: "district" })[tier];
+  ({
+    founding: "Founding Partner",
+    "school-partner": "School Partner",
+    "district-partner": "District Partner",
+    pilot: "partner",
+    classroom: "School Partner",
+    school: "School Partner",
+    district: "District Partner",
+  })[tier];
