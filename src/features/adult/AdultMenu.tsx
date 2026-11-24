@@ -364,10 +364,16 @@ export function AdultMenu({
             {!isStandalone() && (
               <span className="hint">
                 {" "}
-                — On iPad: Share → Add to Home Screen. On Chromebook or Android: the install icon in
-                the address bar, or menu → Install. Installing keeps the app's data safer.
+                — On iPad: ••• → Share → Add to Home Screen. On Chromebook or Android: the install
+                icon in the address bar, or menu → Install. Installing keeps the app's data safer.
               </span>
             )}
+          </li>
+          <li>
+            Step-by-step setup for every device, to share with families and staff:{" "}
+            <a href="https://giftedtech.org/start" target="_blank" rel="noopener">
+              giftedtech.org/start
+            </a>
           </li>
           <li>
             Storage protected from clean-up:{" "}
