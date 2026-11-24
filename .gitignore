@@ -9,3 +9,4 @@ coverage/
 !.env.example
 scripts/.symbols.json
 .wrangler/
+*.tsbuildinfo

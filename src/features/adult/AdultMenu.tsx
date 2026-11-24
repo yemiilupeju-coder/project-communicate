@@ -403,6 +403,17 @@ export function AdultMenu({
         </ul>
       </section>
 
+      <section>
+        <h3>Fun zone</h3>
+        <p>
+          Games for break time, on their own page so they never mix with the student's words. They
+          work offline too.
+        </p>
+        <p>
+          <a href={`${import.meta.env.BASE_URL}games/`}>Open the Fun zone</a>
+        </p>
+      </section>
+
       {!licence.demo && (
         <section>
           <h3>GiftedTech partnership</h3>

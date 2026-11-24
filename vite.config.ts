@@ -54,6 +54,9 @@ export default defineConfig({
         maximumFileSizeToCacheInBytes: 8 * 1024 * 1024,
         // Multi-page app: each page is precached; no single-page fallback.
         navigateFallback: null,
+        // Never let a navigation fallback stand in for a game page inside its iframe,
+        // even if a fallback is turned on later.
+        navigateFallbackDenylist: [/\/games\/here-a-little\//],
         runtimeCaching: [
           {
             urlPattern: ({ url, sameOrigin }: { url: URL; sameOrigin: boolean }) =>
@@ -90,6 +93,7 @@ export default defineConfig({
       input: {
         app: page("./index.html"),
         demo: page("./demo/index.html"),
+        games: page("./games/index.html"),
         hub: page("./spikes/index.html"),
         storage: page("./spikes/storage/index.html"),
         voice: page("./spikes/voice/index.html"),
