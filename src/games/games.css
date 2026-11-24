@@ -1,12 +1,9 @@
+/* Fun zone: bright, chunky and rounded, to match the games. */
 :root {
-  color-scheme: dark;
-  font-family:
-    system-ui,
-    -apple-system,
-    "Segoe UI",
-    sans-serif;
-  background: #0d0a17;
-  color: #f4efe6;
+  color-scheme: light;
+  font-family: ui-rounded, "Nunito", "Segoe UI", system-ui, sans-serif;
+  background: #eef5ff;
+  color: #3b3f5c;
 }
 
 body {
@@ -28,44 +25,73 @@ body {
 
 .fun-header h1 {
   margin: 0;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
+  font-weight: 900;
 }
 
 .back {
-  color: #f4efe6;
-  font-weight: 600;
-  padding: 10px 14px;
-  border-radius: 10px;
-  background: #241d3a;
+  color: #3b3f5c;
+  font-weight: 800;
+  padding: 12px 18px;
+  border-radius: 16px;
+  background: #fff;
+  border: 2px solid #e2e6f0;
+  box-shadow: 0 5px 0 #cdd4e4;
   text-decoration: none;
+  transition:
+    transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.12s;
+}
+
+.back:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0 #cdd4e4;
+}
+
+.back:active {
+  transform: translateY(5px);
+  box-shadow: 0 0 0 #cdd4e4;
 }
 
 .back:focus-visible,
 .fun button:focus-visible {
-  outline: 3px solid #ffd76a;
-  outline-offset: 2px;
+  outline: 4px solid #3fb4f0;
+  outline-offset: 3px;
 }
 
 .fun h2 {
-  font-size: 1.25rem;
-  margin: 20px 0 4px;
+  font-size: 1.3rem;
+  font-weight: 900;
+  margin: 22px 0 4px;
 }
 
 .fun-lead {
-  margin: 0 0 14px;
+  margin: 0 0 16px;
   max-width: 65ch;
-  color: #d9d1c3;
+  font-weight: 600;
+  color: #5a5f7d;
 }
 
 .fun-cheer {
   min-height: 1.5em;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #ffd76a;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #329a31;
 }
 
 .fun-update button {
   font: inherit;
-  padding: 6px 12px;
-  border-radius: 8px;
+  font-weight: 800;
+  padding: 8px 14px;
+  border-radius: 12px;
+  border: 2px solid #e2e6f0;
+  background: #fff;
+  box-shadow: 0 4px 0 #cdd4e4;
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .back {
+    transition: none;
+  }
 }

@@ -57,9 +57,9 @@ export default function HereALittleGame({
         aspectRatio: "4 / 3",
         minHeight: 360,
         maxHeight: "92vh",
-        borderRadius: 16,
+        borderRadius: 24,
         overflow: "hidden",
-        background: "#151024",
+        background: "#EEF5FF",
         ...style,
       }}
     >
