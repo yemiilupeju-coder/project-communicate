@@ -1,0 +1,4054 @@
+[
+ {
+  "key": "a",
+  "text": "a"
+ },
+ {
+  "key": "a little",
+  "text": "a little"
+ },
+ {
+  "key": "a lot",
+  "text": "a lot"
+ },
+ {
+  "key": "after",
+  "text": "after"
+ },
+ {
+  "key": "afternoon",
+  "text": "afternoon"
+ },
+ {
+  "key": "again",
+  "text": "again"
+ },
+ {
+  "key": "all",
+  "text": "all"
+ },
+ {
+  "key": "all done",
+  "text": "all done"
+ },
+ {
+  "key": "always",
+  "text": "always"
+ },
+ {
+  "key": "am",
+  "text": "am"
+ },
+ {
+  "key": "an",
+  "text": "an"
+ },
+ {
+  "key": "and",
+  "text": "and"
+ },
+ {
+  "key": "annoyed",
+  "text": "annoyed"
+ },
+ {
+  "key": "answer",
+  "text": "answer"
+ },
+ {
+  "key": "answer's",
+  "text": "answer's"
+ },
+ {
+  "key": "answers",
+  "text": "answers"
+ },
+ {
+  "key": "apple",
+  "text": "apple"
+ },
+ {
+  "key": "apple's",
+  "text": "apple's"
+ },
+ {
+  "key": "apples",
+  "text": "apples"
+ },
+ {
+  "key": "are",
+  "text": "are"
+ },
+ {
+  "key": "arm",
+  "text": "arm"
+ },
+ {
+  "key": "arm's",
+  "text": "arm's"
+ },
+ {
+  "key": "arms",
+  "text": "arms"
+ },
+ {
+  "key": "around",
+  "text": "around"
+ },
+ {
+  "key": "art",
+  "text": "art"
+ },
+ {
+  "key": "art's",
+  "text": "art's"
+ },
+ {
+  "key": "arts",
+  "text": "arts"
+ },
+ {
+  "key": "at",
+  "text": "at"
+ },
+ {
+  "key": "ate",
+  "text": "ate"
+ },
+ {
+  "key": "away",
+  "text": "away"
+ },
+ {
+  "key": "awesome",
+  "text": "awesome"
+ },
+ {
+  "key": "babies",
+  "text": "babies"
+ },
+ {
+  "key": "baby",
+  "text": "baby"
+ },
+ {
+  "key": "baby's",
+  "text": "baby's"
+ },
+ {
+  "key": "back",
+  "text": "back"
+ },
+ {
+  "key": "back's",
+  "text": "back's"
+ },
+ {
+  "key": "backpack",
+  "text": "backpack"
+ },
+ {
+  "key": "backpack's",
+  "text": "backpack's"
+ },
+ {
+  "key": "backpacks",
+  "text": "backpacks"
+ },
+ {
+  "key": "backs",
+  "text": "backs"
+ },
+ {
+  "key": "bad",
+  "text": "bad"
+ },
+ {
+  "key": "ball",
+  "text": "ball"
+ },
+ {
+  "key": "ball's",
+  "text": "ball's"
+ },
+ {
+  "key": "balls",
+  "text": "balls"
+ },
+ {
+  "key": "banana",
+  "text": "banana"
+ },
+ {
+  "key": "banana's",
+  "text": "banana's"
+ },
+ {
+  "key": "bananas",
+  "text": "bananas"
+ },
+ {
+  "key": "bathroom",
+  "text": "bathroom"
+ },
+ {
+  "key": "bathroom's",
+  "text": "bathroom's"
+ },
+ {
+  "key": "bathrooms",
+  "text": "bathrooms"
+ },
+ {
+  "key": "because",
+  "text": "because"
+ },
+ {
+  "key": "before",
+  "text": "before"
+ },
+ {
+  "key": "behind",
+  "text": "behind"
+ },
+ {
+  "key": "best",
+  "text": "best"
+ },
+ {
+  "key": "better",
+  "text": "better"
+ },
+ {
+  "key": "between",
+  "text": "between"
+ },
+ {
+  "key": "big",
+  "text": "big"
+ },
+ {
+  "key": "bigger",
+  "text": "bigger"
+ },
+ {
+  "key": "biggest",
+  "text": "biggest"
+ },
+ {
+  "key": "bike",
+  "text": "bike"
+ },
+ {
+  "key": "bike's",
+  "text": "bike's"
+ },
+ {
+  "key": "bikes",
+  "text": "bikes"
+ },
+ {
+  "key": "bird",
+  "text": "bird"
+ },
+ {
+  "key": "bird's",
+  "text": "bird's"
+ },
+ {
+  "key": "birds",
+  "text": "birds"
+ },
+ {
+  "key": "black",
+  "text": "black"
+ },
+ {
+  "key": "blocks",
+  "text": "blocks"
+ },
+ {
+  "key": "blocks's",
+  "text": "blocks's"
+ },
+ {
+  "key": "blockses",
+  "text": "blockses"
+ },
+ {
+  "key": "blood",
+  "text": "blood"
+ },
+ {
+  "key": "blood's",
+  "text": "blood's"
+ },
+ {
+  "key": "bloods",
+  "text": "bloods"
+ },
+ {
+  "key": "blue",
+  "text": "blue"
+ },
+ {
+  "key": "book",
+  "text": "book"
+ },
+ {
+  "key": "book's",
+  "text": "book's"
+ },
+ {
+  "key": "books",
+  "text": "books"
+ },
+ {
+  "key": "bored",
+  "text": "bored"
+ },
+ {
+  "key": "both",
+  "text": "both"
+ },
+ {
+  "key": "bottom",
+  "text": "bottom"
+ },
+ {
+  "key": "bottom's",
+  "text": "bottom's"
+ },
+ {
+  "key": "bottoms",
+  "text": "bottoms"
+ },
+ {
+  "key": "boy",
+  "text": "boy"
+ },
+ {
+  "key": "boy's",
+  "text": "boy's"
+ },
+ {
+  "key": "boys",
+  "text": "boys"
+ },
+ {
+  "key": "bread",
+  "text": "bread"
+ },
+ {
+  "key": "bread's",
+  "text": "bread's"
+ },
+ {
+  "key": "breads",
+  "text": "breads"
+ },
+ {
+  "key": "break",
+  "text": "break"
+ },
+ {
+  "key": "break's",
+  "text": "break's"
+ },
+ {
+  "key": "breakfast",
+  "text": "breakfast"
+ },
+ {
+  "key": "breakfast's",
+  "text": "breakfast's"
+ },
+ {
+  "key": "breakfasts",
+  "text": "breakfasts"
+ },
+ {
+  "key": "breaks",
+  "text": "breaks"
+ },
+ {
+  "key": "bring",
+  "text": "bring"
+ },
+ {
+  "key": "bringing",
+  "text": "bringing"
+ },
+ {
+  "key": "brings",
+  "text": "brings"
+ },
+ {
+  "key": "broken",
+  "text": "broken"
+ },
+ {
+  "key": "brother",
+  "text": "brother"
+ },
+ {
+  "key": "brother's",
+  "text": "brother's"
+ },
+ {
+  "key": "brothers",
+  "text": "brothers"
+ },
+ {
+  "key": "brought",
+  "text": "brought"
+ },
+ {
+  "key": "brown",
+  "text": "brown"
+ },
+ {
+  "key": "bubbles",
+  "text": "bubbles"
+ },
+ {
+  "key": "bubbles's",
+  "text": "bubbles's"
+ },
+ {
+  "key": "bubbleses",
+  "text": "bubbleses"
+ },
+ {
+  "key": "bug",
+  "text": "bug"
+ },
+ {
+  "key": "bug's",
+  "text": "bug's"
+ },
+ {
+  "key": "bugs",
+  "text": "bugs"
+ },
+ {
+  "key": "build",
+  "text": "build"
+ },
+ {
+  "key": "building",
+  "text": "building"
+ },
+ {
+  "key": "builds",
+  "text": "builds"
+ },
+ {
+  "key": "built",
+  "text": "built"
+ },
+ {
+  "key": "bus",
+  "text": "bus"
+ },
+ {
+  "key": "bus driver",
+  "text": "bus driver"
+ },
+ {
+  "key": "bus driver's",
+  "text": "bus driver's"
+ },
+ {
+  "key": "bus's",
+  "text": "bus's"
+ },
+ {
+  "key": "buses",
+  "text": "buses"
+ },
+ {
+  "key": "but",
+  "text": "but"
+ },
+ {
+  "key": "bye",
+  "text": "bye"
+ },
+ {
+  "key": "calm",
+  "text": "calm"
+ },
+ {
+  "key": "calmer",
+  "text": "calmer"
+ },
+ {
+  "key": "calmest",
+  "text": "calmest"
+ },
+ {
+  "key": "came",
+  "text": "came"
+ },
+ {
+  "key": "can",
+  "text": "can"
+ },
+ {
+  "key": "can't",
+  "text": "can't"
+ },
+ {
+  "key": "candies",
+  "text": "candies"
+ },
+ {
+  "key": "candy",
+  "text": "candy"
+ },
+ {
+  "key": "candy's",
+  "text": "candy's"
+ },
+ {
+  "key": "car",
+  "text": "car"
+ },
+ {
+  "key": "car's",
+  "text": "car's"
+ },
+ {
+  "key": "cards",
+  "text": "cards"
+ },
+ {
+  "key": "cards's",
+  "text": "cards's"
+ },
+ {
+  "key": "cardses",
+  "text": "cardses"
+ },
+ {
+  "key": "cars",
+  "text": "cars"
+ },
+ {
+  "key": "cat",
+  "text": "cat"
+ },
+ {
+  "key": "cat's",
+  "text": "cat's"
+ },
+ {
+  "key": "cats",
+  "text": "cats"
+ },
+ {
+  "key": "chair",
+  "text": "chair"
+ },
+ {
+  "key": "chair's",
+  "text": "chair's"
+ },
+ {
+  "key": "chairs",
+  "text": "chairs"
+ },
+ {
+  "key": "cheese",
+  "text": "cheese"
+ },
+ {
+  "key": "cheese's",
+  "text": "cheese's"
+ },
+ {
+  "key": "cheeses",
+  "text": "cheeses"
+ },
+ {
+  "key": "chest",
+  "text": "chest"
+ },
+ {
+  "key": "chest's",
+  "text": "chest's"
+ },
+ {
+  "key": "chests",
+  "text": "chests"
+ },
+ {
+  "key": "chicken",
+  "text": "chicken"
+ },
+ {
+  "key": "chicken's",
+  "text": "chicken's"
+ },
+ {
+  "key": "chickens",
+  "text": "chickens"
+ },
+ {
+  "key": "chips",
+  "text": "chips"
+ },
+ {
+  "key": "chips's",
+  "text": "chips's"
+ },
+ {
+  "key": "chipses",
+  "text": "chipses"
+ },
+ {
+  "key": "circle",
+  "text": "circle"
+ },
+ {
+  "key": "circle's",
+  "text": "circle's"
+ },
+ {
+  "key": "circles",
+  "text": "circles"
+ },
+ {
+  "key": "classroom",
+  "text": "classroom"
+ },
+ {
+  "key": "classroom's",
+  "text": "classroom's"
+ },
+ {
+  "key": "classrooms",
+  "text": "classrooms"
+ },
+ {
+  "key": "clean",
+  "text": "clean"
+ },
+ {
+  "key": "cleaner",
+  "text": "cleaner"
+ },
+ {
+  "key": "cleanest",
+  "text": "cleanest"
+ },
+ {
+  "key": "coat",
+  "text": "coat"
+ },
+ {
+  "key": "coat's",
+  "text": "coat's"
+ },
+ {
+  "key": "coats",
+  "text": "coats"
+ },
+ {
+  "key": "cold",
+  "text": "cold"
+ },
+ {
+  "key": "colder",
+  "text": "colder"
+ },
+ {
+  "key": "coldest",
+  "text": "coldest"
+ },
+ {
+  "key": "colour",
+  "text": "colour"
+ },
+ {
+  "key": "coloured",
+  "text": "coloured"
+ },
+ {
+  "key": "colouring",
+  "text": "colouring"
+ },
+ {
+  "key": "colours",
+  "text": "colours"
+ },
+ {
+  "key": "come",
+  "text": "come"
+ },
+ {
+  "key": "come here",
+  "text": "come here"
+ },
+ {
+  "key": "comes",
+  "text": "comes"
+ },
+ {
+  "key": "coming",
+  "text": "coming"
+ },
+ {
+  "key": "computer",
+  "text": "computer"
+ },
+ {
+  "key": "computer's",
+  "text": "computer's"
+ },
+ {
+  "key": "computers",
+  "text": "computers"
+ },
+ {
+  "key": "confused",
+  "text": "confused"
+ },
+ {
+  "key": "cookie",
+  "text": "cookie"
+ },
+ {
+  "key": "cookie's",
+  "text": "cookie's"
+ },
+ {
+  "key": "cookies",
+  "text": "cookies"
+ },
+ {
+  "key": "cool",
+  "text": "cool"
+ },
+ {
+  "key": "could",
+  "text": "could"
+ },
+ {
+  "key": "crackers",
+  "text": "crackers"
+ },
+ {
+  "key": "crackers's",
+  "text": "crackers's"
+ },
+ {
+  "key": "crackerses",
+  "text": "crackerses"
+ },
+ {
+  "key": "crayon",
+  "text": "crayon"
+ },
+ {
+  "key": "crayon's",
+  "text": "crayon's"
+ },
+ {
+  "key": "crayons",
+  "text": "crayons"
+ },
+ {
+  "key": "cut",
+  "text": "cut"
+ },
+ {
+  "key": "cuts",
+  "text": "cuts"
+ },
+ {
+  "key": "cutting",
+  "text": "cutting"
+ },
+ {
+  "key": "dad",
+  "text": "dad"
+ },
+ {
+  "key": "dad's",
+  "text": "dad's"
+ },
+ {
+  "key": "dads",
+  "text": "dads"
+ },
+ {
+  "key": "dance",
+  "text": "dance"
+ },
+ {
+  "key": "danced",
+  "text": "danced"
+ },
+ {
+  "key": "dances",
+  "text": "dances"
+ },
+ {
+  "key": "dancing",
+  "text": "dancing"
+ },
+ {
+  "key": "day",
+  "text": "day"
+ },
+ {
+  "key": "desk",
+  "text": "desk"
+ },
+ {
+  "key": "desk's",
+  "text": "desk's"
+ },
+ {
+  "key": "desks",
+  "text": "desks"
+ },
+ {
+  "key": "did",
+  "text": "did"
+ },
+ {
+  "key": "different",
+  "text": "different"
+ },
+ {
+  "key": "dinner",
+  "text": "dinner"
+ },
+ {
+  "key": "dinner's",
+  "text": "dinner's"
+ },
+ {
+  "key": "dinners",
+  "text": "dinners"
+ },
+ {
+  "key": "dinosaur",
+  "text": "dinosaur"
+ },
+ {
+  "key": "dinosaur's",
+  "text": "dinosaur's"
+ },
+ {
+  "key": "dinosaurs",
+  "text": "dinosaurs"
+ },
+ {
+  "key": "dirtier",
+  "text": "dirtier"
+ },
+ {
+  "key": "dirtiest",
+  "text": "dirtiest"
+ },
+ {
+  "key": "dirty",
+  "text": "dirty"
+ },
+ {
+  "key": "dizzy",
+  "text": "dizzy"
+ },
+ {
+  "key": "do",
+  "text": "do"
+ },
+ {
+  "key": "doctor",
+  "text": "doctor"
+ },
+ {
+  "key": "doctor's",
+  "text": "doctor's"
+ },
+ {
+  "key": "doctor's office",
+  "text": "doctor's office"
+ },
+ {
+  "key": "doctor's office's",
+  "text": "doctor's office's"
+ },
+ {
+  "key": "doctors",
+  "text": "doctors"
+ },
+ {
+  "key": "does",
+  "text": "does"
+ },
+ {
+  "key": "dog",
+  "text": "dog"
+ },
+ {
+  "key": "dog's",
+  "text": "dog's"
+ },
+ {
+  "key": "dogs",
+  "text": "dogs"
+ },
+ {
+  "key": "doing",
+  "text": "doing"
+ },
+ {
+  "key": "don't",
+  "text": "don't"
+ },
+ {
+  "key": "don't touch",
+  "text": "don't touch"
+ },
+ {
+  "key": "done",
+  "text": "done"
+ },
+ {
+  "key": "down",
+  "text": "down"
+ },
+ {
+  "key": "drank",
+  "text": "drank"
+ },
+ {
+  "key": "draw",
+  "text": "draw"
+ },
+ {
+  "key": "drawing",
+  "text": "drawing"
+ },
+ {
+  "key": "drawn",
+  "text": "drawn"
+ },
+ {
+  "key": "draws",
+  "text": "draws"
+ },
+ {
+  "key": "drew",
+  "text": "drew"
+ },
+ {
+  "key": "drier",
+  "text": "drier"
+ },
+ {
+  "key": "driest",
+  "text": "driest"
+ },
+ {
+  "key": "drink",
+  "text": "drink"
+ },
+ {
+  "key": "drinking",
+  "text": "drinking"
+ },
+ {
+  "key": "drinks",
+  "text": "drinks"
+ },
+ {
+  "key": "drunk",
+  "text": "drunk"
+ },
+ {
+  "key": "dry",
+  "text": "dry"
+ },
+ {
+  "key": "each",
+  "text": "each"
+ },
+ {
+  "key": "ear",
+  "text": "ear"
+ },
+ {
+  "key": "ear's",
+  "text": "ear's"
+ },
+ {
+  "key": "ears",
+  "text": "ears"
+ },
+ {
+  "key": "easier",
+  "text": "easier"
+ },
+ {
+  "key": "easiest",
+  "text": "easiest"
+ },
+ {
+  "key": "easy",
+  "text": "easy"
+ },
+ {
+  "key": "eat",
+  "text": "eat"
+ },
+ {
+  "key": "eaten",
+  "text": "eaten"
+ },
+ {
+  "key": "eating",
+  "text": "eating"
+ },
+ {
+  "key": "eats",
+  "text": "eats"
+ },
+ {
+  "key": "egg",
+  "text": "egg"
+ },
+ {
+  "key": "egg's",
+  "text": "egg's"
+ },
+ {
+  "key": "eggs",
+  "text": "eggs"
+ },
+ {
+  "key": "embarrassed",
+  "text": "embarrassed"
+ },
+ {
+  "key": "empty",
+  "text": "empty"
+ },
+ {
+  "key": "every",
+  "text": "every"
+ },
+ {
+  "key": "everyone",
+  "text": "everyone"
+ },
+ {
+  "key": "everyone's",
+  "text": "everyone's"
+ },
+ {
+  "key": "everyones",
+  "text": "everyones"
+ },
+ {
+  "key": "excited",
+  "text": "excited"
+ },
+ {
+  "key": "excuse me",
+  "text": "excuse me"
+ },
+ {
+  "key": "eye",
+  "text": "eye"
+ },
+ {
+  "key": "eye's",
+  "text": "eye's"
+ },
+ {
+  "key": "eyes",
+  "text": "eyes"
+ },
+ {
+  "key": "families",
+  "text": "families"
+ },
+ {
+  "key": "family",
+  "text": "family"
+ },
+ {
+  "key": "family's",
+  "text": "family's"
+ },
+ {
+  "key": "far",
+  "text": "far"
+ },
+ {
+  "key": "farther",
+  "text": "farther"
+ },
+ {
+  "key": "farthest",
+  "text": "farthest"
+ },
+ {
+  "key": "fast",
+  "text": "fast"
+ },
+ {
+  "key": "faster",
+  "text": "faster"
+ },
+ {
+  "key": "fastest",
+  "text": "fastest"
+ },
+ {
+  "key": "feel",
+  "text": "feel"
+ },
+ {
+  "key": "feeling",
+  "text": "feeling"
+ },
+ {
+  "key": "feels",
+  "text": "feels"
+ },
+ {
+  "key": "feet",
+  "text": "feet"
+ },
+ {
+  "key": "felt",
+  "text": "felt"
+ },
+ {
+  "key": "few",
+  "text": "few"
+ },
+ {
+  "key": "fewer",
+  "text": "fewer"
+ },
+ {
+  "key": "fewest",
+  "text": "fewest"
+ },
+ {
+  "key": "find",
+  "text": "find"
+ },
+ {
+  "key": "finding",
+  "text": "finding"
+ },
+ {
+  "key": "finds",
+  "text": "finds"
+ },
+ {
+  "key": "finished",
+  "text": "finished"
+ },
+ {
+  "key": "first",
+  "text": "first"
+ },
+ {
+  "key": "fish",
+  "text": "fish"
+ },
+ {
+  "key": "fish's",
+  "text": "fish's"
+ },
+ {
+  "key": "fix",
+  "text": "fix"
+ },
+ {
+  "key": "fixed",
+  "text": "fixed"
+ },
+ {
+  "key": "fixes",
+  "text": "fixes"
+ },
+ {
+  "key": "fixing",
+  "text": "fixing"
+ },
+ {
+  "key": "foot",
+  "text": "foot"
+ },
+ {
+  "key": "foot's",
+  "text": "foot's"
+ },
+ {
+  "key": "for",
+  "text": "for"
+ },
+ {
+  "key": "found",
+  "text": "found"
+ },
+ {
+  "key": "friend",
+  "text": "friend"
+ },
+ {
+  "key": "friend's",
+  "text": "friend's"
+ },
+ {
+  "key": "friend's house",
+  "text": "friend's house"
+ },
+ {
+  "key": "friend's house's",
+  "text": "friend's house's"
+ },
+ {
+  "key": "friends",
+  "text": "friends"
+ },
+ {
+  "key": "fruit",
+  "text": "fruit"
+ },
+ {
+  "key": "fruit's",
+  "text": "fruit's"
+ },
+ {
+  "key": "fruits",
+  "text": "fruits"
+ },
+ {
+  "key": "frustrated",
+  "text": "frustrated"
+ },
+ {
+  "key": "full",
+  "text": "full"
+ },
+ {
+  "key": "fuller",
+  "text": "fuller"
+ },
+ {
+  "key": "fullest",
+  "text": "fullest"
+ },
+ {
+  "key": "fun",
+  "text": "fun"
+ },
+ {
+  "key": "funnier",
+  "text": "funnier"
+ },
+ {
+  "key": "funniest",
+  "text": "funniest"
+ },
+ {
+  "key": "funny",
+  "text": "funny"
+ },
+ {
+  "key": "game",
+  "text": "game"
+ },
+ {
+  "key": "game's",
+  "text": "game's"
+ },
+ {
+  "key": "games",
+  "text": "games"
+ },
+ {
+  "key": "gave",
+  "text": "gave"
+ },
+ {
+  "key": "get",
+  "text": "get"
+ },
+ {
+  "key": "gets",
+  "text": "gets"
+ },
+ {
+  "key": "getting",
+  "text": "getting"
+ },
+ {
+  "key": "girl",
+  "text": "girl"
+ },
+ {
+  "key": "girl's",
+  "text": "girl's"
+ },
+ {
+  "key": "girls",
+  "text": "girls"
+ },
+ {
+  "key": "give",
+  "text": "give"
+ },
+ {
+  "key": "given",
+  "text": "given"
+ },
+ {
+  "key": "gives",
+  "text": "gives"
+ },
+ {
+  "key": "giving",
+  "text": "giving"
+ },
+ {
+  "key": "glue",
+  "text": "glue"
+ },
+ {
+  "key": "glue's",
+  "text": "glue's"
+ },
+ {
+  "key": "glues",
+  "text": "glues"
+ },
+ {
+  "key": "go",
+  "text": "go"
+ },
+ {
+  "key": "goes",
+  "text": "goes"
+ },
+ {
+  "key": "going",
+  "text": "going"
+ },
+ {
+  "key": "gone",
+  "text": "gone"
+ },
+ {
+  "key": "good",
+  "text": "good"
+ },
+ {
+  "key": "good job",
+  "text": "good job"
+ },
+ {
+  "key": "got",
+  "text": "got"
+ },
+ {
+  "key": "gotten",
+  "text": "gotten"
+ },
+ {
+  "key": "grandma",
+  "text": "grandma"
+ },
+ {
+  "key": "grandma's",
+  "text": "grandma's"
+ },
+ {
+  "key": "grandmas",
+  "text": "grandmas"
+ },
+ {
+  "key": "grandpa",
+  "text": "grandpa"
+ },
+ {
+  "key": "grandpa's",
+  "text": "grandpa's"
+ },
+ {
+  "key": "grandpas",
+  "text": "grandpas"
+ },
+ {
+  "key": "grapes",
+  "text": "grapes"
+ },
+ {
+  "key": "grapes's",
+  "text": "grapes's"
+ },
+ {
+  "key": "grapeses",
+  "text": "grapeses"
+ },
+ {
+  "key": "great",
+  "text": "great"
+ },
+ {
+  "key": "greater",
+  "text": "greater"
+ },
+ {
+  "key": "greatest",
+  "text": "greatest"
+ },
+ {
+  "key": "green",
+  "text": "green"
+ },
+ {
+  "key": "gross",
+  "text": "gross"
+ },
+ {
+  "key": "gym",
+  "text": "gym"
+ },
+ {
+  "key": "gym's",
+  "text": "gym's"
+ },
+ {
+  "key": "gyms",
+  "text": "gyms"
+ },
+ {
+  "key": "ha ha",
+  "text": "ha ha"
+ },
+ {
+  "key": "had",
+  "text": "had"
+ },
+ {
+  "key": "hair",
+  "text": "hair"
+ },
+ {
+  "key": "hair's",
+  "text": "hair's"
+ },
+ {
+  "key": "hairs",
+  "text": "hairs"
+ },
+ {
+  "key": "hallway",
+  "text": "hallway"
+ },
+ {
+  "key": "hallway's",
+  "text": "hallway's"
+ },
+ {
+  "key": "hallways",
+  "text": "hallways"
+ },
+ {
+  "key": "hand",
+  "text": "hand"
+ },
+ {
+  "key": "hand's",
+  "text": "hand's"
+ },
+ {
+  "key": "hands",
+  "text": "hands"
+ },
+ {
+  "key": "happier",
+  "text": "happier"
+ },
+ {
+  "key": "happiest",
+  "text": "happiest"
+ },
+ {
+  "key": "happy",
+  "text": "happy"
+ },
+ {
+  "key": "hard",
+  "text": "hard"
+ },
+ {
+  "key": "harder",
+  "text": "harder"
+ },
+ {
+  "key": "hardest",
+  "text": "hardest"
+ },
+ {
+  "key": "has",
+  "text": "has"
+ },
+ {
+  "key": "hate",
+  "text": "hate"
+ },
+ {
+  "key": "hated",
+  "text": "hated"
+ },
+ {
+  "key": "hates",
+  "text": "hates"
+ },
+ {
+  "key": "hating",
+  "text": "hating"
+ },
+ {
+  "key": "have",
+  "text": "have"
+ },
+ {
+  "key": "having",
+  "text": "having"
+ },
+ {
+  "key": "he",
+  "text": "he"
+ },
+ {
+  "key": "head",
+  "text": "head"
+ },
+ {
+  "key": "head's",
+  "text": "head's"
+ },
+ {
+  "key": "heads",
+  "text": "heads"
+ },
+ {
+  "key": "help",
+  "text": "help"
+ },
+ {
+  "key": "help me",
+  "text": "help me"
+ },
+ {
+  "key": "helped",
+  "text": "helped"
+ },
+ {
+  "key": "helper",
+  "text": "helper"
+ },
+ {
+  "key": "helper's",
+  "text": "helper's"
+ },
+ {
+  "key": "helpers",
+  "text": "helpers"
+ },
+ {
+  "key": "helping",
+  "text": "helping"
+ },
+ {
+  "key": "helps",
+  "text": "helps"
+ },
+ {
+  "key": "her",
+  "text": "her"
+ },
+ {
+  "key": "here",
+  "text": "here"
+ },
+ {
+  "key": "hers",
+  "text": "hers"
+ },
+ {
+  "key": "herself",
+  "text": "herself"
+ },
+ {
+  "key": "hi",
+  "text": "hi"
+ },
+ {
+  "key": "hi this is my voice",
+  "text": "Hi! This is my voice."
+ },
+ {
+  "key": "him",
+  "text": "him"
+ },
+ {
+  "key": "himself",
+  "text": "himself"
+ },
+ {
+  "key": "his",
+  "text": "his"
+ },
+ {
+  "key": "home",
+  "text": "home"
+ },
+ {
+  "key": "home's",
+  "text": "home's"
+ },
+ {
+  "key": "homes",
+  "text": "homes"
+ },
+ {
+  "key": "homework",
+  "text": "homework"
+ },
+ {
+  "key": "homework's",
+  "text": "homework's"
+ },
+ {
+  "key": "homeworks",
+  "text": "homeworks"
+ },
+ {
+  "key": "horse",
+  "text": "horse"
+ },
+ {
+  "key": "horse's",
+  "text": "horse's"
+ },
+ {
+  "key": "horses",
+  "text": "horses"
+ },
+ {
+  "key": "hospital",
+  "text": "hospital"
+ },
+ {
+  "key": "hospital's",
+  "text": "hospital's"
+ },
+ {
+  "key": "hospitals",
+  "text": "hospitals"
+ },
+ {
+  "key": "hot",
+  "text": "hot"
+ },
+ {
+  "key": "hotter",
+  "text": "hotter"
+ },
+ {
+  "key": "hottest",
+  "text": "hottest"
+ },
+ {
+  "key": "how are you",
+  "text": "how are you?"
+ },
+ {
+  "key": "hug",
+  "text": "hug"
+ },
+ {
+  "key": "hug's",
+  "text": "hug's"
+ },
+ {
+  "key": "hugs",
+  "text": "hugs"
+ },
+ {
+  "key": "hungry",
+  "text": "hungry"
+ },
+ {
+  "key": "hurt",
+  "text": "hurt"
+ },
+ {
+  "key": "hurting",
+  "text": "hurting"
+ },
+ {
+  "key": "hurts",
+  "text": "hurts"
+ },
+ {
+  "key": "i",
+  "text": "I"
+ },
+ {
+  "key": "i don't know",
+  "text": "I don't know"
+ },
+ {
+  "key": "i don't like that",
+  "text": "I don't like that"
+ },
+ {
+  "key": "i love it",
+  "text": "I love it"
+ },
+ {
+  "key": "i need a break",
+  "text": "I need a break"
+ },
+ {
+  "key": "idea",
+  "text": "idea"
+ },
+ {
+  "key": "idea's",
+  "text": "idea's"
+ },
+ {
+  "key": "ideas",
+  "text": "ideas"
+ },
+ {
+  "key": "if",
+  "text": "if"
+ },
+ {
+  "key": "in",
+  "text": "in"
+ },
+ {
+  "key": "in front",
+  "text": "in front"
+ },
+ {
+  "key": "inside",
+  "text": "inside"
+ },
+ {
+  "key": "inside's",
+  "text": "inside's"
+ },
+ {
+  "key": "insides",
+  "text": "insides"
+ },
+ {
+  "key": "is",
+  "text": "is"
+ },
+ {
+  "key": "it",
+  "text": "it"
+ },
+ {
+  "key": "itchier",
+  "text": "itchier"
+ },
+ {
+  "key": "itchiest",
+  "text": "itchiest"
+ },
+ {
+  "key": "itchy",
+  "text": "itchy"
+ },
+ {
+  "key": "its",
+  "text": "its"
+ },
+ {
+  "key": "itself",
+  "text": "itself"
+ },
+ {
+  "key": "juice",
+  "text": "juice"
+ },
+ {
+  "key": "juice's",
+  "text": "juice's"
+ },
+ {
+  "key": "juices",
+  "text": "juices"
+ },
+ {
+  "key": "jump",
+  "text": "jump"
+ },
+ {
+  "key": "jumped",
+  "text": "jumped"
+ },
+ {
+  "key": "jumping",
+  "text": "jumping"
+ },
+ {
+  "key": "jumps",
+  "text": "jumps"
+ },
+ {
+  "key": "kids",
+  "text": "kids"
+ },
+ {
+  "key": "kids's",
+  "text": "kids's"
+ },
+ {
+  "key": "kidses",
+  "text": "kidses"
+ },
+ {
+  "key": "knew",
+  "text": "knew"
+ },
+ {
+  "key": "know",
+  "text": "know"
+ },
+ {
+  "key": "knowing",
+  "text": "knowing"
+ },
+ {
+  "key": "known",
+  "text": "known"
+ },
+ {
+  "key": "knows",
+  "text": "knows"
+ },
+ {
+  "key": "last",
+  "text": "last"
+ },
+ {
+  "key": "later",
+  "text": "later"
+ },
+ {
+  "key": "leave me alone",
+  "text": "leave me alone"
+ },
+ {
+  "key": "leg",
+  "text": "leg"
+ },
+ {
+  "key": "leg's",
+  "text": "leg's"
+ },
+ {
+  "key": "legs",
+  "text": "legs"
+ },
+ {
+  "key": "less",
+  "text": "less"
+ },
+ {
+  "key": "let",
+  "text": "let"
+ },
+ {
+  "key": "lets",
+  "text": "lets"
+ },
+ {
+  "key": "letter",
+  "text": "letter"
+ },
+ {
+  "key": "letter's",
+  "text": "letter's"
+ },
+ {
+  "key": "letters",
+  "text": "letters"
+ },
+ {
+  "key": "letting",
+  "text": "letting"
+ },
+ {
+  "key": "libraries",
+  "text": "libraries"
+ },
+ {
+  "key": "library",
+  "text": "library"
+ },
+ {
+  "key": "library's",
+  "text": "library's"
+ },
+ {
+  "key": "like",
+  "text": "like"
+ },
+ {
+  "key": "liked",
+  "text": "liked"
+ },
+ {
+  "key": "likes",
+  "text": "likes"
+ },
+ {
+  "key": "liking",
+  "text": "liking"
+ },
+ {
+  "key": "line up",
+  "text": "line up"
+ },
+ {
+  "key": "listen",
+  "text": "listen"
+ },
+ {
+  "key": "listen to me",
+  "text": "listen to me"
+ },
+ {
+  "key": "listened",
+  "text": "listened"
+ },
+ {
+  "key": "listening",
+  "text": "listening"
+ },
+ {
+  "key": "listens",
+  "text": "listens"
+ },
+ {
+  "key": "little",
+  "text": "little"
+ },
+ {
+  "key": "littler",
+  "text": "littler"
+ },
+ {
+  "key": "littlest",
+  "text": "littlest"
+ },
+ {
+  "key": "lonely",
+  "text": "lonely"
+ },
+ {
+  "key": "look",
+  "text": "look"
+ },
+ {
+  "key": "look at this",
+  "text": "look at this"
+ },
+ {
+  "key": "looked",
+  "text": "looked"
+ },
+ {
+  "key": "looking",
+  "text": "looking"
+ },
+ {
+  "key": "looks",
+  "text": "looks"
+ },
+ {
+  "key": "loud",
+  "text": "loud"
+ },
+ {
+  "key": "louder",
+  "text": "louder"
+ },
+ {
+  "key": "loudest",
+  "text": "loudest"
+ },
+ {
+  "key": "love",
+  "text": "love"
+ },
+ {
+  "key": "loved",
+  "text": "loved"
+ },
+ {
+  "key": "loves",
+  "text": "loves"
+ },
+ {
+  "key": "loving",
+  "text": "loving"
+ },
+ {
+  "key": "lunch",
+  "text": "lunch"
+ },
+ {
+  "key": "lunch box",
+  "text": "lunch box"
+ },
+ {
+  "key": "lunch box's",
+  "text": "lunch box's"
+ },
+ {
+  "key": "lunch's",
+  "text": "lunch's"
+ },
+ {
+  "key": "lunches",
+  "text": "lunches"
+ },
+ {
+  "key": "lunchroom",
+  "text": "lunchroom"
+ },
+ {
+  "key": "lunchroom's",
+  "text": "lunchroom's"
+ },
+ {
+  "key": "lunchrooms",
+  "text": "lunchrooms"
+ },
+ {
+  "key": "mad",
+  "text": "mad"
+ },
+ {
+  "key": "madder",
+  "text": "madder"
+ },
+ {
+  "key": "maddest",
+  "text": "maddest"
+ },
+ {
+  "key": "made",
+  "text": "made"
+ },
+ {
+  "key": "make",
+  "text": "make"
+ },
+ {
+  "key": "makes",
+  "text": "makes"
+ },
+ {
+  "key": "making",
+  "text": "making"
+ },
+ {
+  "key": "man",
+  "text": "man"
+ },
+ {
+  "key": "man's",
+  "text": "man's"
+ },
+ {
+  "key": "many",
+  "text": "many"
+ },
+ {
+  "key": "marker",
+  "text": "marker"
+ },
+ {
+  "key": "marker's",
+  "text": "marker's"
+ },
+ {
+  "key": "markers",
+  "text": "markers"
+ },
+ {
+  "key": "math",
+  "text": "math"
+ },
+ {
+  "key": "math's",
+  "text": "math's"
+ },
+ {
+  "key": "maths",
+  "text": "maths"
+ },
+ {
+  "key": "maybe",
+  "text": "maybe"
+ },
+ {
+  "key": "me",
+  "text": "me"
+ },
+ {
+  "key": "me too",
+  "text": "me too"
+ },
+ {
+  "key": "medicine",
+  "text": "medicine"
+ },
+ {
+  "key": "medicine's",
+  "text": "medicine's"
+ },
+ {
+  "key": "medicines",
+  "text": "medicines"
+ },
+ {
+  "key": "men",
+  "text": "men"
+ },
+ {
+  "key": "milk",
+  "text": "milk"
+ },
+ {
+  "key": "milk's",
+  "text": "milk's"
+ },
+ {
+  "key": "milks",
+  "text": "milks"
+ },
+ {
+  "key": "mine",
+  "text": "mine"
+ },
+ {
+  "key": "mom",
+  "text": "mom"
+ },
+ {
+  "key": "mom's",
+  "text": "mom's"
+ },
+ {
+  "key": "moms",
+  "text": "moms"
+ },
+ {
+  "key": "more",
+  "text": "more"
+ },
+ {
+  "key": "morning",
+  "text": "morning"
+ },
+ {
+  "key": "most",
+  "text": "most"
+ },
+ {
+  "key": "mouth",
+  "text": "mouth"
+ },
+ {
+  "key": "mouth's",
+  "text": "mouth's"
+ },
+ {
+  "key": "mouths",
+  "text": "mouths"
+ },
+ {
+  "key": "movie",
+  "text": "movie"
+ },
+ {
+  "key": "movie's",
+  "text": "movie's"
+ },
+ {
+  "key": "movies",
+  "text": "movies"
+ },
+ {
+  "key": "music",
+  "text": "music"
+ },
+ {
+  "key": "music's",
+  "text": "music's"
+ },
+ {
+  "key": "musics",
+  "text": "musics"
+ },
+ {
+  "key": "my",
+  "text": "my"
+ },
+ {
+  "key": "my name is",
+  "text": "my name is"
+ },
+ {
+  "key": "my turn",
+  "text": "my turn"
+ },
+ {
+  "key": "myself",
+  "text": "myself"
+ },
+ {
+  "key": "name",
+  "text": "name"
+ },
+ {
+  "key": "name's",
+  "text": "name's"
+ },
+ {
+  "key": "names",
+  "text": "names"
+ },
+ {
+  "key": "near",
+  "text": "near"
+ },
+ {
+  "key": "nearer",
+  "text": "nearer"
+ },
+ {
+  "key": "nearest",
+  "text": "nearest"
+ },
+ {
+  "key": "need",
+  "text": "need"
+ },
+ {
+  "key": "needed",
+  "text": "needed"
+ },
+ {
+  "key": "needing",
+  "text": "needing"
+ },
+ {
+  "key": "needs",
+  "text": "needs"
+ },
+ {
+  "key": "never",
+  "text": "never"
+ },
+ {
+  "key": "new",
+  "text": "new"
+ },
+ {
+  "key": "newer",
+  "text": "newer"
+ },
+ {
+  "key": "newest",
+  "text": "newest"
+ },
+ {
+  "key": "next",
+  "text": "next"
+ },
+ {
+  "key": "next to",
+  "text": "next to"
+ },
+ {
+  "key": "nice",
+  "text": "nice"
+ },
+ {
+  "key": "nicer",
+  "text": "nicer"
+ },
+ {
+  "key": "nicest",
+  "text": "nicest"
+ },
+ {
+  "key": "night",
+  "text": "night"
+ },
+ {
+  "key": "no",
+  "text": "no"
+ },
+ {
+  "key": "no way",
+  "text": "no way"
+ },
+ {
+  "key": "nose",
+  "text": "nose"
+ },
+ {
+  "key": "nose's",
+  "text": "nose's"
+ },
+ {
+  "key": "noses",
+  "text": "noses"
+ },
+ {
+  "key": "not",
+  "text": "not"
+ },
+ {
+  "key": "not safe",
+  "text": "not safe"
+ },
+ {
+  "key": "now",
+  "text": "now"
+ },
+ {
+  "key": "number",
+  "text": "number"
+ },
+ {
+  "key": "number's",
+  "text": "number's"
+ },
+ {
+  "key": "numbers",
+  "text": "numbers"
+ },
+ {
+  "key": "nurse",
+  "text": "nurse"
+ },
+ {
+  "key": "nurse's",
+  "text": "nurse's"
+ },
+ {
+  "key": "nurses",
+  "text": "nurses"
+ },
+ {
+  "key": "of",
+  "text": "of"
+ },
+ {
+  "key": "off",
+  "text": "off"
+ },
+ {
+  "key": "office",
+  "text": "office"
+ },
+ {
+  "key": "office's",
+  "text": "office's"
+ },
+ {
+  "key": "offices",
+  "text": "offices"
+ },
+ {
+  "key": "oh no",
+  "text": "oh no"
+ },
+ {
+  "key": "okay",
+  "text": "okay"
+ },
+ {
+  "key": "old",
+  "text": "old"
+ },
+ {
+  "key": "older",
+  "text": "older"
+ },
+ {
+  "key": "oldest",
+  "text": "oldest"
+ },
+ {
+  "key": "on",
+  "text": "on"
+ },
+ {
+  "key": "only",
+  "text": "only"
+ },
+ {
+  "key": "open",
+  "text": "open"
+ },
+ {
+  "key": "opened",
+  "text": "opened"
+ },
+ {
+  "key": "opening",
+  "text": "opening"
+ },
+ {
+  "key": "opens",
+  "text": "opens"
+ },
+ {
+  "key": "or",
+  "text": "or"
+ },
+ {
+  "key": "orange",
+  "text": "orange"
+ },
+ {
+  "key": "orange's",
+  "text": "orange's"
+ },
+ {
+  "key": "oranges",
+  "text": "oranges"
+ },
+ {
+  "key": "our",
+  "text": "our"
+ },
+ {
+  "key": "ours",
+  "text": "ours"
+ },
+ {
+  "key": "out",
+  "text": "out"
+ },
+ {
+  "key": "outside",
+  "text": "outside"
+ },
+ {
+  "key": "outside's",
+  "text": "outside's"
+ },
+ {
+  "key": "outsides",
+  "text": "outsides"
+ },
+ {
+  "key": "over",
+  "text": "over"
+ },
+ {
+  "key": "page",
+  "text": "page"
+ },
+ {
+  "key": "page's",
+  "text": "page's"
+ },
+ {
+  "key": "pages",
+  "text": "pages"
+ },
+ {
+  "key": "pain",
+  "text": "pain"
+ },
+ {
+  "key": "pain's",
+  "text": "pain's"
+ },
+ {
+  "key": "pains",
+  "text": "pains"
+ },
+ {
+  "key": "paint",
+  "text": "paint"
+ },
+ {
+  "key": "painted",
+  "text": "painted"
+ },
+ {
+  "key": "painting",
+  "text": "painting"
+ },
+ {
+  "key": "paints",
+  "text": "paints"
+ },
+ {
+  "key": "paper",
+  "text": "paper"
+ },
+ {
+  "key": "paper's",
+  "text": "paper's"
+ },
+ {
+  "key": "papers",
+  "text": "papers"
+ },
+ {
+  "key": "park",
+  "text": "park"
+ },
+ {
+  "key": "park's",
+  "text": "park's"
+ },
+ {
+  "key": "parks",
+  "text": "parks"
+ },
+ {
+  "key": "pasta",
+  "text": "pasta"
+ },
+ {
+  "key": "pasta's",
+  "text": "pasta's"
+ },
+ {
+  "key": "pastas",
+  "text": "pastas"
+ },
+ {
+  "key": "pencil",
+  "text": "pencil"
+ },
+ {
+  "key": "pencil's",
+  "text": "pencil's"
+ },
+ {
+  "key": "pencils",
+  "text": "pencils"
+ },
+ {
+  "key": "penis",
+  "text": "penis"
+ },
+ {
+  "key": "penis's",
+  "text": "penis's"
+ },
+ {
+  "key": "penises",
+  "text": "penises"
+ },
+ {
+  "key": "phone",
+  "text": "phone"
+ },
+ {
+  "key": "phone's",
+  "text": "phone's"
+ },
+ {
+  "key": "phones",
+  "text": "phones"
+ },
+ {
+  "key": "phys ed",
+  "text": "phys ed"
+ },
+ {
+  "key": "phys ed's",
+  "text": "phys ed's"
+ },
+ {
+  "key": "picture",
+  "text": "picture"
+ },
+ {
+  "key": "picture's",
+  "text": "picture's"
+ },
+ {
+  "key": "pictures",
+  "text": "pictures"
+ },
+ {
+  "key": "pink",
+  "text": "pink"
+ },
+ {
+  "key": "pizza",
+  "text": "pizza"
+ },
+ {
+  "key": "pizza's",
+  "text": "pizza's"
+ },
+ {
+  "key": "pizzas",
+  "text": "pizzas"
+ },
+ {
+  "key": "play",
+  "text": "play"
+ },
+ {
+  "key": "played",
+  "text": "played"
+ },
+ {
+  "key": "playground",
+  "text": "playground"
+ },
+ {
+  "key": "playground's",
+  "text": "playground's"
+ },
+ {
+  "key": "playgrounds",
+  "text": "playgrounds"
+ },
+ {
+  "key": "playing",
+  "text": "playing"
+ },
+ {
+  "key": "plays",
+  "text": "plays"
+ },
+ {
+  "key": "please",
+  "text": "please"
+ },
+ {
+  "key": "pool",
+  "text": "pool"
+ },
+ {
+  "key": "pool's",
+  "text": "pool's"
+ },
+ {
+  "key": "pools",
+  "text": "pools"
+ },
+ {
+  "key": "principal",
+  "text": "principal"
+ },
+ {
+  "key": "principal's",
+  "text": "principal's"
+ },
+ {
+  "key": "principals",
+  "text": "principals"
+ },
+ {
+  "key": "private",
+  "text": "private"
+ },
+ {
+  "key": "proud",
+  "text": "proud"
+ },
+ {
+  "key": "pull",
+  "text": "pull"
+ },
+ {
+  "key": "pulled",
+  "text": "pulled"
+ },
+ {
+  "key": "pulling",
+  "text": "pulling"
+ },
+ {
+  "key": "pulls",
+  "text": "pulls"
+ },
+ {
+  "key": "purple",
+  "text": "purple"
+ },
+ {
+  "key": "push",
+  "text": "push"
+ },
+ {
+  "key": "pushed",
+  "text": "pushed"
+ },
+ {
+  "key": "pushes",
+  "text": "pushes"
+ },
+ {
+  "key": "pushing",
+  "text": "pushing"
+ },
+ {
+  "key": "put",
+  "text": "put"
+ },
+ {
+  "key": "puts",
+  "text": "puts"
+ },
+ {
+  "key": "putting",
+  "text": "putting"
+ },
+ {
+  "key": "puzzle",
+  "text": "puzzle"
+ },
+ {
+  "key": "puzzle's",
+  "text": "puzzle's"
+ },
+ {
+  "key": "puzzles",
+  "text": "puzzles"
+ },
+ {
+  "key": "question",
+  "text": "question"
+ },
+ {
+  "key": "question's",
+  "text": "question's"
+ },
+ {
+  "key": "questions",
+  "text": "questions"
+ },
+ {
+  "key": "quiet",
+  "text": "quiet"
+ },
+ {
+  "key": "quieter",
+  "text": "quieter"
+ },
+ {
+  "key": "quietest",
+  "text": "quietest"
+ },
+ {
+  "key": "ran",
+  "text": "ran"
+ },
+ {
+  "key": "read",
+  "text": "read"
+ },
+ {
+  "key": "reading",
+  "text": "reading"
+ },
+ {
+  "key": "reading's",
+  "text": "reading's"
+ },
+ {
+  "key": "readings",
+  "text": "readings"
+ },
+ {
+  "key": "reads",
+  "text": "reads"
+ },
+ {
+  "key": "really",
+  "text": "really?"
+ },
+ {
+  "key": "recess",
+  "text": "recess"
+ },
+ {
+  "key": "recess's",
+  "text": "recess's"
+ },
+ {
+  "key": "recesses",
+  "text": "recesses"
+ },
+ {
+  "key": "red",
+  "text": "red"
+ },
+ {
+  "key": "restaurant",
+  "text": "restaurant"
+ },
+ {
+  "key": "restaurant's",
+  "text": "restaurant's"
+ },
+ {
+  "key": "restaurants",
+  "text": "restaurants"
+ },
+ {
+  "key": "rice",
+  "text": "rice"
+ },
+ {
+  "key": "rice's",
+  "text": "rice's"
+ },
+ {
+  "key": "rices",
+  "text": "rices"
+ },
+ {
+  "key": "run",
+  "text": "run"
+ },
+ {
+  "key": "running",
+  "text": "running"
+ },
+ {
+  "key": "runs",
+  "text": "runs"
+ },
+ {
+  "key": "sad",
+  "text": "sad"
+ },
+ {
+  "key": "sadder",
+  "text": "sadder"
+ },
+ {
+  "key": "saddest",
+  "text": "saddest"
+ },
+ {
+  "key": "safe",
+  "text": "safe"
+ },
+ {
+  "key": "said",
+  "text": "said"
+ },
+ {
+  "key": "same",
+  "text": "same"
+ },
+ {
+  "key": "sand",
+  "text": "sand"
+ },
+ {
+  "key": "sand's",
+  "text": "sand's"
+ },
+ {
+  "key": "sands",
+  "text": "sands"
+ },
+ {
+  "key": "sandwich",
+  "text": "sandwich"
+ },
+ {
+  "key": "sandwich's",
+  "text": "sandwich's"
+ },
+ {
+  "key": "sandwiches",
+  "text": "sandwiches"
+ },
+ {
+  "key": "sat",
+  "text": "sat"
+ },
+ {
+  "key": "saw",
+  "text": "saw"
+ },
+ {
+  "key": "say",
+  "text": "say"
+ },
+ {
+  "key": "saying",
+  "text": "saying"
+ },
+ {
+  "key": "says",
+  "text": "says"
+ },
+ {
+  "key": "scared",
+  "text": "scared"
+ },
+ {
+  "key": "school",
+  "text": "school"
+ },
+ {
+  "key": "school's",
+  "text": "school's"
+ },
+ {
+  "key": "schools",
+  "text": "schools"
+ },
+ {
+  "key": "science",
+  "text": "science"
+ },
+ {
+  "key": "science's",
+  "text": "science's"
+ },
+ {
+  "key": "sciences",
+  "text": "sciences"
+ },
+ {
+  "key": "scissors",
+  "text": "scissors"
+ },
+ {
+  "key": "scissors's",
+  "text": "scissors's"
+ },
+ {
+  "key": "scissorses",
+  "text": "scissorses"
+ },
+ {
+  "key": "see",
+  "text": "see"
+ },
+ {
+  "key": "see you later",
+  "text": "see you later"
+ },
+ {
+  "key": "seeing",
+  "text": "seeing"
+ },
+ {
+  "key": "seen",
+  "text": "seen"
+ },
+ {
+  "key": "sees",
+  "text": "sees"
+ },
+ {
+  "key": "she",
+  "text": "she"
+ },
+ {
+  "key": "short",
+  "text": "short"
+ },
+ {
+  "key": "shorter",
+  "text": "shorter"
+ },
+ {
+  "key": "shortest",
+  "text": "shortest"
+ },
+ {
+  "key": "show",
+  "text": "show"
+ },
+ {
+  "key": "show's",
+  "text": "show's"
+ },
+ {
+  "key": "showed",
+  "text": "showed"
+ },
+ {
+  "key": "showing",
+  "text": "showing"
+ },
+ {
+  "key": "shown",
+  "text": "shown"
+ },
+ {
+  "key": "shows",
+  "text": "shows"
+ },
+ {
+  "key": "sick",
+  "text": "sick"
+ },
+ {
+  "key": "sillier",
+  "text": "sillier"
+ },
+ {
+  "key": "silliest",
+  "text": "silliest"
+ },
+ {
+  "key": "silly",
+  "text": "silly"
+ },
+ {
+  "key": "sister",
+  "text": "sister"
+ },
+ {
+  "key": "sister's",
+  "text": "sister's"
+ },
+ {
+  "key": "sisters",
+  "text": "sisters"
+ },
+ {
+  "key": "sit",
+  "text": "sit"
+ },
+ {
+  "key": "sits",
+  "text": "sits"
+ },
+ {
+  "key": "sitting",
+  "text": "sitting"
+ },
+ {
+  "key": "skin",
+  "text": "skin"
+ },
+ {
+  "key": "skin's",
+  "text": "skin's"
+ },
+ {
+  "key": "skins",
+  "text": "skins"
+ },
+ {
+  "key": "sleep",
+  "text": "sleep"
+ },
+ {
+  "key": "sleeping",
+  "text": "sleeping"
+ },
+ {
+  "key": "sleeps",
+  "text": "sleeps"
+ },
+ {
+  "key": "slept",
+  "text": "slept"
+ },
+ {
+  "key": "slide",
+  "text": "slide"
+ },
+ {
+  "key": "slide's",
+  "text": "slide's"
+ },
+ {
+  "key": "slides",
+  "text": "slides"
+ },
+ {
+  "key": "slow",
+  "text": "slow"
+ },
+ {
+  "key": "slower",
+  "text": "slower"
+ },
+ {
+  "key": "slowest",
+  "text": "slowest"
+ },
+ {
+  "key": "snack",
+  "text": "snack"
+ },
+ {
+  "key": "snack's",
+  "text": "snack's"
+ },
+ {
+  "key": "snacks",
+  "text": "snacks"
+ },
+ {
+  "key": "snow",
+  "text": "snow"
+ },
+ {
+  "key": "snow's",
+  "text": "snow's"
+ },
+ {
+  "key": "snows",
+  "text": "snows"
+ },
+ {
+  "key": "so",
+  "text": "so"
+ },
+ {
+  "key": "some",
+  "text": "some"
+ },
+ {
+  "key": "song",
+  "text": "song"
+ },
+ {
+  "key": "song's",
+  "text": "song's"
+ },
+ {
+  "key": "songs",
+  "text": "songs"
+ },
+ {
+  "key": "soon",
+  "text": "soon"
+ },
+ {
+  "key": "sore",
+  "text": "sore"
+ },
+ {
+  "key": "sorer",
+  "text": "sorer"
+ },
+ {
+  "key": "sorest",
+  "text": "sorest"
+ },
+ {
+  "key": "sorry",
+  "text": "sorry"
+ },
+ {
+  "key": "soup",
+  "text": "soup"
+ },
+ {
+  "key": "soup's",
+  "text": "soup's"
+ },
+ {
+  "key": "soups",
+  "text": "soups"
+ },
+ {
+  "key": "spicier",
+  "text": "spicier"
+ },
+ {
+  "key": "spiciest",
+  "text": "spiciest"
+ },
+ {
+  "key": "spicy",
+  "text": "spicy"
+ },
+ {
+  "key": "stand",
+  "text": "stand"
+ },
+ {
+  "key": "standing",
+  "text": "standing"
+ },
+ {
+  "key": "stands",
+  "text": "stands"
+ },
+ {
+  "key": "stood",
+  "text": "stood"
+ },
+ {
+  "key": "stop",
+  "text": "stop"
+ },
+ {
+  "key": "stop that",
+  "text": "stop that"
+ },
+ {
+  "key": "stopped",
+  "text": "stopped"
+ },
+ {
+  "key": "stopping",
+  "text": "stopping"
+ },
+ {
+  "key": "stops",
+  "text": "stops"
+ },
+ {
+  "key": "store",
+  "text": "store"
+ },
+ {
+  "key": "store's",
+  "text": "store's"
+ },
+ {
+  "key": "stores",
+  "text": "stores"
+ },
+ {
+  "key": "stories",
+  "text": "stories"
+ },
+ {
+  "key": "story",
+  "text": "story"
+ },
+ {
+  "key": "story's",
+  "text": "story's"
+ },
+ {
+  "key": "surprised",
+  "text": "surprised"
+ },
+ {
+  "key": "swam",
+  "text": "swam"
+ },
+ {
+  "key": "sweet",
+  "text": "sweet"
+ },
+ {
+  "key": "sweeter",
+  "text": "sweeter"
+ },
+ {
+  "key": "sweetest",
+  "text": "sweetest"
+ },
+ {
+  "key": "swim",
+  "text": "swim"
+ },
+ {
+  "key": "swimming",
+  "text": "swimming"
+ },
+ {
+  "key": "swims",
+  "text": "swims"
+ },
+ {
+  "key": "swing",
+  "text": "swing"
+ },
+ {
+  "key": "swing's",
+  "text": "swing's"
+ },
+ {
+  "key": "swings",
+  "text": "swings"
+ },
+ {
+  "key": "swum",
+  "text": "swum"
+ },
+ {
+  "key": "tablet",
+  "text": "tablet"
+ },
+ {
+  "key": "tablet's",
+  "text": "tablet's"
+ },
+ {
+  "key": "tablets",
+  "text": "tablets"
+ },
+ {
+  "key": "tag",
+  "text": "tag"
+ },
+ {
+  "key": "tag's",
+  "text": "tag's"
+ },
+ {
+  "key": "tags",
+  "text": "tags"
+ },
+ {
+  "key": "take",
+  "text": "take"
+ },
+ {
+  "key": "taken",
+  "text": "taken"
+ },
+ {
+  "key": "takes",
+  "text": "takes"
+ },
+ {
+  "key": "taking",
+  "text": "taking"
+ },
+ {
+  "key": "talk",
+  "text": "talk"
+ },
+ {
+  "key": "talked",
+  "text": "talked"
+ },
+ {
+  "key": "talking",
+  "text": "talking"
+ },
+ {
+  "key": "talks",
+  "text": "talks"
+ },
+ {
+  "key": "tall",
+  "text": "tall"
+ },
+ {
+  "key": "taller",
+  "text": "taller"
+ },
+ {
+  "key": "tallest",
+  "text": "tallest"
+ },
+ {
+  "key": "teacher",
+  "text": "teacher"
+ },
+ {
+  "key": "teacher's",
+  "text": "teacher's"
+ },
+ {
+  "key": "teachers",
+  "text": "teachers"
+ },
+ {
+  "key": "teeth",
+  "text": "teeth"
+ },
+ {
+  "key": "teeth's",
+  "text": "teeth's"
+ },
+ {
+  "key": "teeths",
+  "text": "teeths"
+ },
+ {
+  "key": "tell",
+  "text": "tell"
+ },
+ {
+  "key": "telling",
+  "text": "telling"
+ },
+ {
+  "key": "tells",
+  "text": "tells"
+ },
+ {
+  "key": "test",
+  "text": "test"
+ },
+ {
+  "key": "test's",
+  "text": "test's"
+ },
+ {
+  "key": "tests",
+  "text": "tests"
+ },
+ {
+  "key": "thank you",
+  "text": "thank you"
+ },
+ {
+  "key": "that",
+  "text": "that"
+ },
+ {
+  "key": "that's funny",
+  "text": "that's funny"
+ },
+ {
+  "key": "the",
+  "text": "the"
+ },
+ {
+  "key": "their",
+  "text": "their"
+ },
+ {
+  "key": "theirs",
+  "text": "theirs"
+ },
+ {
+  "key": "them",
+  "text": "them"
+ },
+ {
+  "key": "then",
+  "text": "then"
+ },
+ {
+  "key": "these",
+  "text": "these"
+ },
+ {
+  "key": "they",
+  "text": "they"
+ },
+ {
+  "key": "think",
+  "text": "think"
+ },
+ {
+  "key": "thinking",
+  "text": "thinking"
+ },
+ {
+  "key": "thinks",
+  "text": "thinks"
+ },
+ {
+  "key": "thirsty",
+  "text": "thirsty"
+ },
+ {
+  "key": "this",
+  "text": "this"
+ },
+ {
+  "key": "those",
+  "text": "those"
+ },
+ {
+  "key": "thought",
+  "text": "thought"
+ },
+ {
+  "key": "throat",
+  "text": "throat"
+ },
+ {
+  "key": "throat's",
+  "text": "throat's"
+ },
+ {
+  "key": "throats",
+  "text": "throats"
+ },
+ {
+  "key": "throw up",
+  "text": "throw up"
+ },
+ {
+  "key": "time",
+  "text": "time"
+ },
+ {
+  "key": "tired",
+  "text": "tired"
+ },
+ {
+  "key": "to",
+  "text": "to"
+ },
+ {
+  "key": "today",
+  "text": "today"
+ },
+ {
+  "key": "told",
+  "text": "told"
+ },
+ {
+  "key": "tomorrow",
+  "text": "tomorrow"
+ },
+ {
+  "key": "too",
+  "text": "too"
+ },
+ {
+  "key": "took",
+  "text": "took"
+ },
+ {
+  "key": "touch",
+  "text": "touch"
+ },
+ {
+  "key": "touched",
+  "text": "touched"
+ },
+ {
+  "key": "touches",
+  "text": "touches"
+ },
+ {
+  "key": "touching",
+  "text": "touching"
+ },
+ {
+  "key": "toy",
+  "text": "toy"
+ },
+ {
+  "key": "toy's",
+  "text": "toy's"
+ },
+ {
+  "key": "toys",
+  "text": "toys"
+ },
+ {
+  "key": "tried",
+  "text": "tried"
+ },
+ {
+  "key": "tries",
+  "text": "tries"
+ },
+ {
+  "key": "try",
+  "text": "try"
+ },
+ {
+  "key": "trying",
+  "text": "trying"
+ },
+ {
+  "key": "tummies",
+  "text": "tummies"
+ },
+ {
+  "key": "tummy",
+  "text": "tummy"
+ },
+ {
+  "key": "tummy's",
+  "text": "tummy's"
+ },
+ {
+  "key": "turn",
+  "text": "turn"
+ },
+ {
+  "key": "turned",
+  "text": "turned"
+ },
+ {
+  "key": "turning",
+  "text": "turning"
+ },
+ {
+  "key": "turns",
+  "text": "turns"
+ },
+ {
+  "key": "tv",
+  "text": "TV"
+ },
+ {
+  "key": "tv's",
+  "text": "TV's"
+ },
+ {
+  "key": "tvs",
+  "text": "TVs"
+ },
+ {
+  "key": "uh oh",
+  "text": "uh oh"
+ },
+ {
+  "key": "under",
+  "text": "under"
+ },
+ {
+  "key": "up",
+  "text": "up"
+ },
+ {
+  "key": "upset",
+  "text": "upset"
+ },
+ {
+  "key": "us",
+  "text": "us"
+ },
+ {
+  "key": "use",
+  "text": "use"
+ },
+ {
+  "key": "used",
+  "text": "used"
+ },
+ {
+  "key": "uses",
+  "text": "uses"
+ },
+ {
+  "key": "using",
+  "text": "using"
+ },
+ {
+  "key": "vegetables",
+  "text": "vegetables"
+ },
+ {
+  "key": "vegetables's",
+  "text": "vegetables's"
+ },
+ {
+  "key": "vegetableses",
+  "text": "vegetableses"
+ },
+ {
+  "key": "very",
+  "text": "very"
+ },
+ {
+  "key": "video",
+  "text": "video"
+ },
+ {
+  "key": "video's",
+  "text": "video's"
+ },
+ {
+  "key": "videos",
+  "text": "videos"
+ },
+ {
+  "key": "vulva",
+  "text": "vulva"
+ },
+ {
+  "key": "vulva's",
+  "text": "vulva's"
+ },
+ {
+  "key": "vulvas",
+  "text": "vulvas"
+ },
+ {
+  "key": "wait",
+  "text": "wait"
+ },
+ {
+  "key": "wait i'm talking",
+  "text": "wait, I'm talking"
+ },
+ {
+  "key": "waited",
+  "text": "waited"
+ },
+ {
+  "key": "waiting",
+  "text": "waiting"
+ },
+ {
+  "key": "waits",
+  "text": "waits"
+ },
+ {
+  "key": "walk",
+  "text": "walk"
+ },
+ {
+  "key": "walked",
+  "text": "walked"
+ },
+ {
+  "key": "walking",
+  "text": "walking"
+ },
+ {
+  "key": "walks",
+  "text": "walks"
+ },
+ {
+  "key": "want",
+  "text": "want"
+ },
+ {
+  "key": "wanted",
+  "text": "wanted"
+ },
+ {
+  "key": "wanting",
+  "text": "wanting"
+ },
+ {
+  "key": "wants",
+  "text": "wants"
+ },
+ {
+  "key": "was",
+  "text": "was"
+ },
+ {
+  "key": "wash",
+  "text": "wash"
+ },
+ {
+  "key": "washed",
+  "text": "washed"
+ },
+ {
+  "key": "washes",
+  "text": "washes"
+ },
+ {
+  "key": "washing",
+  "text": "washing"
+ },
+ {
+  "key": "watch",
+  "text": "watch"
+ },
+ {
+  "key": "watched",
+  "text": "watched"
+ },
+ {
+  "key": "watches",
+  "text": "watches"
+ },
+ {
+  "key": "watching",
+  "text": "watching"
+ },
+ {
+  "key": "water",
+  "text": "water"
+ },
+ {
+  "key": "water's",
+  "text": "water's"
+ },
+ {
+  "key": "waters",
+  "text": "waters"
+ },
+ {
+  "key": "we",
+  "text": "we"
+ },
+ {
+  "key": "wear",
+  "text": "wear"
+ },
+ {
+  "key": "wearing",
+  "text": "wearing"
+ },
+ {
+  "key": "wears",
+  "text": "wears"
+ },
+ {
+  "key": "week",
+  "text": "week"
+ },
+ {
+  "key": "went",
+  "text": "went"
+ },
+ {
+  "key": "wet",
+  "text": "wet"
+ },
+ {
+  "key": "wetter",
+  "text": "wetter"
+ },
+ {
+  "key": "wettest",
+  "text": "wettest"
+ },
+ {
+  "key": "what",
+  "text": "what"
+ },
+ {
+  "key": "what's up",
+  "text": "what's up?"
+ },
+ {
+  "key": "when",
+  "text": "when"
+ },
+ {
+  "key": "where",
+  "text": "where"
+ },
+ {
+  "key": "white",
+  "text": "white"
+ },
+ {
+  "key": "who",
+  "text": "who"
+ },
+ {
+  "key": "why",
+  "text": "why"
+ },
+ {
+  "key": "will",
+  "text": "will"
+ },
+ {
+  "key": "with",
+  "text": "with"
+ },
+ {
+  "key": "woman",
+  "text": "woman"
+ },
+ {
+  "key": "woman's",
+  "text": "woman's"
+ },
+ {
+  "key": "women",
+  "text": "women"
+ },
+ {
+  "key": "won't",
+  "text": "won't"
+ },
+ {
+  "key": "word",
+  "text": "word"
+ },
+ {
+  "key": "word's",
+  "text": "word's"
+ },
+ {
+  "key": "words",
+  "text": "words"
+ },
+ {
+  "key": "wore",
+  "text": "wore"
+ },
+ {
+  "key": "work",
+  "text": "work"
+ },
+ {
+  "key": "work's",
+  "text": "work's"
+ },
+ {
+  "key": "worked",
+  "text": "worked"
+ },
+ {
+  "key": "working",
+  "text": "working"
+ },
+ {
+  "key": "works",
+  "text": "works"
+ },
+ {
+  "key": "worn",
+  "text": "worn"
+ },
+ {
+  "key": "worried",
+  "text": "worried"
+ },
+ {
+  "key": "worse",
+  "text": "worse"
+ },
+ {
+  "key": "worst",
+  "text": "worst"
+ },
+ {
+  "key": "wow",
+  "text": "wow"
+ },
+ {
+  "key": "write",
+  "text": "write"
+ },
+ {
+  "key": "writes",
+  "text": "writes"
+ },
+ {
+  "key": "writing",
+  "text": "writing"
+ },
+ {
+  "key": "writing's",
+  "text": "writing's"
+ },
+ {
+  "key": "writings",
+  "text": "writings"
+ },
+ {
+  "key": "written",
+  "text": "written"
+ },
+ {
+  "key": "wrote",
+  "text": "wrote"
+ },
+ {
+  "key": "yay",
+  "text": "yay"
+ },
+ {
+  "key": "yellow",
+  "text": "yellow"
+ },
+ {
+  "key": "yes",
+  "text": "yes"
+ },
+ {
+  "key": "yesterday",
+  "text": "yesterday"
+ },
+ {
+  "key": "yogurt",
+  "text": "yogurt"
+ },
+ {
+  "key": "yogurt's",
+  "text": "yogurt's"
+ },
+ {
+  "key": "yogurts",
+  "text": "yogurts"
+ },
+ {
+  "key": "you",
+  "text": "you"
+ },
+ {
+  "key": "you're welcome",
+  "text": "you're welcome"
+ },
+ {
+  "key": "your",
+  "text": "your"
+ },
+ {
+  "key": "your turn",
+  "text": "your turn"
+ },
+ {
+  "key": "yours",
+  "text": "yours"
+ },
+ {
+  "key": "yourself",
+  "text": "yourself"
+ },
+ {
+  "key": "yuckier",
+  "text": "yuckier"
+ },
+ {
+  "key": "yuckiest",
+  "text": "yuckiest"
+ },
+ {
+  "key": "yucky",
+  "text": "yucky"
+ },
+ {
+  "key": "yummier",
+  "text": "yummier"
+ },
+ {
+  "key": "yummiest",
+  "text": "yummiest"
+ },
+ {
+  "key": "yummy",
+  "text": "yummy"
+ }
+]

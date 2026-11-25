@@ -4,6 +4,8 @@
  * instead of breaking the app.
  */
 
+import type { VoicePackId } from "./voicePack";
+
 export type KeyboardLayout = "qwerty" | "abc";
 
 export interface Settings {
@@ -16,6 +18,8 @@ export interface Settings {
   readonly rate: number;
   /** Voice pitch, 0.5 (low) to 2 (high); 1 is the voice as it is. Raised for a child's voice. */
   readonly pitch: number;
+  /** A child's voice pack for the built-in words (ADR 0004); "none" uses the device voice. */
+  readonly voicePack: "none" | VoicePackId;
   readonly highContrast: boolean;
   readonly showSymbols: boolean;
   readonly keyboardLayout: KeyboardLayout;
@@ -31,6 +35,7 @@ export const DEFAULT_SETTINGS: Settings = {
   voiceURI: null,
   rate: 1,
   pitch: 1,
+  voicePack: "none",
   highContrast: false,
   showSymbols: true,
   keyboardLayout: "qwerty",
@@ -59,6 +64,7 @@ export function parseSettings(raw: unknown): Settings {
       typeof input.voiceURI === "string" && input.voiceURI.length > 0 ? input.voiceURI : null,
     rate: num("rate", DEFAULT_SETTINGS.rate, 0.5, 1.5),
     pitch: num("pitch", DEFAULT_SETTINGS.pitch, 0.5, 2),
+    voicePack: input.voicePack === "girl" || input.voicePack === "boy" ? input.voicePack : "none",
     highContrast: bool("highContrast", DEFAULT_SETTINGS.highContrast),
     showSymbols: bool("showSymbols", DEFAULT_SETTINGS.showSymbols),
     keyboardLayout: input.keyboardLayout === "abc" ? "abc" : "qwerty",

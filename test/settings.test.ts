@@ -22,6 +22,7 @@ describe("settings", () => {
       ...DEFAULT_SETTINGS,
       rate: 0.8,
       pitch: 1.5,
+      voicePack: "girl" as const,
       highContrast: true,
       keyboardLayout: "abc" as const,
     };
@@ -57,6 +58,7 @@ describe("settings", () => {
       voiceURI: 42,
       rate: 9,
       pitch: 7,
+      voicePack: "grandpa",
       highContrast: true,
       showSymbols: null,
       keyboardLayout: "dvorak",
@@ -66,6 +68,7 @@ describe("settings", () => {
       ...DEFAULT_SETTINGS,
       rate: 1.5,
       pitch: 2,
+      voicePack: "none",
       highContrast: true,
       repeatGuardMs: 0,
     });

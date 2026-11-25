@@ -10,3 +10,11 @@ coverage/
 scripts/.symbols.json
 .wrangler/
 *.tsbuildinfo
+# voice pack rendering (scripts/voices): cache, models and the bundled text lister
+scripts/voices/.cache/
+scripts/voices/models/*.onnx
+scripts/voices/models/*.bin
+scripts/voices/.texts.mjs
+__pycache__/
+scripts/voices/.render.mjs
+e2e/node_modules

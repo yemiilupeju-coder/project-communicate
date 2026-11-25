@@ -12,3 +12,6 @@
 # Vite file names include a content hash, so these never change.
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
+
+/voices/*
+  Cache-Control: public, max-age=31536000, immutable

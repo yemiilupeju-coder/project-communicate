@@ -16,12 +16,15 @@
     "test:watch": "vitest",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "check": "npm run format:check && npm run typecheck && npm run test"
+    "check": "npm run format:check && npm run typecheck && npm run test",
+    "voices:texts": "rolldown scripts/voices/texts.ts --platform node --format esm --file scripts/voices/.texts.mjs && node scripts/voices/.texts.mjs",
+    "voices:render": "rolldown scripts/voices/render.ts --platform node --format esm --external onnxruntime-node --file scripts/voices/.render.mjs && node scripts/voices/.render.mjs"
   },
   "dependencies": {
     "@mintplex-labs/piper-tts-web": "1.0.5",
     "@sqlite.org/sqlite-wasm": "3.54.1-build1",
     "kokoro-js": "1.2.1",
+    "onnxruntime-web": "1.31.1",
     "react": "19.3.1",
     "react-dom": "19.3.1"
   },
@@ -30,6 +33,7 @@
     "@types/react-dom": "19.3.0",
     "@vitejs/plugin-react": "6.3.0",
     "fake-indexeddb": "^6.2.8",
+    "onnxruntime-node": "1.21.0",
     "prettier": "3.9.10",
     "typescript": "7.0.2",
     "vite": "8.3.7",

@@ -26,6 +26,15 @@ import {
 import { RepeatGuard } from "../core/repeatGuard";
 import { canAddStudent, teamToolsAllowed } from "../core/licence";
 import { speak, speechAvailable, stopSpeaking } from "../core/speech";
+import { loadPack, playPack, stopClips, unlockAudio } from "../core/clipPlayer";
+import {
+  checkModel,
+  loadSavedWords,
+  makeClips,
+  modelStatus,
+  onModelChange,
+} from "../voice/deviceVoice";
+import { wordTexts } from "../features/communicator/speakable";
 import {
   BoardGrid,
   EditBanner,
@@ -181,6 +190,10 @@ export function App({ demo = false }: { demo?: boolean }) {
   /** Speak; if the device can't, show the words large instead (voice ladder, last step). */
   const say = useCallback(
     async (text: string, showIfSilent: boolean) => {
+      // The child's voice pack says built-in words; anything else uses the device voice.
+      if (settings.voicePack !== "none" && (await playPack(settings.voicePack, text)) === "started")
+        return;
+      stopClips();
       const result = await speak(text, {
         voiceURI: settings.voiceURI,
         rate: settings.rate,
@@ -188,8 +201,34 @@ export function App({ demo = false }: { demo?: boolean }) {
       });
       if (result !== "started" && showIfSilent) setFallbackText(text);
     },
-    [settings.voiceURI, settings.rate, settings.pitch],
+    [settings.voicePack, settings.voiceURI, settings.rate, settings.pitch],
   );
+
+  // Browsers only start audio from a tap; and fetch a chosen voice pack ahead of use.
+  useEffect(() => {
+    window.addEventListener("pointerdown", unlockAudio, true);
+    return () => window.removeEventListener("pointerdown", unlockAudio, true);
+  }, []);
+  useEffect(() => {
+    if (settings.voicePack !== "none") void loadPack(settings.voicePack);
+  }, [settings.voicePack]);
+
+  // Words added for this student get clips in the child's voice too, made on
+  // this device once the voice model is downloaded (in the background).
+  const [modelReady, setModelReady] = useState(false);
+  useEffect(() => {
+    const update = () => setModelReady(modelStatus().state === "saved");
+    const stop = onModelChange(update);
+    void loadSavedWords()
+      .then(() => checkModel())
+      .then(update);
+    return stop;
+  }, []);
+  const added = profile?.added;
+  useEffect(() => {
+    if (!modelReady || settings.voicePack === "none" || !added || added.length === 0) return;
+    void makeClips(settings.voicePack, wordTexts(added));
+  }, [modelReady, settings.voicePack, added]);
 
   const highlight = (id: string) => {
     if (highlightTimer.current !== null) window.clearTimeout(highlightTimer.current);

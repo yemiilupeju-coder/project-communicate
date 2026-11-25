@@ -50,7 +50,15 @@ export default defineConfig({
         // The voice-engine runtimes (~36 MB) are NOT precached: a device running
         // only the storage spike shouldn't download them. They are cached on
         // first use instead (VOICE_RUNTIME rule below).
-        globIgnores: ["**/ort-*.wasm", "**/ort.*.js", "**/kokoro-*.js", "**/piper-*.js"],
+        globIgnores: [
+          "**/ort-*.wasm",
+          "**/ort.*.js",
+          "**/kokoro-*.js",
+          "**/piper-*.js",
+          // The child-voice model (~107 MB) is downloaded only when an adult asks for it.
+          "voice-model/**",
+          "voices/**",
+        ],
         maximumFileSizeToCacheInBytes: 8 * 1024 * 1024,
         // Multi-page app: each page is precached; no single-page fallback.
         navigateFallback: null,

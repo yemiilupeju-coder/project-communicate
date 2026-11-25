@@ -1,6 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { describeStatus, type LicenceStatus } from "../../core/licence";
-import { childVoice, type ChildPresetId } from "../../core/childVoice";
+import { childVoice } from "../../core/childVoice";
+import { loadPack, packIsSaved, packMegabytes, playPack } from "../../core/clipPlayer";
+import type { VoicePackId } from "../../core/voicePack";
+import { VOICE_SAMPLE } from "../communicator/speakable";
+import { downloadModel, modelStatus, onModelChange } from "../../voice/deviceVoice";
+import { modelDownloadMegabytes } from "../../voice/voiceModel";
 import { MAX_NAME, type Profile } from "../../core/profile";
 import type { KeyboardLayout, Settings } from "../../core/settings";
 import { listVoices, sortVoices, speak, speechAvailable, type VoiceInfo } from "../../core/speech";
@@ -84,6 +89,30 @@ export function AdultMenu({
   const [voices, setVoices] = useState<VoiceInfo[]>([]);
   const [persist, setPersist] = useState<Persist>("unknown");
   const [voiceTest, setVoiceTest] = useState<string>("");
+  const [packState, setPackState] = useState<"none" | "saved" | "downloading" | "offline">("none");
+  const [model, setModel] = useState(modelStatus);
+  useEffect(() => onModelChange(() => setModel(modelStatus())), []);
+
+  // Is the chosen child's voice on this device yet? If not, fetch it now.
+  useEffect(() => {
+    const id = settings.voicePack;
+    if (id === "none") {
+      setPackState("none");
+      return;
+    }
+    let live = true;
+    void packIsSaved(id).then((saved) => {
+      if (!live) return;
+      if (saved) return setPackState("saved");
+      setPackState(navigator.onLine ? "downloading" : "offline");
+      void loadPack(id).then((pack) => {
+        if (live) setPackState(pack ? "saved" : "offline");
+      });
+    });
+    return () => {
+      live = false;
+    };
+  }, [settings.voicePack]);
 
   useEffect(() => {
     const element = dialog.current;
@@ -110,7 +139,11 @@ export function AdultMenu({
 
   const testVoice = async (next: Settings = settings) => {
     setVoiceTest("Speaking…");
-    const result = await speak("Hi! This is my voice.", {
+    if (next.voicePack !== "none" && (await playPack(next.voicePack, VOICE_SAMPLE)) === "started") {
+      setVoiceTest("Voice works.");
+      return;
+    }
+    const result = await speak(VOICE_SAMPLE, {
       voiceURI: next.voiceURI,
       rate: next.rate,
       pitch: next.pitch,
@@ -124,13 +157,28 @@ export function AdultMenu({
     );
   };
 
-  /** A child preset picks a voice and pitch, saves them, and plays a sample. */
-  const applyChildVoice = (preset: ChildPresetId) => {
-    const choice = childVoice(preset, voices);
-    const next: Settings = { ...settings, voiceURI: choice.voiceURI, pitch: choice.pitch, rate: 1 };
+  /**
+   * Choose a child's voice: the pack says every built-in word, and the device
+   * voice is set to a matching higher pitch for anything typed on the keyboard.
+   */
+  const chooseVoice = (pack: VoicePackId | "none") => {
+    const next: Settings =
+      pack === "none"
+        ? { ...settings, voicePack: "none", pitch: 1 }
+        : (() => {
+            const choice = childVoice(pack, voices);
+            return {
+              ...settings,
+              voicePack: pack,
+              voiceURI: choice.voiceURI,
+              pitch: choice.pitch,
+              rate: 1,
+            };
+          })();
     onChange(next);
     void testVoice(next);
   };
+  const packName = settings.voicePack === "girl" ? "girl's" : "boy's";
 
   return (
     <dialog
@@ -288,6 +336,80 @@ export function AdultMenu({
           />
           Say each word when it's tapped
         </label>
+        <div className="field" role="group" aria-labelledby="voice-who">
+          <span id="voice-who">Whose voice</span>
+          <div className="row">
+            <button
+              type="button"
+              aria-pressed={settings.voicePack === "girl"}
+              onClick={() => chooseVoice("girl")}
+            >
+              Girl
+            </button>
+            <button
+              type="button"
+              aria-pressed={settings.voicePack === "boy"}
+              onClick={() => chooseVoice("boy")}
+            >
+              Boy
+            </button>
+            <button
+              type="button"
+              aria-pressed={settings.voicePack === "none"}
+              onClick={() => chooseVoice("none")}
+            >
+              Device voice
+            </button>
+          </div>
+        </div>
+        {settings.voicePack !== "none" && (
+          <p className="status" role="status">
+            {packState === "saved"
+              ? `The ${packName} voice is saved on this device and works offline.`
+              : packState === "downloading"
+                ? `Downloading the ${packName} voice (${packMegabytes(settings.voicePack)} MB)…`
+                : packState === "offline"
+                  ? `Connect to the internet once to download the ${packName} voice (${packMegabytes(settings.voicePack)} MB). Until then, the device voice speaks.`
+                  : ""}
+          </p>
+        )}
+        {settings.voicePack !== "none" && (
+          <div className="field" role="group" aria-labelledby="voice-maker">
+            <span id="voice-maker">Words you add, and words typed on the keyboard</span>
+            {model.state === "saved" ? (
+              <p className="status" role="status">
+                Also said in the {packName} voice. New words are made on this device in a few
+                seconds and work offline.
+              </p>
+            ) : model.state === "downloading" ? (
+              <p className="status" role="status">
+                Downloading the voice maker… {Math.round(model.progress * 100)}%
+              </p>
+            ) : (
+              <>
+                <p className="hint">
+                  Download the voice maker once ({modelDownloadMegabytes()} MB, best on Wi-Fi) so
+                  these are said in the {packName} voice too. Until then, they use the device voice
+                  below.
+                </p>
+                <button type="button" onClick={() => void downloadModel()}>
+                  Download the voice maker
+                </button>
+                {model.state === "failed" && (
+                  <p className="warn" role="status">
+                    The download didn't finish. Check the internet connection and try again; it
+                    carries on where it stopped.
+                  </p>
+                )}
+              </>
+            )}
+          </div>
+        )}
+        <h4>
+          {settings.voicePack === "none"
+            ? "Device voice"
+            : "Device voice, for words typed on the keyboard"}
+        </h4>
         <label className="field">
           Voice
           <select
@@ -302,22 +424,6 @@ export function AdultMenu({
             ))}
           </select>
         </label>
-        <div className="field">
-          Child voice
-          <div className="row">
-            <button type="button" onClick={() => applyChildVoice("girl")}>
-              Young girl
-            </button>
-            <button type="button" onClick={() => applyChildVoice("boy")}>
-              Young boy
-            </button>
-            {settings.pitch !== 1 && (
-              <button type="button" onClick={() => set("pitch", 1)}>
-                Grown-up voice
-              </button>
-            )}
-          </div>
-        </div>
         <label className="field">
           Pitch: {settings.pitch.toFixed(1)}
           {settings.pitch === 1
@@ -352,10 +458,10 @@ export function AdultMenu({
           {voiceTest}
         </span>
         <p className="hint">
-          Choose a voice the student likes and that sounds right for them. Voices marked "needs
-          internet" won't work offline. A child voice is a device voice at a higher pitch, so it
-          sounds a little different on each device: try both, then move the pitch until it sounds
-          right. If the pitch doesn't change, choose another voice.
+          The girl's and boy's voices sound the same on every device. Every built-in word is ready
+          as soon as the voice is chosen; with the voice maker, words you add and words typed on the
+          keyboard are said in the same voice too. Device voices marked "needs internet" won't work
+          offline.
         </p>
       </section>
 

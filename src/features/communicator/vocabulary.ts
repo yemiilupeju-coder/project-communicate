@@ -171,4 +171,16 @@ export const ATTRIBUTIONS = [
     license: "CC BY-SA 4.0",
     url: "https://openmoji.org/",
   },
+  {
+    work: "Girl's and boy's voices, made from the Kokoro-82M voice model",
+    by: "hexgrad",
+    license: "Apache 2.0",
+    url: "https://huggingface.co/hexgrad/Kokoro-82M",
+  },
+  {
+    work: "Pronunciation dictionaries for the girl's and boy's voices (misaki)",
+    by: "hexgrad",
+    license: "Apache 2.0",
+    url: "https://github.com/hexgrad/misaki",
+  },
 ] as const;
