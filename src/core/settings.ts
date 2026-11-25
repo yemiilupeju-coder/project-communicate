@@ -14,6 +14,8 @@ export interface Settings {
   readonly voiceURI: string | null;
   /** Speech rate, 0.5 (slow) to 1.5 (fast). */
   readonly rate: number;
+  /** Voice pitch, 0.5 (low) to 2 (high); 1 is the voice as it is. Raised for a child's voice. */
+  readonly pitch: number;
   readonly highContrast: boolean;
   readonly showSymbols: boolean;
   readonly keyboardLayout: KeyboardLayout;
@@ -28,6 +30,7 @@ export const DEFAULT_SETTINGS: Settings = {
   speakOnSelect: true,
   voiceURI: null,
   rate: 1,
+  pitch: 1,
   highContrast: false,
   showSymbols: true,
   keyboardLayout: "qwerty",
@@ -55,6 +58,7 @@ export function parseSettings(raw: unknown): Settings {
     voiceURI:
       typeof input.voiceURI === "string" && input.voiceURI.length > 0 ? input.voiceURI : null,
     rate: num("rate", DEFAULT_SETTINGS.rate, 0.5, 1.5),
+    pitch: num("pitch", DEFAULT_SETTINGS.pitch, 0.5, 2),
     highContrast: bool("highContrast", DEFAULT_SETTINGS.highContrast),
     showSymbols: bool("showSymbols", DEFAULT_SETTINGS.showSymbols),
     keyboardLayout: input.keyboardLayout === "abc" ? "abc" : "qwerty",

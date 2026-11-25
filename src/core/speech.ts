@@ -53,6 +53,8 @@ export function sortVoices(voices: readonly VoiceInfo[], preferredLang = "en-CA"
 export interface SpeakOptions {
   voiceURI: string | null;
   rate: number;
+  /** 0.5 to 2; 1 (the default) is the voice as it is. */
+  pitch?: number;
 }
 
 /**
@@ -75,6 +77,7 @@ export function speak(text: string, options: SpeakOptions): Promise<SpeakResult>
     utterance.lang = "en-CA";
   }
   utterance.rate = options.rate;
+  utterance.pitch = options.pitch ?? 1;
   return new Promise((resolve) => {
     let settled = false;
     const finish = (result: SpeakResult) => {

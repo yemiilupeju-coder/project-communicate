@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { describeStatus, type LicenceStatus } from "../../core/licence";
+import { childVoice, type ChildPresetId } from "../../core/childVoice";
 import { MAX_NAME, type Profile } from "../../core/profile";
 import type { KeyboardLayout, Settings } from "../../core/settings";
 import { listVoices, sortVoices, speak, speechAvailable, type VoiceInfo } from "../../core/speech";
@@ -107,11 +108,12 @@ export function AdultMenu({
     setPersist(granted === null ? "unsupported" : granted ? "yes" : "no");
   };
 
-  const testVoice = async () => {
+  const testVoice = async (next: Settings = settings) => {
     setVoiceTest("Speaking…");
-    const result = await speak("Hello. This is my voice.", {
-      voiceURI: settings.voiceURI,
-      rate: settings.rate,
+    const result = await speak("Hi! This is my voice.", {
+      voiceURI: next.voiceURI,
+      rate: next.rate,
+      pitch: next.pitch,
     });
     setVoiceTest(
       result === "started"
@@ -120,6 +122,14 @@ export function AdultMenu({
           ? "This browser has no speech. Words will be shown large instead."
           : "The voice didn't start. Try another voice, or check the device volume.",
     );
+  };
+
+  /** A child preset picks a voice and pitch, saves them, and plays a sample. */
+  const applyChildVoice = (preset: ChildPresetId) => {
+    const choice = childVoice(preset, voices);
+    const next: Settings = { ...settings, voiceURI: choice.voiceURI, pitch: choice.pitch, rate: 1 };
+    onChange(next);
+    void testVoice(next);
   };
 
   return (
@@ -292,6 +302,38 @@ export function AdultMenu({
             ))}
           </select>
         </label>
+        <div className="field">
+          Child voice
+          <div className="row">
+            <button type="button" onClick={() => applyChildVoice("girl")}>
+              Young girl
+            </button>
+            <button type="button" onClick={() => applyChildVoice("boy")}>
+              Young boy
+            </button>
+            {settings.pitch !== 1 && (
+              <button type="button" onClick={() => set("pitch", 1)}>
+                Grown-up voice
+              </button>
+            )}
+          </div>
+        </div>
+        <label className="field">
+          Pitch: {settings.pitch.toFixed(1)}
+          {settings.pitch === 1
+            ? " (as the voice is)"
+            : settings.pitch > 1
+              ? " (higher)"
+              : " (lower)"}
+          <input
+            type="range"
+            min={0.5}
+            max={2}
+            step={0.05}
+            value={settings.pitch}
+            onChange={(event) => set("pitch", Number(event.target.value))}
+          />
+        </label>
         <label className="field">
           Speed: {settings.rate.toFixed(1)}×
           <input
@@ -311,7 +353,9 @@ export function AdultMenu({
         </span>
         <p className="hint">
           Choose a voice the student likes and that sounds right for them. Voices marked "needs
-          internet" won't work offline.
+          internet" won't work offline. A child voice is a device voice at a higher pitch, so it
+          sounds a little different on each device: try both, then move the pitch until it sounds
+          right. If the pitch doesn't change, choose another voice.
         </p>
       </section>
 

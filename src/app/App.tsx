@@ -181,10 +181,14 @@ export function App({ demo = false }: { demo?: boolean }) {
   /** Speak; if the device can't, show the words large instead (voice ladder, last step). */
   const say = useCallback(
     async (text: string, showIfSilent: boolean) => {
-      const result = await speak(text, { voiceURI: settings.voiceURI, rate: settings.rate });
+      const result = await speak(text, {
+        voiceURI: settings.voiceURI,
+        rate: settings.rate,
+        pitch: settings.pitch,
+      });
       if (result !== "started" && showIfSilent) setFallbackText(text);
     },
-    [settings.voiceURI, settings.rate],
+    [settings.voiceURI, settings.rate, settings.pitch],
   );
 
   const highlight = (id: string) => {

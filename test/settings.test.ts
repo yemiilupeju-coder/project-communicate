@@ -21,6 +21,7 @@ describe("settings", () => {
     const changed = {
       ...DEFAULT_SETTINGS,
       rate: 0.8,
+      pitch: 1.5,
       highContrast: true,
       keyboardLayout: "abc" as const,
     };
@@ -55,6 +56,7 @@ describe("settings", () => {
       speakOnSelect: "yes",
       voiceURI: 42,
       rate: 9,
+      pitch: 7,
       highContrast: true,
       showSymbols: null,
       keyboardLayout: "dvorak",
@@ -63,9 +65,15 @@ describe("settings", () => {
     expect(parsed).toEqual({
       ...DEFAULT_SETTINGS,
       rate: 1.5,
+      pitch: 2,
       highContrast: true,
       repeatGuardMs: 0,
     });
+  });
+
+  it("keeps settings saved before pitch existed, at the voice's own pitch", () => {
+    const { pitch: _omit, ...older } = DEFAULT_SETTINGS;
+    expect(parseSettings({ ...older, rate: 0.9 })).toEqual({ ...DEFAULT_SETTINGS, rate: 0.9 });
   });
 
   it("rejects non-object input", () => {
