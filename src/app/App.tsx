@@ -31,9 +31,11 @@ import {
   checkModel,
   loadSavedWords,
   makeClips,
+  makeSentence,
   modelStatus,
   onModelChange,
 } from "../voice/deviceVoice";
+import { wordsOf } from "../core/voicePack";
 import { wordTexts } from "../features/communicator/speakable";
 import {
   BoardGrid,
@@ -190,8 +192,12 @@ export function App({ demo = false }: { demo?: boolean }) {
   /** Speak; if the device can't, show the words large instead (voice ladder, last step). */
   const say = useCallback(
     async (text: string, showIfSilent: boolean) => {
-      // The child's voice pack says built-in words; anything else uses the device voice.
-      if (settings.voicePack !== "none" && (await playPack(settings.voicePack, text)) === "started")
+      // The child's voice: a message (showIfSilent) is said as a whole sentence
+      // when the device can make one; otherwise it uses the device voice.
+      if (
+        settings.voicePack !== "none" &&
+        (await playPack(settings.voicePack, text, showIfSilent)) === "started"
+      )
         return;
       stopClips();
       const result = await speak(text, {
@@ -227,8 +233,26 @@ export function App({ demo = false }: { demo?: boolean }) {
   const added = profile?.added;
   useEffect(() => {
     if (!modelReady || settings.voicePack === "none" || !added || added.length === 0) return;
-    void makeClips(settings.voicePack, wordTexts(added));
+    void makeClips(settings.voicePack, wordTexts(added), "later");
   }, [modelReady, settings.voicePack, added]);
+
+  // Saved sentences are made whole in the background, so they always sound natural.
+  const savedMessages = profile?.saved;
+  useEffect(() => {
+    if (!modelReady || settings.voicePack === "none" || !savedMessages) return;
+    for (const saved of savedMessages)
+      void makeSentence(settings.voicePack, saved.text, "later", true);
+  }, [modelReady, settings.voicePack, savedMessages]);
+
+  // While a student pauses building a sentence, make it whole ahead of Speak.
+  // It stays in memory unless they say it.
+  const building = messageText(message);
+  useEffect(() => {
+    if (!modelReady || settings.voicePack === "none" || wordsOf(building).length < 2) return;
+    const voice = settings.voicePack;
+    const timer = window.setTimeout(() => void makeSentence(voice, building, "soon", false), 600);
+    return () => window.clearTimeout(timer);
+  }, [modelReady, settings.voicePack, building]);
 
   const highlight = (id: string) => {
     if (highlightTimer.current !== null) window.clearTimeout(highlightTimer.current);

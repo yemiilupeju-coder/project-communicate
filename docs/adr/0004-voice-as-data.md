@@ -42,7 +42,7 @@ keeps up, else the system voice, else a large-text display.
 ## Update — Nov 25, 2026: the child voice on the device
 
 - Words added for one student, and words typed on the keyboard, are now said in the same child
-  voice. An adult downloads the "voice maker" once (Adult menu → Voice, about 112 MB); after that,
+  voice. An adult downloads the "voice maker" once (Adult menu → Voice, about 114 MB); after that,
   each new word's clip is made on the device in a Web Worker, saved in cache storage, and works
   offline. Nothing is sent to a server, so no student data leaves the device.
 - The build and the device run the same TypeScript (`src/voice/`): Kokoro-82M int8 through
@@ -60,3 +60,17 @@ keeps up, else the system voice, else a large-text display.
   falls back to the device voice; the clip is ready next time.
 - Change `VOICE_VERSION` (`src/voice/childVoices.ts`) whenever the model, dictionary or reshaping
   changes: devices then make their clips again, and the build re-renders the packs.
+
+## Update — Nov 26, 2026: whole sentences
+
+- Joined word clips sound like a list: each word was said on its own, so each ends with a
+  falling pitch. With the voice maker downloaded, a sentence is now said in one go, with the
+  natural rise and fall of speech.
+- Speak never waits long: if the whole sentence isn't ready within 0.5 s, the words play
+  joined at once and the sentence is finished and saved for next time. While a student pauses
+  building a sentence, it is made ahead of Speak (kept in memory unless said). Saved sentences
+  are made in the background. Up to 300 said sentences are kept per device; the oldest go first.
+- The voice maker does one thing at a time (`src/voice/jobQueue.ts`): Speak first, then the
+  sentence being built (only the newest guess), then background work.
+- Joined words are tighter for everyone, with or without the voice maker: the silence around
+  each clip (padding, and MP3 decoding) is trimmed and the gap between words is 35 ms.

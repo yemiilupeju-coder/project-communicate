@@ -138,6 +138,54 @@ check(
   now.clips > before.clips && now.device.length === before.device.length,
 );
 
+// Whole sentences: said word by word at first if not ready, then in one go.
+const tapWords = async (words, gap) => {
+  for (const w of words) {
+    await btn(new RegExp(`^${w}$`)).click();
+    await page.waitForTimeout(gap);
+  }
+};
+const speakCount = async (wait = 900) => {
+  const b = await counts();
+  await btn(/Speak$/).click();
+  await page.waitForTimeout(wait);
+  const n = await counts();
+  return { clips: n.clips - b.clips, device: n.device.length - b.device.length };
+};
+await btn(/^Clear/).click();
+await btn(/^Words$/).click();
+await tapWords(["I", "can", "do", "it"], 350);
+let said = await speakCount();
+check(
+  `a new sentence is said at once (${said.clips === 1 ? "whole" : `${said.clips} word clips`} while it is made)`,
+  said.clips >= 1 && said.device === 0,
+);
+let sentenceSaved = false;
+const t4 = Date.now();
+while (!sentenceSaved && Date.now() - t4 < 60000) {
+  await page.waitForTimeout(500);
+  sentenceSaved = await wordSaved("sentence:i can do it");
+}
+check(
+  `the sentence is made whole and saved (${((Date.now() - t4) / 1000).toFixed(1)} s)`,
+  sentenceSaved,
+);
+said = await speakCount();
+check(
+  `said again, it plays as one whole sentence (${said.clips} clip)`,
+  said.clips === 1 && said.device === 0,
+);
+
+// While the student pauses, the sentence is made ahead of Speak.
+await btn(/^Clear/).click();
+await tapWords(["you", "look", "good"], 300);
+await page.waitForTimeout(8000);
+said = await speakCount(250);
+check(
+  `a sentence built with a pause plays whole straight away (${said.clips} clip)`,
+  said.clips === 1,
+);
+
 // Offline: the added word is still said in the child's voice.
 await page.evaluate(() => navigator.serviceWorker.ready);
 await page.reload();
@@ -154,6 +202,14 @@ now = await counts();
 check(
   `offline, the added word is still in the child's voice`,
   now.clips > before.clips && now.device.length === before.device.length,
+);
+await btn(/^Clear/).click();
+await btn(/^Words$/).click();
+await tapWords(["I", "can", "do", "it"], 350);
+said = await speakCount();
+check(
+  `offline, a saved sentence still plays whole (${said.clips} clip)`,
+  said.clips === 1 && said.device === 0,
 );
 await context.setOffline(false);
 check(`no page errors ${errors.join(" | ")}`, errors.length === 0);

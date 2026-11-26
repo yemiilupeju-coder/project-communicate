@@ -1,11 +1,13 @@
 /**
  * Child-voice clips made on the device (ADR 0004): words added for one
- * student and words typed on the keyboard, in the same voice as the built-in
- * clips. The voice model (≈ 112 MB) is downloaded once, on request, into
- * cache storage; each new word's clip is saved there too and works offline.
+ * student, words typed on the keyboard, and whole sentences (said in one go,
+ * so they sound like speech rather than words read from a list). The voice
+ * model (≈ 114 MB) is downloaded once, on request, into cache storage; each
+ * clip made is saved there too and works offline.
  */
 
-import { clipKey, type VoicePackId } from "../core/voicePack";
+import { clipKey, sentenceKey, sentenceText, type VoicePackId } from "../core/voicePack";
+import { JobQueue, type Priority } from "./jobQueue";
 import { VOICE_VERSION } from "./childVoices";
 import { SAMPLE_RATE } from "./kokoro";
 import { ENGINE_WASM, LEXICON, MODEL_PARTS, voiceTablePath, VOICE_TABLE_BYTES } from "./voiceModel";
@@ -109,12 +111,13 @@ export function downloadModel(): Promise<boolean> {
   return downloading;
 }
 
-// ── Making clips (in a worker) ──
+// ── Making clips (in a worker, one at a time) ──
 
 let worker: Worker | null = null;
 let idleTimer: number | undefined;
 let nextJob = 1;
 const pending = new Map<number, (audio: Float32Array | null) => void>();
+const queue = new JobQueue<Float32Array | null>();
 
 function getWorker(): Worker {
   if (!worker) {
@@ -131,33 +134,54 @@ function getWorker(): Worker {
       worker = null;
     };
   }
-  // The model takes memory; let it go when no words have been made for a while.
+  return worker;
+}
+
+/** The model takes memory; let it go when nothing has been made for a while. */
+function restartIdleTimer(): void {
   window.clearTimeout(idleTimer);
   idleTimer = window.setTimeout(() => {
-    if (pending.size === 0) {
+    if (pending.size === 0 && queue.running() === null) {
       worker?.terminate();
       worker = null;
     }
   }, IDLE_MS);
-  return worker;
 }
 
-function render(id: VoicePackId, text: string): Promise<Float32Array | null> {
-  return new Promise((resolve) => {
-    const job = nextJob++;
-    pending.set(job, resolve);
-    getWorker().postMessage({ job, id, text, base } satisfies RenderRequest);
-  });
+function render(id: VoicePackId, key: string, text: string, priority: Priority) {
+  return queue.add(
+    `${id}:${key}`,
+    priority,
+    () =>
+      new Promise<Float32Array | null>((resolve) => {
+        const job = nextJob++;
+        pending.set(job, resolve);
+        getWorker().postMessage({ job, id, text, base } satisfies RenderRequest);
+        restartIdleTimer();
+      }),
+    null,
+  );
 }
 
-// ── Saved word clips ──
+// ── Saved clips ──
 
-const wordUrl = (id: VoicePackId, key: string) =>
+const clipUrl = (id: VoicePackId, key: string) =>
   `${base}voice-words/${VOICE_VERSION}/${id}/${encodeURIComponent(key)}`;
 const known = new Map<VoicePackId, Set<string>>();
 const audioCache = new Map<string, Float32Array>();
+/** Saved sentences, oldest first, so the oldest go when there are too many. */
+const sentenceOrder: { id: VoicePackId; key: string }[] = [];
+const MAX_SENTENCES = 300;
+const isSentence = (key: string) => key.startsWith("sentence:");
 
-/** Loads the list of saved word clips (call once at start-up). */
+function remember(id: VoicePackId, key: string): void {
+  if (!known.has(id)) known.set(id, new Set());
+  const keys = known.get(id)!;
+  if (!keys.has(key) && isSentence(key)) sentenceOrder.push({ id, key });
+  keys.add(key);
+}
+
+/** Loads the list of saved clips (call once at start-up). */
 export async function loadSavedWords(): Promise<void> {
   if (!("caches" in window)) return;
   try {
@@ -170,9 +194,7 @@ export async function loadSavedWords(): Promise<void> {
         await cache.delete(request); // made by an older engine: make again
         continue;
       }
-      const id = match[2] as VoicePackId;
-      if (!known.has(id)) known.set(id, new Set());
-      known.get(id)!.add(decodeURIComponent(match[3]!));
+      remember(match[2] as VoicePackId, decodeURIComponent(match[3]!));
     }
   } catch {
     // cache storage unavailable
@@ -189,7 +211,7 @@ export async function wordClip(id: VoicePackId, key: string): Promise<Float32Arr
   if (hit) return hit;
   try {
     const cache = await caches.open(WORDS_CACHE);
-    const response = await cache.match(wordUrl(id, key));
+    const response = await cache.match(clipUrl(id, key));
     if (!response) return null;
     const pcm = new Int16Array(await response.arrayBuffer());
     const audio = Float32Array.from(pcm, (v) => v / 32767);
@@ -200,41 +222,94 @@ export async function wordClip(id: VoicePackId, key: string): Promise<Float32Arr
   }
 }
 
-const making = new Map<string, Promise<boolean>>();
-
-/** Makes and saves a clip for each text that doesn't have one yet (one at a time). */
-export async function makeClips(id: VoicePackId, texts: readonly string[]): Promise<boolean> {
-  if (state !== "saved") return false;
-  let all = true;
-  for (const text of texts) {
-    const key = clipKey(text);
-    if (!key || hasWordClip(id, key)) continue;
-    const name = `${id}:${key}`;
-    let job = making.get(name);
-    if (!job) {
-      job = (async () => {
-        const audio = await render(id, text);
-        if (!audio || audio.length === 0) return false;
-        const pcm = Int16Array.from(audio, (v) =>
-          Math.max(-32768, Math.min(32767, Math.round(v * 32767))),
-        );
-        try {
-          const cache = await caches.open(WORDS_CACHE);
-          await cache.put(wordUrl(id, key), new Response(pcm.buffer));
-        } catch {
-          // still usable this session
-        }
-        audioCache.set(name, audio);
-        if (!known.has(id)) known.set(id, new Set());
-        known.get(id)!.add(key);
-        return true;
-      })();
-      making.set(name, job);
-      void job.finally(() => making.delete(name));
+async function save(id: VoicePackId, key: string, audio: Float32Array): Promise<void> {
+  audioCache.set(`${id}:${key}`, audio);
+  if (hasWordClip(id, key)) return;
+  remember(id, key);
+  const pcm = Int16Array.from(audio, (v) =>
+    Math.max(-32768, Math.min(32767, Math.round(v * 32767))),
+  );
+  try {
+    const cache = await caches.open(WORDS_CACHE);
+    await cache.put(clipUrl(id, key), new Response(pcm.buffer));
+    while (sentenceOrder.length > MAX_SENTENCES) {
+      const old = sentenceOrder.shift()!;
+      known.get(old.id)?.delete(old.key);
+      audioCache.delete(`${old.id}:${old.key}`);
+      await cache.delete(clipUrl(old.id, old.key));
     }
-    if (!(await job)) all = false;
+  } catch {
+    // still usable this session
   }
-  return all;
+}
+
+/** Makes and saves a clip for each word that doesn't have one yet. */
+export async function makeClips(
+  id: VoicePackId,
+  texts: readonly string[],
+  priority: Priority = "now",
+): Promise<boolean> {
+  if (state !== "saved") return false;
+  const jobs = texts.map(async (text) => {
+    const key = clipKey(text);
+    if (!key || hasWordClip(id, key)) return true;
+    const audio = await render(id, key, text, priority);
+    if (!audio || audio.length === 0) return false;
+    await save(id, key, audio);
+    return true;
+  });
+  return (await Promise.all(jobs)).every(Boolean);
+}
+
+// ── Whole sentences ──
+
+/**
+ * Guesses kept in memory only: the sentence a student is building is made
+ * while they pause, and saved only if they actually say it.
+ */
+const guesses = new Map<string, Float32Array>();
+const MAX_GUESSES = 12;
+
+export function hasSentence(id: VoicePackId, text: string): boolean {
+  const key = sentenceKey(text);
+  return hasWordClip(id, key) || guesses.has(`${id}:${key}`);
+}
+
+/**
+ * Makes a sentence's clip. `save` keeps it on the device (a sentence that was
+ * said, or a saved sentence); otherwise it is a guess, kept in memory.
+ */
+export async function makeSentence(
+  id: VoicePackId,
+  text: string,
+  priority: Priority,
+  keep: boolean,
+): Promise<boolean> {
+  if (hasSentence(id, text)) {
+    if (keep) await keepSentence(id, text);
+    return true;
+  }
+  if (state !== "saved" || clipKey(text).length === 0) return false;
+  const key = sentenceKey(text);
+  const audio = await render(id, key, sentenceText(text), priority);
+  if (!audio || audio.length === 0) return false;
+  guesses.set(`${id}:${key}`, audio);
+  while (guesses.size > MAX_GUESSES) guesses.delete(guesses.keys().next().value!);
+  if (keep) await keepSentence(id, text);
+  return true;
+}
+
+/** The sentence's clip, if it has been made (saved, or guessed this session). */
+export async function sentenceClip(id: VoicePackId, text: string): Promise<Float32Array | null> {
+  const key = sentenceKey(text);
+  return guesses.get(`${id}:${key}`) ?? (await wordClip(id, key));
+}
+
+/** Saves a guessed sentence once it has been said, so it plays whole next time too. */
+export async function keepSentence(id: VoicePackId, text: string): Promise<void> {
+  const key = sentenceKey(text);
+  const audio = guesses.get(`${id}:${key}`);
+  if (audio) await save(id, key, audio);
 }
 
 export function wordSampleRate(): number {

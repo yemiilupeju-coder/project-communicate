@@ -480,6 +480,12 @@ a:focus-visible {
   font-weight: 600;
 }
 
+/* The chosen option (e.g. whose voice) is filled in, so it's clear at a glance. */
+.adult-menu .choices button[aria-pressed="true"] {
+  background: var(--accent);
+  color: var(--surface);
+}
+
 .adult-menu .close {
   background: var(--accent);
   color: #fff;

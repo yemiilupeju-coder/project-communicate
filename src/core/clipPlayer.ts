@@ -7,9 +7,12 @@
  */
 
 import {
+  hasSentence,
   hasWordClip,
   makeClips,
+  makeSentence,
   modelStatus,
+  sentenceClip,
   wordClip,
   wordSampleRate,
 } from "../voice/deviceVoice";
@@ -24,7 +27,8 @@ import {
 import { VOICE_PACK_FILES } from "./voicePacks.generated";
 
 const CACHE_NAME = "communicate-voices";
-const GAP_SECONDS = 0.07;
+/** The pause between joined clips: short, as between words in speech. */
+const GAP_SECONDS = 0.035;
 
 interface Pack {
   readonly index: ClipIndex;
@@ -149,12 +153,48 @@ export function stopClips(): void {
   playing = [];
 }
 
+/**
+ * Where the sound in a clip starts and ends. Each clip carries some silence
+ * (padding when it was made, and more from MP3 decoding); trimmed, joined
+ * words follow each other closely, as in speech.
+ */
+export function soundSpan(samples: Float32Array, sampleRate: number): [number, number] {
+  let peak = 0;
+  for (const v of samples) peak = Math.max(peak, Math.abs(v));
+  if (peak === 0) return [0, 0];
+  const floor = peak * 0.01; // 40 dB below the loudest point
+  let start = 0;
+  while (start < samples.length && Math.abs(samples[start]!) < floor) start++;
+  let end = samples.length;
+  while (end > start && Math.abs(samples[end - 1]!) < floor) end--;
+  const pad = Math.round(sampleRate * 0.015);
+  return [Math.max(0, start - pad), Math.min(samples.length, end + pad)];
+}
+
+/** A trimmed copy of the clip, faded in and out over 4 ms so it never clicks. */
+function trimmed(ctx: AudioContext, samples: Float32Array, sampleRate: number): AudioBuffer | null {
+  const [start, end] = soundSpan(samples, sampleRate);
+  if (end <= start) return null;
+  const out = samples.slice(start, end);
+  const fade = Math.min(Math.round(sampleRate * 0.004), Math.floor(out.length / 2));
+  for (let i = 0; i < fade; i++) {
+    out[i]! *= i / fade;
+    out[out.length - 1 - i]! *= i / fade;
+  }
+  const buffer = ctx.createBuffer(1, out.length, sampleRate);
+  buffer.copyToChannel(out as Float32Array<ArrayBuffer>, 0);
+  return buffer;
+}
+
 function decode(ctx: AudioContext, id: VoicePackId, pack: Pack, key: string) {
   const name = `${id}:${key}`;
   let buffer = decoded.get(name);
   if (!buffer) {
     const [offset, length] = pack.index[key] ?? [0, 0];
-    buffer = ctx.decodeAudioData(pack.data.slice(offset, offset + length)).catch(() => null);
+    buffer = ctx
+      .decodeAudioData(pack.data.slice(offset, offset + length))
+      .then((full) => trimmed(ctx, full.getChannelData(0), full.sampleRate))
+      .catch(() => null);
     decoded.set(name, buffer);
   }
   return buffer;
@@ -162,46 +202,23 @@ function decode(ctx: AudioContext, id: VoicePackId, pack: Pack, key: string) {
 
 /** How long to wait for the device to make a missing word before using the device voice. */
 const MAKE_WAIT_MS = 5000;
-
 /**
- * Says the text in the child's voice: built-in clips from the pack, and clips
- * made on this device for other words (made now if needed, when the voice
- * model is downloaded). "unavailable" means the caller should use the device
- * voice instead, for the whole message.
+ * How long Speak waits for a sentence being made in one go before saying it
+ * word by word instead (it is still finished and saved, for next time).
  */
-export async function playPack(id: VoicePackId, text: string): Promise<"started" | "unavailable"> {
-  const ctx = audio();
-  if (!ctx) return "unavailable";
-  if (ctx.state === "suspended") void ctx.resume().catch(() => undefined);
-  const pack = await loadPack(id);
-  if (!pack) return "unavailable";
-  const has = (key: string) => Boolean(pack.index[key]) || hasWordClip(id, key);
-  let plan = planClips(has, text);
-  if (!plan && modelStatus().state === "saved") {
-    const missing = wordsOf(text).filter((word) => !has(clipKey(word)));
-    const made = makeClips(id, missing);
-    const inTime = await Promise.race([
-      made,
-      new Promise<false>((resolve) => window.setTimeout(() => resolve(false), MAKE_WAIT_MS)),
-    ]);
-    if (inTime) plan = planClips(has, text);
-  }
-  if (!plan) return "unavailable";
-  const buffers = await Promise.all(
-    plan.map(async (key) => {
-      if (pack.index[key]) return decode(ctx, id, pack, key);
-      const samples = await wordClip(id, key);
-      if (!samples || samples.length === 0) return null;
-      const buffer = ctx.createBuffer(1, samples.length, wordSampleRate());
-      buffer.copyToChannel(samples as Float32Array<ArrayBuffer>, 0);
-      return buffer;
-    }),
-  );
-  if (buffers.some((buffer) => buffer === null)) return "unavailable";
+const SENTENCE_WAIT_MS = 500;
+
+const within = <T>(promise: Promise<T>, ms: number) =>
+  Promise.race([
+    promise,
+    new Promise<false>((resolve) => window.setTimeout(() => resolve(false), ms)),
+  ]);
+
+function play(ctx: AudioContext, buffers: readonly AudioBuffer[]): "started" {
   stopClips();
   if ("speechSynthesis" in window) window.speechSynthesis.cancel();
   let at = ctx.currentTime + 0.02;
-  for (const buffer of buffers as AudioBuffer[]) {
+  for (const buffer of buffers) {
     const source = ctx.createBufferSource();
     source.buffer = buffer;
     source.connect(ctx.destination);
@@ -210,4 +227,56 @@ export async function playPack(id: VoicePackId, text: string): Promise<"started"
     at += buffer.duration + GAP_SECONDS;
   }
   return "started";
+}
+
+/**
+ * Says the text in the child's voice. With `whole` (Speak, and sentences), a
+ * sentence is said in one go when the device can make it (the voice maker is
+ * downloaded), so it sounds like speech; otherwise, and while it is being
+ * made, it is joined from word clips: built-in ones from the pack, and ones
+ * made on this device. "unavailable" means the caller should use the device
+ * voice instead, for the whole message.
+ */
+export async function playPack(
+  id: VoicePackId,
+  text: string,
+  whole = false,
+): Promise<"started" | "unavailable"> {
+  const ctx = audio();
+  if (!ctx) return "unavailable";
+  if (ctx.state === "suspended") void ctx.resume().catch(() => undefined);
+  const pack = await loadPack(id);
+  if (!pack) return "unavailable";
+  const has = (key: string) => Boolean(pack.index[key]) || hasWordClip(id, key);
+  const missing = () => wordsOf(text).filter((word) => !has(clipKey(word)));
+  let plan = planClips(has, text);
+
+  // A sentence the pack doesn't have as one phrase: say it in one go if we can.
+  const sentence = whole && wordsOf(text).length > 1 && !pack.index[clipKey(text)];
+  if (sentence && (hasSentence(id, text) || modelStatus().state === "saved")) {
+    const made = makeSentence(id, text, "now", true);
+    if (await within(made, plan ? SENTENCE_WAIT_MS : MAKE_WAIT_MS)) {
+      const samples = await sentenceClip(id, text);
+      const buffer = samples ? trimmed(ctx, samples, wordSampleRate()) : null;
+      if (buffer) return play(ctx, [buffer]);
+    }
+    if (!plan) {
+      void makeClips(id, missing(), "later");
+      return "unavailable";
+    }
+  }
+
+  if (!plan && modelStatus().state === "saved") {
+    if (await within(makeClips(id, missing()), MAKE_WAIT_MS)) plan = planClips(has, text);
+  }
+  if (!plan) return "unavailable";
+  const buffers = await Promise.all(
+    plan.map(async (key) => {
+      if (pack.index[key]) return decode(ctx, id, pack, key);
+      const samples = await wordClip(id, key);
+      return samples ? trimmed(ctx, samples, wordSampleRate()) : null;
+    }),
+  );
+  if (buffers.some((buffer) => buffer === null)) return "unavailable";
+  return play(ctx, buffers as AudioBuffer[]);
 }

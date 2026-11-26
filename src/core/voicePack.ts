@@ -19,6 +19,26 @@ export function clipKey(text: string): string {
     .trim();
 }
 
+/** How a sentence ends, which changes how it is said ("you're done." / "you're done?"). */
+function ending(text: string): "" | "?" | "!" {
+  const last = text.trim().slice(-1);
+  return last === "?" ? "?" : last === "!" ? "!" : "";
+}
+
+/**
+ * Key for a whole sentence said in one go (made on the device), kept apart
+ * from word keys.
+ */
+export function sentenceKey(text: string): string {
+  return `sentence:${clipKey(text)}${ending(text)}`;
+}
+
+/** The text the voice maker says for a sentence: ends with a full stop if it has no ending. */
+export function sentenceText(text: string): string {
+  const trimmed = text.trim().replace(/\s+/g, " ");
+  return /[.!?]$/.test(trimmed) ? trimmed : `${trimmed}.`;
+}
+
 /**
  * Splits a message into the longest phrases that have clips, so "I need a
  * break" plays as one natural phrase and "I want more snack" as four words.

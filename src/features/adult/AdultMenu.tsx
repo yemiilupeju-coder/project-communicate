@@ -338,7 +338,7 @@ export function AdultMenu({
         </label>
         <div className="field" role="group" aria-labelledby="voice-who">
           <span id="voice-who">Whose voice</span>
-          <div className="row">
+          <div className="row choices">
             <button
               type="button"
               aria-pressed={settings.voicePack === "girl"}
