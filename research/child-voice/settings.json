@@ -1,0 +1,40 @@
+{
+  "girl": {
+    "source": "af_heart",
+    "prosody": "af_heart",
+    "f0": 265,
+    "range": 1.1,
+    "dsp_formant": 1.15,
+    "e5_vt": 0.18,
+    "e6_vt": 0.09,
+    "e6_filter": 1.07,
+    "speed": 0.9,
+    "source_f0_median": 195.3089141845703,
+    "e2_e3_f0_ratio": 1.3568249104573404,
+    "e5_f0_scale": 1.3568249104573404,
+    "e6_f0_scale": 1.3568249104573404
+  },
+  "boy": {
+    "source": "am_puck",
+    "prosody": "am_puck",
+    "f0": 240,
+    "range": 1.0,
+    "dsp_formant": 1.3,
+    "e5_vt": 0.3,
+    "e6_vt": 0.2,
+    "e6_filter": 1.08,
+    "speed": 0.9,
+    "source_f0_median": 122.1681900024414,
+    "e2_e3_f0_ratio": 1.9645048354666124,
+    "e5_f0_scale": 1.9645048354666124,
+    "e6_f0_scale": 1.9645048354666124
+  },
+  "boy_e5b": {
+    "timbre": "af_heart",
+    "prosody": "am_puck",
+    "vt": 0.06,
+    "f0": 240,
+    "f0_scale": 1.9645048354666124,
+    "speed": 0.9
+  }
+}

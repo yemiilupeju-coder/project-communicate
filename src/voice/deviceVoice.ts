@@ -53,6 +53,16 @@ export async function checkModel(): Promise<boolean> {
       notify();
       return true;
     }
+    // The model itself is saved but an update needs a small new file (say, a
+    // new voice table): fetch it quietly rather than asking again. Likewise
+    // when an older version of the model is saved: the person already chose
+    // to download the voice, so an update replaces it (the old files are
+    // dropped once the new ones are in).
+    const modelSaved = MODEL_PARTS.every(
+      (part) => found[modelFiles().findIndex((file) => file.path === part.path)],
+    );
+    const olderSaved = (await cache.keys()).length > 0;
+    if ((modelSaved || olderSaved) && navigator.onLine) return downloadModel();
   } catch {
     // no cache storage: stays absent
   }
@@ -116,51 +126,125 @@ export function downloadModel(): Promise<boolean> {
 let worker: Worker | null = null;
 let idleTimer: number | undefined;
 let nextJob = 1;
-const pending = new Map<number, (audio: Float32Array | null) => void>();
-const queue = new JobQueue<Float32Array | null>();
+const pending = new Map<number, (reply: RenderReply | null) => void>();
+let playbackBusy: () => boolean = () => false;
+/** Lets the player say when audio is playing; background work waits for it to finish. */
+export function setPlaybackCheck(check: () => boolean): void {
+  playbackBusy = check;
+}
+const queue = new JobQueue<Float32Array | null>(() => playbackBusy());
+/** Engine threads: several where the page allows it; one after a failure. */
+// One core is left free for the page and audio playback.
+let threads = Math.max(1, Math.min(4, (navigator.hardwareConcurrency || 2) - 1));
 
 function getWorker(): Worker {
   if (!worker) {
     worker = new Worker(new URL("./voiceWorker.ts", import.meta.url), { type: "module" });
     worker.onmessage = (event: MessageEvent<RenderReply>) => {
       const reply = event.data;
-      pending.get(reply.job)?.("audio" in reply ? reply.audio : null);
+      pending.get(reply.job)?.(reply);
       pending.delete(reply.job);
     };
-    worker.onerror = () => {
-      for (const resolve of pending.values()) resolve(null);
-      pending.clear();
-      worker?.terminate();
-      worker = null;
-    };
+    worker.onerror = () => stopWorker();
   }
   return worker;
 }
 
-/** The model takes memory; let it go when nothing has been made for a while. */
-function restartIdleTimer(): void {
-  window.clearTimeout(idleTimer);
-  idleTimer = window.setTimeout(() => {
-    if (pending.size === 0 && queue.running() === null) {
-      worker?.terminate();
-      worker = null;
-    }
-  }, IDLE_MS);
+function stopWorker(): void {
+  for (const resolve of pending.values()) resolve(null);
+  pending.clear();
+  worker?.terminate();
+  worker = null;
 }
+
+// The model takes memory, so it is let go while the app is in the background
+// for a while; while the app is open, it stays ready so sentences come quickly.
+const IDLE_HIDDEN_MS = 120_000;
+if (typeof document !== "undefined") {
+  document.addEventListener("visibilitychange", () => {
+    window.clearTimeout(idleTimer);
+    if (document.visibilityState === "hidden") {
+      idleTimer = window.setTimeout(() => {
+        if (pending.size === 0 && queue.running() === null) stopWorker();
+      }, IDLE_HIDDEN_MS);
+    }
+  });
+}
+
+function ask(id: VoicePackId, text: string): Promise<RenderReply | null> {
+  return new Promise((resolve) => {
+    const job = nextJob++;
+    pending.set(job, resolve);
+    getWorker().postMessage({ job, id, text, base, threads } satisfies RenderRequest);
+  });
+}
+
+/** Asks the worker for a clip; if the engine can't start with threads, tries again with one. */
+async function ask1(id: VoicePackId, text: string): Promise<Float32Array | null> {
+  let reply = await ask(id, text);
+  if (reply && "error" in reply && reply.loading && threads > 1) {
+    threads = 1;
+    stopWorker();
+    reply = await ask(id, text);
+  }
+  return reply && "audio" in reply ? reply.audio : null;
+}
+
+// How fast this device makes clips (milliseconds per letter), learned as it goes.
+let msPerLetter = 0;
+let runningSince = 0;
+let runningLetters = 0;
+
+// How long loading the model took here (the first clip after the worker starts).
+let loadMs = 0;
 
 function render(id: VoicePackId, key: string, text: string, priority: Priority) {
   return queue.add(
     `${id}:${key}`,
     priority,
-    () =>
-      new Promise<Float32Array | null>((resolve) => {
-        const job = nextJob++;
-        pending.set(job, resolve);
-        getWorker().postMessage({ job, id, text, base } satisfies RenderRequest);
-        restartIdleTimer();
-      }),
+    async () => {
+      const cold = worker === null; // this one includes loading the model
+      runningSince = performance.now();
+      runningLetters = text.length;
+      const audio = await ask1(id, text);
+      const ms = performance.now() - runningSince;
+      runningSince = 0;
+      if (cold && audio) loadMs = Math.max(0, ms - msPerLetter * text.length);
+      if (!cold && audio && audio.length > 0 && text.length >= 8) {
+        const rate = ms / text.length;
+        msPerLetter = msPerLetter === 0 ? rate : 0.7 * msPerLetter + 0.3 * rate;
+      }
+      return audio;
+    },
     null,
   );
+}
+
+/** Loads the voice maker ahead of use, so the first sentence isn't slowed by it. */
+export function warmUp(id: VoicePackId): void {
+  if (state !== "saved") return;
+  if (!worker) void render(id, "warm-up", "Hi.", "later");
+  // A typical sentence, to learn how fast this device is.
+  if (msPerLetter === 0) void render(id, "warm-up-2", "I want to play outside.", "later");
+}
+
+/**
+ * About how long until the device could have this sentence ready, in
+ * milliseconds (Infinity before it has made anything to judge by).
+ */
+export function sentenceEta(id: VoicePackId, text: string): number {
+  if (msPerLetter === 0) return Infinity;
+  const own = msPerLetter * sentenceText(text).length;
+  if (queue.running() === `${id}:${sentenceKey(text)}`)
+    return Math.max(0, own - (performance.now() - runningSince));
+  const busy =
+    runningSince > 0
+      ? Math.max(0, msPerLetter * runningLetters - (performance.now() - runningSince))
+      : 0;
+  const ahead = queue.pending().filter((job) => job.priority === "now").length;
+  // If the model isn't loaded, loading it comes first.
+  const load = worker === null ? loadMs || 3000 : 0;
+  return load + own + busy + ahead * own;
 }
 
 // ── Saved clips ──

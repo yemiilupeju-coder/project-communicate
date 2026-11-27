@@ -8,17 +8,26 @@ import type { VoicePackId } from "../core/voicePack";
 import { CHILD_VOICES } from "./childVoices";
 
 export const MODEL_PARTS: readonly { path: string; bytes: number }[] = [
-  { path: "voice-model/kokoro-int8.onnx.part0", bytes: 24_000_000 },
-  { path: "voice-model/kokoro-int8.onnx.part1", bytes: 24_000_000 },
-  { path: "voice-model/kokoro-int8.onnx.part2", bytes: 24_000_000 },
-  { path: "voice-model/kokoro-int8.onnx.part3", bytes: 20_361_271 },
+  // Kokoro-82M int8 with the in-graph pitch control (research/child-voice),
+  // named by its content so devices fetch a changed model.
+  { path: "voice-model/kokoro-int8-f0-26f8c9d3.onnx.part0", bytes: 24_000_000 },
+  { path: "voice-model/kokoro-int8-f0-26f8c9d3.onnx.part1", bytes: 24_000_000 },
+  { path: "voice-model/kokoro-int8-f0-26f8c9d3.onnx.part2", bytes: 24_000_000 },
+  { path: "voice-model/kokoro-int8-f0-26f8c9d3.onnx.part3", bytes: 20_361_713 },
 ];
 
 /** onnxruntime-web's engine, copied from node_modules/onnxruntime-web/dist (a test checks it matches). */
 export const ENGINE_WASM = { path: "voice-model/ort-wasm-simd-threaded.wasm", bytes: 14_848_852 };
 
+/**
+ * The engine's script, which its helper threads start from (copied from
+ * node_modules/onnxruntime-web/dist; a test checks it matches). Small, so it
+ * is part of the app (precached), not the download.
+ */
+export const ENGINE_SCRIPT = "voice-model/ort-wasm-simd-threaded.mjs";
+
 export function voiceTablePath(id: VoicePackId): string {
-  return `voice-model/${CHILD_VOICES[id].kokoro}.bin`;
+  return CHILD_VOICES[id].table;
 }
 
 export const VOICE_TABLE_BYTES = 522_240;

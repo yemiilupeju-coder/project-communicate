@@ -102,11 +102,45 @@ describe("voice maker order", () => {
     expect(runs).toBe(1);
   });
 
+  it("holds background work while audio plays, but never Speak", async () => {
+    let playing = true;
+    const q = new JobQueue<string>(() => playing);
+    const order: string[] = [];
+    const later = q.add("bg", "later", async () => (order.push("bg"), "bg"), "dropped");
+    const now = q.add("speak", "now", async () => (order.push("speak"), "speak"), "dropped");
+    expect(await now).toBe("speak");
+    await new Promise((r) => setTimeout(r, 400));
+    expect(order).toEqual(["speak"]);
+    playing = false;
+    expect(await later).toBe("bg");
+    expect(order).toEqual(["speak", "bg"]);
+  });
+
   it("carries on after a job fails", async () => {
     const q = new JobQueue<string>();
     const bad = q.add("bad", "now", async () => Promise.reject(new Error("no")), "dropped");
     const good = q.add("good", "now", async () => "good", "dropped");
     expect(await bad).toBe("dropped");
     expect(await good).toBe("good");
+  });
+});
+
+describe("sample-rate conversion for playback", () => {
+  it("converts 24 kHz to 44.1 and 48 kHz cleanly", async () => {
+    const { convertRate } = await import("../src/core/rateConvert");
+    const tone = (rate: number, n: number) =>
+      new Float32Array(n).map((_, i) => 0.5 * Math.sin((2 * Math.PI * 1000 * i) / rate));
+    for (const to of [44100, 48000]) {
+      const out = convertRate(tone(24000, 24000), 24000, to);
+      expect(out.length).toBe(to);
+      const ideal = tone(to, to);
+      let err = 0;
+      let sig = 0;
+      for (let i = 200; i < out.length - 200; i++) {
+        err += (out[i]! - ideal[i]!) ** 2;
+        sig += ideal[i]! ** 2;
+      }
+      expect(10 * Math.log10(sig / err)).toBeGreaterThan(60); // better than 60 dB SNR
+    }
   });
 });

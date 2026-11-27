@@ -8,3 +8,4 @@ public/games
 public/voices
 scripts/voices/texts.json
 public/voice-model
+docs/audio-qa/runs

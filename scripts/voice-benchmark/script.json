@@ -1,0 +1,22 @@
+{
+  "_about": "The controlled listening-benchmark script. Identical for every engine, girl and boy.",
+  "short": ["Hello!", "I need help.", "I'm hungry.", "I want to play.", "Thank you."],
+  "conversational": [
+    "Can you please come and help me?",
+    "I would like to go outside and play.",
+    "I'm feeling happy today.",
+    "I don't understand what you mean."
+  ],
+  "expressive": [
+    "Wow! That's amazing!",
+    "I'm really excited!",
+    "I don't like that.",
+    "Can we do something different?"
+  ],
+  "narration": "On Saturday morning, my family went to the park by the river. The grass was still wet, and the air smelled like pancakes from the little cafe across the street. My brother wanted to feed the ducks, but I wanted to climb the big wooden castle first. So we made a deal. We climbed the castle together, and then we shared our bread with the ducks. One duck was very brave. It walked right up to my shoes and quacked so loudly that we both started laughing. Later, we sat on a blanket and ate sandwiches. I told my mom it was the best day of the whole week, and she said she thought so too.",
+  "assembled": [
+    ["I", "want", "to", "go", "outside"],
+    ["can", "you", "help", "me"],
+    ["I", "like", "that"]
+  ]
+}

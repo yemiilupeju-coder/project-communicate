@@ -13,17 +13,21 @@ import {
   makeSentence,
   modelStatus,
   sentenceClip,
+  sentenceEta,
+  setPlaybackCheck,
   wordClip,
   wordSampleRate,
 } from "../voice/deviceVoice";
 import {
   clipKey,
   planClips,
+  sentenceKey,
   VOICE_PACK_IDS,
   wordsOf,
   type ClipIndex,
   type VoicePackId,
 } from "./voicePack";
+import { convertRate } from "./rateConvert";
 import { VOICE_PACK_FILES } from "./voicePacks.generated";
 
 const CACHE_NAME = "communicate-voices";
@@ -132,7 +136,11 @@ function audio(): AudioContext | null {
   // Speak even when an iPhone's ring/silent switch is set to silent, like the device voice.
   const session = (navigator as unknown as { audioSession?: { type: string } }).audioSession;
   if (session) session.type = "playback";
-  context = new Ctor();
+  // A little more output buffering than the default ("interactive", about
+  // 10 ms): measured glitches came from the audio thread missing its turn
+  // while the voice maker was busy (docs/audio-qa). About 40 ms of extra
+  // buffering absorbs that; a tap still sounds within about 100 ms.
+  context = new Ctor({ latencyHint: "balanced" });
   return context;
 }
 
@@ -181,8 +189,14 @@ function trimmed(ctx: AudioContext, samples: Float32Array, sampleRate: number): 
     out[i]! *= i / fade;
     out[out.length - 1 - i]! *= i / fade;
   }
-  const buffer = ctx.createBuffer(1, out.length, sampleRate);
-  buffer.copyToChannel(out as Float32Array<ArrayBuffer>, 0);
+  // Clips made on the device are at 24 kHz. Left to the browser, Chrome
+  // converts them to the speakers' rate by straight-line interpolation, which
+  // measurably added grit and clicks (docs/audio-qa); a proper windowed-sinc
+  // conversion here keeps them as clean as the built-in clips.
+  const rate = ctx.sampleRate;
+  const ready = convertRate(out, sampleRate, rate);
+  const buffer = ctx.createBuffer(1, ready.length, rate);
+  buffer.copyToChannel(ready as Float32Array<ArrayBuffer>, 0);
   return buffer;
 }
 
@@ -200,13 +214,32 @@ function decode(ctx: AudioContext, id: VoicePackId, pack: Pack, key: string) {
   return buffer;
 }
 
+/** Device-made clips ready to play (trimmed, at the speakers' rate), most recent kept. */
+const preparedClips = new Map<string, AudioBuffer>();
+async function prepared(
+  ctx: AudioContext,
+  name: string,
+  load: () => Promise<Float32Array | null>,
+): Promise<AudioBuffer | null> {
+  const hit = preparedClips.get(name);
+  if (hit) return hit;
+  const samples = await load();
+  const buffer = samples ? trimmed(ctx, samples, wordSampleRate()) : null;
+  if (buffer) {
+    preparedClips.set(name, buffer);
+    if (preparedClips.size > 60) preparedClips.delete(preparedClips.keys().next().value!);
+  }
+  return buffer;
+}
+
 /** How long to wait for the device to make a missing word before using the device voice. */
 const MAKE_WAIT_MS = 5000;
 /**
- * How long Speak waits for a sentence being made in one go before saying it
- * word by word instead (it is still finished and saved, for next time).
+ * The longest Speak waits for a new sentence to be made in one go. If the
+ * device can't make it that quickly, the words are said joined straight away
+ * instead (and the sentence is still finished and saved, for next time).
  */
-const SENTENCE_WAIT_MS = 500;
+const SENTENCE_WAIT_MS = 1500;
 
 const within = <T>(promise: Promise<T>, ms: number) =>
   Promise.race([
@@ -214,18 +247,26 @@ const within = <T>(promise: Promise<T>, ms: number) =>
     new Promise<false>((resolve) => window.setTimeout(() => resolve(false), ms)),
   ]);
 
+let playingUntil = 0;
+setPlaybackCheck(() => context !== null && context.currentTime < playingUntil);
+
 function play(ctx: AudioContext, buffers: readonly AudioBuffer[]): "started" {
   stopClips();
   if ("speechSynthesis" in window) window.speechSynthesis.cancel();
-  let at = ctx.currentTime + 0.02;
+  // Start times fall on whole samples. Between samples, the browser shifts
+  // the whole clip by interpolation, which dulls it (measured: clips arrived
+  // 24 dB different from themselves; docs/audio-qa).
+  const frame = (t: number) => Math.round(t * ctx.sampleRate) / ctx.sampleRate;
+  let at = frame(ctx.currentTime + 0.02);
   for (const buffer of buffers) {
     const source = ctx.createBufferSource();
     source.buffer = buffer;
     source.connect(ctx.destination);
     source.start(at);
     playing.push(source);
-    at += buffer.duration + GAP_SECONDS;
+    at = frame(at + buffer.duration + GAP_SECONDS);
   }
+  playingUntil = at;
   return "started";
 }
 
@@ -254,10 +295,15 @@ export async function playPack(
   // A sentence the pack doesn't have as one phrase: say it in one go if we can.
   const sentence = whole && wordsOf(text).length > 1 && !pack.index[clipKey(text)];
   if (sentence && (hasSentence(id, text) || modelStatus().state === "saved")) {
+    const ready = hasSentence(id, text);
+    const eta = ready ? 0 : sentenceEta(id, text);
+    // Wait only if it should be ready soon; a little longer than expected is fine.
+    const wait = !plan ? MAKE_WAIT_MS : eta <= SENTENCE_WAIT_MS ? eta * 1.25 + 300 : 0;
     const made = makeSentence(id, text, "now", true);
-    if (await within(made, plan ? SENTENCE_WAIT_MS : MAKE_WAIT_MS)) {
-      const samples = await sentenceClip(id, text);
-      const buffer = samples ? trimmed(ctx, samples, wordSampleRate()) : null;
+    if (ready ? await made : wait > 0 && (await within(made, wait))) {
+      const buffer = await prepared(ctx, `${id}:${sentenceKey(text)}`, () =>
+        sentenceClip(id, text),
+      );
       if (buffer) return play(ctx, [buffer]);
     }
     if (!plan) {
@@ -273,8 +319,7 @@ export async function playPack(
   const buffers = await Promise.all(
     plan.map(async (key) => {
       if (pack.index[key]) return decode(ctx, id, pack, key);
-      const samples = await wordClip(id, key);
-      return samples ? trimmed(ctx, samples, wordSampleRate()) : null;
+      return prepared(ctx, `${id}:${key}`, () => wordClip(id, key));
     }),
   );
   if (buffers.some((buffer) => buffer === null)) return "unavailable";

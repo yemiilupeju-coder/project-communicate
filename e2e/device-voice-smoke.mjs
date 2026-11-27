@@ -15,6 +15,43 @@ await context.addInitScript(() => {
   const start = AudioBufferSourceNode.prototype.start;
   AudioBufferSourceNode.prototype.start = function (...args) {
     window.__clips++;
+    // What was played: sudden jumps between samples (clicks), and silent
+    // gaps inside the speech (dropouts), for the smoothness checks.
+    const x = this.buffer.getChannelData(0);
+    let peak = 0;
+    for (let i = 0; i < x.length; i++) peak = Math.max(peak, Math.abs(x[i]));
+    // A click is a lone spike in the signal's curvature, far above the
+    // curvature around it (speech itself can change fast; it isn't lone).
+    const d2 = new Float32Array(Math.max(0, x.length - 2));
+    for (let i = 0; i < d2.length; i++) d2[i] = Math.abs(x[i + 2] - 2 * x[i + 1] + x[i]) / peak;
+    const half = Math.round(this.buffer.sampleRate * 0.0025);
+    let sum = 0;
+    for (let i = 0; i < Math.min(d2.length, 2 * half); i++) sum += d2[i] ** 2;
+    let clicks = 0;
+    for (let i = half; i < d2.length - half; i++) {
+      const local = Math.sqrt(sum / (2 * half));
+      if (d2[i] > 6 * local + 0.02) clicks++;
+      sum += d2[i + half] ** 2 - d2[i - half] ** 2;
+    }
+    const w = Math.round(this.buffer.sampleRate * 0.03);
+    let first = 0;
+    while (first < x.length && Math.abs(x[first]) < peak * 0.05) first++;
+    let last = x.length - 1;
+    while (last > first && Math.abs(x[last]) < peak * 0.05) last--;
+    let longestQuiet = 0;
+    let quiet = 0;
+    for (let i = first; i < last; i += w) {
+      let m = 0;
+      for (let k = i; k < Math.min(last, i + w); k++) m = Math.max(m, Math.abs(x[k]));
+      quiet = m < peak * 0.002 ? quiet + 1 : 0;
+      longestQuiet = Math.max(longestQuiet, quiet);
+    }
+    window.__played = {
+      seconds: x.length / this.buffer.sampleRate,
+      clicks,
+      edge: Math.max(Math.abs(x[0]), Math.abs(x[x.length - 1])) / peak,
+      dropoutMs: longestQuiet * 30,
+    };
     return start.apply(this, args);
   };
   const voices = [
@@ -174,6 +211,11 @@ said = await speakCount();
 check(
   `said again, it plays as one whole sentence (${said.clips} clip)`,
   said.clips === 1 && said.device === 0,
+);
+const played = await page.evaluate(() => window.__played);
+check(
+  `the sentence is smooth: ${played.clicks} clicks, silent at both ends, no dropouts (longest quiet ${played.dropoutMs} ms)`,
+  played.clicks === 0 && played.edge < 0.01 && played.dropoutMs < 120,
 );
 
 // While the student pauses, the sentence is made ahead of Speak.

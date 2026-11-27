@@ -1,0 +1,99 @@
+{
+  "girl-e5-neural": {
+    "name": "girl",
+    "timbre": "af_heart",
+    "prosody": "af_heart",
+    "age": 9,
+    "boy": false,
+    "f0_range": 1.1,
+    "speed": 0.9,
+    "bright": -0.15,
+    "vt_gain": 0.246875,
+    "f0_scale": 1.341464628452163,
+    "f0_ref": 195.3089141845703,
+    "measured": {
+      "target_formant_ratio": 1.15,
+      "achieved_formant_ratio": 1.1465502049235,
+      "target_f0": 262.0
+    },
+    "target": [1.15, 262.0]
+  },
+  "girl-e6-hybrid": {
+    "name": "girl",
+    "timbre": "af_heart",
+    "prosody": "af_heart",
+    "age": 9,
+    "boy": false,
+    "f0_range": 1.1,
+    "speed": 0.9,
+    "bright": -0.15,
+    "vt_gain": 0.1234375,
+    "f0_scale": 1.341464628452163,
+    "f0_ref": 195.3089141845703,
+    "measured": {
+      "target_formant_ratio": 1.15,
+      "achieved_formant_ratio": 1.1465502049235,
+      "target_f0": 262.0
+    },
+    "target": [1.15, 262.0],
+    "envelope_filter": 1.109874826147427
+  },
+  "boy-e5-neural": {
+    "name": "boy",
+    "timbre": "am_puck",
+    "prosody": "am_puck",
+    "age": 9,
+    "boy": true,
+    "f0_range": 1.0,
+    "speed": 0.9,
+    "bright": 0.0,
+    "vt_gain": 0.40937500000000004,
+    "f0_scale": 1.9944635342074786,
+    "f0_ref": 122.1681900024414,
+    "measured": {
+      "target_formant_ratio": 1.2672999999999996,
+      "achieved_formant_ratio": 1.2636960264667756,
+      "target_f0": 243.66000000000003
+    },
+    "target": [1.2672999999999996, 243.66000000000003]
+  },
+  "boy-e6-hybrid": {
+    "name": "boy",
+    "timbre": "am_puck",
+    "prosody": "am_puck",
+    "age": 9,
+    "boy": true,
+    "f0_range": 1.0,
+    "speed": 0.9,
+    "bright": 0.0,
+    "vt_gain": 0.20468750000000002,
+    "f0_scale": 1.9944635342074786,
+    "f0_ref": 122.1681900024414,
+    "measured": {
+      "target_formant_ratio": 1.2672999999999996,
+      "achieved_formant_ratio": 1.2636960264667756,
+      "target_f0": 243.66000000000003
+    },
+    "target": [1.2672999999999996, 243.66000000000003],
+    "envelope_filter": 1.1699092088197147
+  },
+  "boy-e5b-neural-from-female": {
+    "name": "boy-f",
+    "timbre": "af_heart",
+    "prosody": "am_puck",
+    "age": 9,
+    "boy": true,
+    "f0_range": 1.0,
+    "speed": 0.9,
+    "bright": 0.0,
+    "vt_gain": 0.121875,
+    "f0_scale": 1.9944635342074786,
+    "f0_ref": 122.1681900024414,
+    "measured": {
+      "target_formant_ratio": 1.0924999999999998,
+      "achieved_formant_ratio": 1.0914798944106696,
+      "target_f0": 243.66000000000003
+    },
+    "target": [1.0924999999999998, 243.66000000000003]
+  }
+}

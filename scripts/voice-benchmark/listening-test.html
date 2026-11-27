@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Voice listening test</title>
+    <style>
+      :root {
+        --ink: #1d2433;
+        --soft: #5b6478;
+        --line: #d9dde6;
+        --bg: #f6f7fa;
+        --card: #fff;
+        --accent: #2f5bd3;
+        --ok: #1f7a4d;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font:
+          17px/1.5 system-ui,
+          -apple-system,
+          "Segoe UI",
+          sans-serif;
+        color: var(--ink);
+        background: var(--bg);
+      }
+      main {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 32px 20px 80px;
+      }
+      h1 {
+        font-size: 30px;
+        margin: 0 0 6px;
+        letter-spacing: -0.01em;
+      }
+      h2 {
+        font-size: 21px;
+        margin: 32px 0 10px;
+      }
+      p {
+        margin: 0 0 12px;
+        max-width: 70ch;
+      }
+      .muted {
+        color: var(--soft);
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 20px;
+        margin: 16px 0;
+      }
+      button,
+      select,
+      input[type="text"] {
+        font: inherit;
+      }
+      button {
+        border: 1px solid var(--line);
+        background: #fff;
+        border-radius: 10px;
+        padding: 9px 16px;
+        cursor: pointer;
+      }
+      button.primary {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+      }
+      button:disabled {
+        opacity: 0.45;
+        cursor: default;
+      }
+      button:focus-visible,
+      select:focus-visible,
+      input:focus-visible {
+        outline: 3px solid #9db4f2;
+        outline-offset: 2px;
+      }
+      label.file {
+        display: inline-block;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 15px;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 7px 8px;
+        border-bottom: 1px solid var(--line);
+        vertical-align: middle;
+      }
+      th {
+        font-weight: 600;
+        color: var(--soft);
+      }
+      .sample {
+        display: grid;
+        grid-template-columns: 70px repeat(4, minmax(110px, 1fr)) 150px;
+        gap: 10px;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .sample:last-child {
+        border-bottom: 0;
+      }
+      .letter {
+        font-size: 22px;
+        font-weight: 700;
+      }
+      .play {
+        width: 76px;
+        white-space: nowrap;
+      }
+      .scale label {
+        display: block;
+        font-size: 13px;
+        color: var(--soft);
+      }
+      .scale input {
+        width: 100%;
+      }
+      .head {
+        display: grid;
+        grid-template-columns: 70px repeat(4, minmax(110px, 1fr)) 150px;
+        gap: 10px;
+        font-size: 13px;
+        color: var(--soft);
+        font-weight: 600;
+      }
+      .prompt {
+        font-size: 20px;
+        font-weight: 600;
+        margin: 4px 0 14px;
+      }
+      .bar {
+        height: 10px;
+        background: #e7eaf1;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+      .bar > i {
+        display: block;
+        height: 100%;
+        background: var(--accent);
+      }
+      .row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      @media (max-width: 760px) {
+        .sample,
+        .head {
+          grid-template-columns: 50px 1fr 1fr;
+        }
+        .head {
+          display: none;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Voice listening test</h1>
+      <p class="muted">
+        Blind comparison of candidate voices for Communicate. You hear the same sentence in every
+        voice, labelled only by letter, in a different order each time. Rate each one. Nothing is
+        uploaded: the sound files stay on this computer.
+      </p>
+
+      <section id="setup" class="card">
+        <h2 style="margin-top: 0">1. Choose the sample folder</h2>
+        <p>Pick the folder of samples you were given (it holds one folder per voice).</p>
+        <label class="file"
+          ><input type="file" id="folder" webkitdirectory directory multiple
+        /></label>
+        <p id="found" class="muted" style="margin-top: 10px"></p>
+        <div id="assign" hidden>
+          <h2>2. Which test?</h2>
+          <div class="row">
+            <label><input type="radio" name="test" value="girl" checked /> Girl voices</label>
+            <label><input type="radio" name="test" value="boy" /> Boy voices</label>
+          </div>
+          <p class="muted" style="margin-top: 10px">
+            Voices included in each test (change if needed):
+          </p>
+          <table id="voices"></table>
+          <h2>3. Your name or initials</h2>
+          <input
+            type="text"
+            id="who"
+            placeholder="e.g. TD, or SLP-1"
+            style="padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px"
+          />
+          <p class="muted" style="margin-top: 14px">
+            Use headphones or good speakers, at a comfortable volume. About 10–15 minutes.
+          </p>
+          <button class="primary" id="start">Start the test</button>
+        </div>
+      </section>
+
+      <section id="trial" hidden>
+        <div class="row" style="justify-content: space-between">
+          <span id="progress" class="muted"></span
+          ><span class="bar" style="width: 220px"><i id="progressbar"></i></span>
+        </div>
+        <div class="card">
+          <div class="prompt" id="sentence"></div>
+          <div class="head">
+            <span></span><span>Natural (1–5)</span><span>Clear and crisp (1–5)</span
+            ><span>Pleasant to hear (1–5)</span><span>Right for a student (1–5)</span
+            ><span>Sounds about…</span>
+          </div>
+          <div id="samples"></div>
+        </div>
+        <div class="row">
+          <button class="primary" id="next">Next</button
+          ><span class="muted" id="hint">Play every voice before going on.</span>
+        </div>
+      </section>
+
+      <section id="results" hidden>
+        <h2>Results</h2>
+        <p class="muted">
+          Averages over every sentence, highest overall first. Names are shown now that the test is
+          done.
+        </p>
+        <table id="summary"></table>
+        <div class="row" style="margin-top: 16px">
+          <button class="primary" id="csv">Download results (CSV)</button
+          ><button id="again">Do the other test</button>
+        </div>
+        <p class="muted" style="margin-top: 12px">
+          Send the CSV back; results from several listeners are combined by averaging.
+        </p>
+      </section>
+    </main>
+    <script>
+      const ITEMS = [
+        ["1-short-1", "I need help."],
+        ["1-short-3", "I want to play."],
+        ["2-conv-0", "Can you please come and help me?"],
+        ["2-conv-2", "I'm feeling happy today."],
+        ["3-expr-0", "Wow! That's amazing!"],
+        ["3-expr-2", "I don't like that."],
+        ["4-narration", "A short story (listen to at least 15 seconds)"],
+        ["5-assembled-0-joined", '"I want to go outside", built word by word'],
+        ["5-assembled-0-whole", '"I want to go outside", said whole'],
+      ];
+      const AGES = ["", "under 8", "8 to 10", "11 to 13", "a teenager", "an adult"];
+      const SCALES = ["natural", "crisp", "pleasant", "fit"];
+      let files = new Map(); // "variant/item" -> File
+      let variants = [];
+      let plan = [],
+        trialIndex = 0,
+        ratings = [],
+        listened = new Set();
+      const $ = (id) => document.getElementById(id);
+      const shuffle = (a) => {
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+      };
+
+      $("folder").addEventListener("change", (e) => {
+        files = new Map();
+        for (const f of e.target.files) {
+          const parts = f.webkitRelativePath.split("/");
+          if (parts.length < 2 || !f.name.endsWith(".wav")) continue;
+          files.set(`${parts[parts.length - 2]}/${f.name.replace(/\.wav$/, "")}`, f);
+        }
+        variants = [...new Set([...files.keys()].map((k) => k.split("/")[0]))].sort();
+        $("found").textContent = variants.length
+          ? `Found ${variants.length} voices.`
+          : "No voice folders with .wav files found in that folder.";
+        $("voices").innerHTML =
+          "<tr><th>Voice folder</th><th>Girl test</th><th>Boy test</th></tr>" +
+          variants
+            .map((v, i) => {
+              const g = !/boy/.test(v),
+                b = !/girl/.test(v);
+              return `<tr><td>${v}</td><td><input type="checkbox" data-v="${i}" data-t="girl" ${g ? "checked" : ""} aria-label="${v} in girl test"></td><td><input type="checkbox" data-v="${i}" data-t="boy" ${b ? "checked" : ""} aria-label="${v} in boy test"></td></tr>`;
+            })
+            .join("");
+        $("assign").hidden = !variants.length;
+      });
+
+      function chosen(test) {
+        return [...document.querySelectorAll(`#voices input[data-t=${test}]`)]
+          .filter((c) => c.checked)
+          .map((c) => variants[+c.dataset.v]);
+      }
+
+      $("start").addEventListener("click", () => {
+        const test = document.querySelector("input[name=test]:checked").value;
+        const vs = chosen(test);
+        if (vs.length < 2) {
+          alert("Choose at least two voices for this test.");
+          return;
+        }
+        plan = shuffle(ITEMS.filter(([id]) => vs.every((v) => files.has(`${v}/${id}`)))).map(
+          ([id, text]) => ({ test, id, text, order: shuffle([...vs]) }),
+        );
+        trialIndex = 0;
+        $("setup").hidden = true;
+        $("results").hidden = true;
+        $("trial").hidden = false;
+        show();
+      });
+
+      let audio = new Audio(),
+        urls = [];
+      function show() {
+        const t = plan[trialIndex];
+        urls.forEach((u) => URL.revokeObjectURL(u));
+        urls = [];
+        listened = new Set();
+        $("progress").textContent = `Sentence ${trialIndex + 1} of ${plan.length}`;
+        $("progressbar").style.width = `${(100 * trialIndex) / plan.length}%`;
+        $("sentence").textContent = t.text;
+        $("samples").innerHTML = t.order
+          .map((v, i) => {
+            const L = String.fromCharCode(65 + i);
+            const scale = (s) =>
+              `<div class="scale"><label for="${s}${i}">${s}</label><input id="${s}${i}" type="range" min="1" max="5" step="1" value="3" data-i="${i}" data-s="${s}"></div>`;
+            return `<div class="sample"><div><button class="play" data-i="${i}" aria-label="Play voice ${L}">▶ ${L}</button></div>${SCALES.map(scale).join("")}<select data-i="${i}" aria-label="Voice ${L} sounds about">${AGES.map((a) => `<option>${a}</option>`).join("")}</select></div>`;
+          })
+          .join("");
+        document.querySelectorAll(".play").forEach((b) =>
+          b.addEventListener("click", () => {
+            const i = +b.dataset.i;
+            const url = URL.createObjectURL(files.get(`${t.order[i]}/${t.id}`));
+            urls.push(url);
+            audio.pause();
+            audio = new Audio(url);
+            audio.play().catch(() => {});
+            listened.add(i);
+            check();
+          }),
+        );
+        check();
+      }
+      function check() {
+        const t = plan[trialIndex];
+        const done = listened.size === t.order.length;
+        $("next").disabled = !done;
+        $("hint").textContent = done ? "" : "Play every voice before going on.";
+        $("next").textContent = trialIndex === plan.length - 1 ? "Finish" : "Next";
+      }
+      $("next").addEventListener("click", () => {
+        const t = plan[trialIndex];
+        const who = $("who").value.trim() || "anonymous";
+        t.order.forEach((v, i) => {
+          const r = {
+            listener: who,
+            test: t.test,
+            item: t.id,
+            voice: v,
+            letter: String.fromCharCode(65 + i),
+          };
+          SCALES.forEach((s) => {
+            r[s] = +document.querySelector(`input[data-i="${i}"][data-s="${s}"]`).value;
+          });
+          r.sounds_like = document.querySelector(`select[data-i="${i}"]`).value;
+          ratings.push(r);
+        });
+        audio.pause();
+        if (++trialIndex < plan.length) show();
+        else finish();
+      });
+
+      function finish() {
+        $("trial").hidden = true;
+        $("results").hidden = false;
+        const test = plan[0].test;
+        const mine = ratings.filter((r) => r.test === test);
+        const by = {};
+        for (const r of mine) (by[r.voice] ??= []).push(r);
+        const rows = Object.entries(by)
+          .map(([v, rs]) => {
+            const m = (k) => rs.reduce((a, r) => a + r[k], 0) / rs.length;
+            const ages = rs.map((r) => r.sounds_like).filter(Boolean);
+            const common =
+              ages.sort(
+                (a, b) => ages.filter((x) => x === b).length - ages.filter((x) => x === a).length,
+              )[0] || "–";
+            return {
+              v,
+              natural: m("natural"),
+              crisp: m("crisp"),
+              pleasant: m("pleasant"),
+              fit: m("fit"),
+              overall: (m("natural") + m("crisp") + m("pleasant") + m("fit")) / 4,
+              age: common,
+            };
+          })
+          .sort((a, b) => b.overall - a.overall);
+        $("summary").innerHTML =
+          `<tr><th>Voice</th><th>Natural</th><th>Crisp</th><th>Pleasant</th><th>Right for a student</th><th>Overall</th><th>Most often heard as</th></tr>` +
+          rows
+            .map(
+              (r) =>
+                `<tr><td>${r.v}</td><td>${r.natural.toFixed(1)}</td><td>${r.crisp.toFixed(1)}</td><td>${r.pleasant.toFixed(1)}</td><td>${r.fit.toFixed(1)}</td><td><b>${r.overall.toFixed(2)}</b></td><td>${r.age}</td></tr>`,
+            )
+            .join("");
+      }
+      $("csv").addEventListener("click", () => {
+        const cols = ["listener", "test", "item", "voice", "letter", ...SCALES, "sounds_like"];
+        const csv = [
+          cols.join(","),
+          ...ratings.map((r) => cols.map((c) => JSON.stringify(r[c] ?? "")).join(",")),
+        ].join("\n");
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
+        a.download = `voice-test-${($("who").value.trim() || "anonymous").replace(/\W+/g, "-")}.csv`;
+        a.click();
+      });
+      $("again").addEventListener("click", () => {
+        $("results").hidden = true;
+        $("setup").hidden = false;
+      });
+    </script>
+  </body>
+</html>

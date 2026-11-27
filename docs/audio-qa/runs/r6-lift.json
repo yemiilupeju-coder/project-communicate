@@ -1,415 +1,415 @@
 {
-  "label": "r6-lift",
-  "generation": {
-    "girl": {
-      "kokoro": "af_heart",
-      "reshape": null,
-      "summary": {
-        "duration_s": 1.3549427083333334,
-        "peak_dbfs": -2.2797787529848463,
-        "true_peak_dbtp": -1.702040070593225,
-        "clipped_samples": 0,
-        "dc_offset": -0.0010358095277793297,
-        "lufs": -16.25336472954112,
-        "noise_floor_dbfs": -43.02818350746226,
-        "snr_db": 29.256127185617967,
-        "clicks": 0,
-        "dropouts": 0,
-        "flutter": 0.07658114582844232,
-        "f0_median_hz": 280.8232229197703,
-        "f0_range_st": 9.805959492929933,
-        "hnr_db": 9.391546485922603,
-        "jitter_pct": 2.373592478657499,
-        "shimmer_pct": 8.223626614626163,
-        "f1_hz": 740.0055581368601,
-        "f2_hz": 2430.420989800532,
-        "f3_hz": 3882.143936908421,
-        "voiced_s": 0.77875,
-        "f0_spread_st": 0.915556645938463,
-        "lufs_spread_lu": 0.20292253805805655,
-        "dnsmos_sig": 3.412399222226761,
-        "dnsmos_bak": 3.678176651562584,
-        "dnsmos_ovrl": 2.9605379055775964,
-        "dnsmos_p808": 4.038024425506592,
-        "vocal_tract_scale_vs_base": 1.067557526056277,
-        "vocal_tract_scale": 1.067557526056277,
-        "r_dip": 0.7624212348737365,
-        "word_accuracy_pct": 58.18181818181818,
-        "sentence_wer_pct": 29.30059523809524
-      },
-      "checks": [
-        {
-          "metric": "dnsmos_ovrl",
-          "value": 2.9605379055775964,
-          "target": {
-            "min": 2.9
-          },
-          "pass": true
-        },
-        {
-          "metric": "dnsmos_sig",
-          "value": 3.412399222226761,
-          "target": {
-            "min": 3.35
-          },
-          "pass": true
-        },
-        {
-          "metric": "dnsmos_bak",
-          "value": 3.678176651562584,
-          "target": {
-            "min": 3.6
-          },
-          "pass": true
-        },
-        {
-          "metric": "hnr_db",
-          "value": 9.391546485922603,
-          "target": {
-            "min": 8,
-            "max": 17
-          },
-          "pass": true
-        },
-        {
-          "metric": "jitter_pct",
-          "value": 2.373592478657499,
-          "target": {
-            "min": 1.2,
-            "max": 2.8
-          },
-          "pass": true
-        },
-        {
-          "metric": "shimmer_pct",
-          "value": 8.223626614626163,
-          "target": {
-            "max": 9
-          },
-          "pass": true
-        },
-        {
-          "metric": "flutter",
-          "value": 0.07658114582844232,
-          "target": {
-            "max": 0.1
-          },
-          "pass": true
-        },
-        {
-          "metric": "clicks",
-          "value": 0,
-          "target": {
-            "max": 0
-          },
-          "pass": true
-        },
-        {
-          "metric": "dropouts",
-          "value": 0,
-          "target": {
-            "max": 0
-          },
-          "pass": true
-        },
-        {
-          "metric": "clipped_samples",
-          "value": 0,
-          "target": {
-            "max": 0
-          },
-          "pass": true
-        },
-        {
-          "metric": "true_peak_dbtp",
-          "value": -1.702040070593225,
-          "target": {
-            "max": -1.0
-          },
-          "pass": true
-        },
-        {
-          "metric": "lufs",
-          "value": -16.25336472954112,
-          "target": {
-            "min": -17,
-            "max": -15
-          },
-          "pass": true
-        },
-        {
-          "metric": "lufs_spread_lu",
-          "value": 0.20292253805805655,
-          "target": {
-            "max": 0.75
-          },
-          "pass": true
-        },
-        {
-          "metric": "r_dip",
-          "value": 0.7624212348737365,
-          "target": {
-            "max": 0.82
-          },
-          "pass": true
-        },
-        {
-          "metric": "word_accuracy_pct",
-          "value": 58.18181818181818,
-          "target": {
-            "min": 50
-          },
-          "pass": true
-        },
-        {
-          "metric": "sentence_wer_pct",
-          "value": 29.30059523809524,
-          "target": {
-            "max": 40
-          },
-          "pass": true
-        },
-        {
-          "metric": "f0_median_hz",
-          "value": 280.8232229197703,
-          "target": {
-            "min": 245,
-            "max": 290
-          },
-          "pass": true
-        },
-        {
-          "metric": "vocal_tract_scale",
-          "value": 1.067557526056277,
-          "target": {
-            "min": 1.04,
-            "max": 1.12
-          },
-          "pass": true
-        }
-      ]
+ "label": "r6-lift",
+ "generation": {
+  "girl": {
+   "kokoro": "af_heart",
+   "reshape": null,
+   "summary": {
+    "duration_s": 1.3549427083333334,
+    "peak_dbfs": -2.2797787529848463,
+    "true_peak_dbtp": -1.702040070593225,
+    "clipped_samples": 0,
+    "dc_offset": -0.0010358095277793297,
+    "lufs": -16.25336472954112,
+    "noise_floor_dbfs": -43.02818350746226,
+    "snr_db": 29.256127185617967,
+    "clicks": 0,
+    "dropouts": 0,
+    "flutter": 0.07658114582844232,
+    "f0_median_hz": 280.8232229197703,
+    "f0_range_st": 9.805959492929933,
+    "hnr_db": 9.391546485922603,
+    "jitter_pct": 2.373592478657499,
+    "shimmer_pct": 8.223626614626163,
+    "f1_hz": 740.0055581368601,
+    "f2_hz": 2430.420989800532,
+    "f3_hz": 3882.143936908421,
+    "voiced_s": 0.77875,
+    "f0_spread_st": 0.915556645938463,
+    "lufs_spread_lu": 0.20292253805805655,
+    "dnsmos_sig": 3.412399222226761,
+    "dnsmos_bak": 3.678176651562584,
+    "dnsmos_ovrl": 2.9605379055775964,
+    "dnsmos_p808": 4.038024425506592,
+    "vocal_tract_scale_vs_base": 1.067557526056277,
+    "vocal_tract_scale": 1.067557526056277,
+    "r_dip": 0.7624212348737365,
+    "word_accuracy_pct": 58.18181818181818,
+    "sentence_wer_pct": 29.30059523809524
+   },
+   "checks": [
+    {
+     "metric": "dnsmos_ovrl",
+     "value": 2.9605379055775964,
+     "target": {
+      "min": 2.9
+     },
+     "pass": true
     },
-    "boy": {
-      "kokoro": "af_heart",
-      "reshape": null,
-      "summary": {
-        "duration_s": 1.2066979166666667,
-        "peak_dbfs": -2.1366607884144244,
-        "true_peak_dbtp": -1.9025451680264396,
-        "clipped_samples": 0,
-        "dc_offset": -0.001182446801215052,
-        "lufs": -16.23253721612112,
-        "noise_floor_dbfs": -41.31714273162012,
-        "snr_db": 27.874272900399056,
-        "clicks": 0,
-        "dropouts": 0,
-        "flutter": 0.05644748425911432,
-        "f0_median_hz": 262.122312795368,
-        "f0_range_st": 7.82629406508598,
-        "hnr_db": 9.624243234629368,
-        "jitter_pct": 2.0700702773885253,
-        "shimmer_pct": 7.84865258080251,
-        "f1_hz": 755.2128635473656,
-        "f2_hz": 2442.015652007825,
-        "f3_hz": 3955.5760874161606,
-        "voiced_s": 0.6925000000000001,
-        "f0_spread_st": 0.7066966835642756,
-        "lufs_spread_lu": 0.20923642495171707,
-        "dnsmos_sig": 3.6601118198464917,
-        "dnsmos_bak": 4.167063323708515,
-        "dnsmos_ovrl": 3.452125128688818,
-        "dnsmos_p808": 4.189259052276611,
-        "vocal_tract_scale_vs_base": 1.0429131712832924,
-        "vocal_tract_scale": 1.0429131712832924,
-        "r_dip": 0.7540985083575958,
-        "word_accuracy_pct": 72.72727272727273,
-        "sentence_wer_pct": 31.934523809523807
-      },
-      "checks": [
-        {
-          "metric": "dnsmos_ovrl",
-          "value": 3.452125128688818,
-          "target": {
-            "min": 3.25
-          },
-          "pass": true
-        },
-        {
-          "metric": "dnsmos_sig",
-          "value": 3.6601118198464917,
-          "target": {
-            "min": 3.5
-          },
-          "pass": true
-        },
-        {
-          "metric": "dnsmos_bak",
-          "value": 4.167063323708515,
-          "target": {
-            "min": 3.95
-          },
-          "pass": true
-        },
-        {
-          "metric": "hnr_db",
-          "value": 9.624243234629368,
-          "target": {
-            "min": 8,
-            "max": 17
-          },
-          "pass": true
-        },
-        {
-          "metric": "jitter_pct",
-          "value": 2.0700702773885253,
-          "target": {
-            "min": 1.2,
-            "max": 2.8
-          },
-          "pass": true
-        },
-        {
-          "metric": "shimmer_pct",
-          "value": 7.84865258080251,
-          "target": {
-            "max": 9
-          },
-          "pass": true
-        },
-        {
-          "metric": "flutter",
-          "value": 0.05644748425911432,
-          "target": {
-            "max": 0.1
-          },
-          "pass": true
-        },
-        {
-          "metric": "clicks",
-          "value": 0,
-          "target": {
-            "max": 0
-          },
-          "pass": true
-        },
-        {
-          "metric": "dropouts",
-          "value": 0,
-          "target": {
-            "max": 0
-          },
-          "pass": true
-        },
-        {
-          "metric": "clipped_samples",
-          "value": 0,
-          "target": {
-            "max": 0
-          },
-          "pass": true
-        },
-        {
-          "metric": "true_peak_dbtp",
-          "value": -1.9025451680264396,
-          "target": {
-            "max": -1.0
-          },
-          "pass": true
-        },
-        {
-          "metric": "lufs",
-          "value": -16.23253721612112,
-          "target": {
-            "min": -17,
-            "max": -15
-          },
-          "pass": true
-        },
-        {
-          "metric": "lufs_spread_lu",
-          "value": 0.20923642495171707,
-          "target": {
-            "max": 0.75
-          },
-          "pass": true
-        },
-        {
-          "metric": "r_dip",
-          "value": 0.7540985083575958,
-          "target": {
-            "max": 0.82
-          },
-          "pass": true
-        },
-        {
-          "metric": "word_accuracy_pct",
-          "value": 72.72727272727273,
-          "target": {
-            "min": 50
-          },
-          "pass": true
-        },
-        {
-          "metric": "sentence_wer_pct",
-          "value": 31.934523809523807,
-          "target": {
-            "max": 40
-          },
-          "pass": true
-        },
-        {
-          "metric": "f0_median_hz",
-          "value": 262.122312795368,
-          "target": {
-            "min": 235,
-            "max": 270
-          },
-          "pass": true
-        },
-        {
-          "metric": "vocal_tract_scale",
-          "value": 1.0429131712832924,
-          "target": {
-            "min": 1.0,
-            "max": 1.08
-          },
-          "pass": true
-        }
-      ]
+    {
+     "metric": "dnsmos_sig",
+     "value": 3.412399222226761,
+     "target": {
+      "min": 3.35
+     },
+     "pass": true
     },
-    "_pair": {
-      "summary": {
-        "loudness_difference_lu": 0.020827513419998667,
-        "boy_formants_below_girl_pct": 2.308480261857615,
-        "quality_difference_ovrl": 0.4915872231112215
-      },
-      "checks": [
-        {
-          "metric": "loudness_difference_lu",
-          "value": 0.020827513419998667,
-          "target": {
-            "max": 0.5
-          },
-          "pass": true
-        },
-        {
-          "metric": "boy_formants_below_girl_pct",
-          "value": 2.308480261857615,
-          "target": {
-            "min": 1,
-            "max": 9
-          },
-          "pass": true
-        },
-        {
-          "metric": "quality_difference_ovrl",
-          "value": 0.4915872231112215,
-          "target": {
-            "max": 0.55
-          },
-          "pass": true
-        }
-      ]
+    {
+     "metric": "dnsmos_bak",
+     "value": 3.678176651562584,
+     "target": {
+      "min": 3.6
+     },
+     "pass": true
+    },
+    {
+     "metric": "hnr_db",
+     "value": 9.391546485922603,
+     "target": {
+      "min": 8,
+      "max": 17
+     },
+     "pass": true
+    },
+    {
+     "metric": "jitter_pct",
+     "value": 2.373592478657499,
+     "target": {
+      "min": 1.2,
+      "max": 2.8
+     },
+     "pass": true
+    },
+    {
+     "metric": "shimmer_pct",
+     "value": 8.223626614626163,
+     "target": {
+      "max": 9
+     },
+     "pass": true
+    },
+    {
+     "metric": "flutter",
+     "value": 0.07658114582844232,
+     "target": {
+      "max": 0.1
+     },
+     "pass": true
+    },
+    {
+     "metric": "clicks",
+     "value": 0,
+     "target": {
+      "max": 0
+     },
+     "pass": true
+    },
+    {
+     "metric": "dropouts",
+     "value": 0,
+     "target": {
+      "max": 0
+     },
+     "pass": true
+    },
+    {
+     "metric": "clipped_samples",
+     "value": 0,
+     "target": {
+      "max": 0
+     },
+     "pass": true
+    },
+    {
+     "metric": "true_peak_dbtp",
+     "value": -1.702040070593225,
+     "target": {
+      "max": -1.0
+     },
+     "pass": true
+    },
+    {
+     "metric": "lufs",
+     "value": -16.25336472954112,
+     "target": {
+      "min": -17,
+      "max": -15
+     },
+     "pass": true
+    },
+    {
+     "metric": "lufs_spread_lu",
+     "value": 0.20292253805805655,
+     "target": {
+      "max": 0.75
+     },
+     "pass": true
+    },
+    {
+     "metric": "r_dip",
+     "value": 0.7624212348737365,
+     "target": {
+      "max": 0.82
+     },
+     "pass": true
+    },
+    {
+     "metric": "word_accuracy_pct",
+     "value": 58.18181818181818,
+     "target": {
+      "min": 50
+     },
+     "pass": true
+    },
+    {
+     "metric": "sentence_wer_pct",
+     "value": 29.30059523809524,
+     "target": {
+      "max": 40
+     },
+     "pass": true
+    },
+    {
+     "metric": "f0_median_hz",
+     "value": 280.8232229197703,
+     "target": {
+      "min": 245,
+      "max": 290
+     },
+     "pass": true
+    },
+    {
+     "metric": "vocal_tract_scale",
+     "value": 1.067557526056277,
+     "target": {
+      "min": 1.04,
+      "max": 1.12
+     },
+     "pass": true
     }
+   ]
+  },
+  "boy": {
+   "kokoro": "af_heart",
+   "reshape": null,
+   "summary": {
+    "duration_s": 1.2066979166666667,
+    "peak_dbfs": -2.1366607884144244,
+    "true_peak_dbtp": -1.9025451680264396,
+    "clipped_samples": 0,
+    "dc_offset": -0.001182446801215052,
+    "lufs": -16.23253721612112,
+    "noise_floor_dbfs": -41.31714273162012,
+    "snr_db": 27.874272900399056,
+    "clicks": 0,
+    "dropouts": 0,
+    "flutter": 0.05644748425911432,
+    "f0_median_hz": 262.122312795368,
+    "f0_range_st": 7.82629406508598,
+    "hnr_db": 9.624243234629368,
+    "jitter_pct": 2.0700702773885253,
+    "shimmer_pct": 7.84865258080251,
+    "f1_hz": 755.2128635473656,
+    "f2_hz": 2442.015652007825,
+    "f3_hz": 3955.5760874161606,
+    "voiced_s": 0.6925000000000001,
+    "f0_spread_st": 0.7066966835642756,
+    "lufs_spread_lu": 0.20923642495171707,
+    "dnsmos_sig": 3.6601118198464917,
+    "dnsmos_bak": 4.167063323708515,
+    "dnsmos_ovrl": 3.452125128688818,
+    "dnsmos_p808": 4.189259052276611,
+    "vocal_tract_scale_vs_base": 1.0429131712832924,
+    "vocal_tract_scale": 1.0429131712832924,
+    "r_dip": 0.7540985083575958,
+    "word_accuracy_pct": 72.72727272727273,
+    "sentence_wer_pct": 31.934523809523807
+   },
+   "checks": [
+    {
+     "metric": "dnsmos_ovrl",
+     "value": 3.452125128688818,
+     "target": {
+      "min": 3.25
+     },
+     "pass": true
+    },
+    {
+     "metric": "dnsmos_sig",
+     "value": 3.6601118198464917,
+     "target": {
+      "min": 3.5
+     },
+     "pass": true
+    },
+    {
+     "metric": "dnsmos_bak",
+     "value": 4.167063323708515,
+     "target": {
+      "min": 3.95
+     },
+     "pass": true
+    },
+    {
+     "metric": "hnr_db",
+     "value": 9.624243234629368,
+     "target": {
+      "min": 8,
+      "max": 17
+     },
+     "pass": true
+    },
+    {
+     "metric": "jitter_pct",
+     "value": 2.0700702773885253,
+     "target": {
+      "min": 1.2,
+      "max": 2.8
+     },
+     "pass": true
+    },
+    {
+     "metric": "shimmer_pct",
+     "value": 7.84865258080251,
+     "target": {
+      "max": 9
+     },
+     "pass": true
+    },
+    {
+     "metric": "flutter",
+     "value": 0.05644748425911432,
+     "target": {
+      "max": 0.1
+     },
+     "pass": true
+    },
+    {
+     "metric": "clicks",
+     "value": 0,
+     "target": {
+      "max": 0
+     },
+     "pass": true
+    },
+    {
+     "metric": "dropouts",
+     "value": 0,
+     "target": {
+      "max": 0
+     },
+     "pass": true
+    },
+    {
+     "metric": "clipped_samples",
+     "value": 0,
+     "target": {
+      "max": 0
+     },
+     "pass": true
+    },
+    {
+     "metric": "true_peak_dbtp",
+     "value": -1.9025451680264396,
+     "target": {
+      "max": -1.0
+     },
+     "pass": true
+    },
+    {
+     "metric": "lufs",
+     "value": -16.23253721612112,
+     "target": {
+      "min": -17,
+      "max": -15
+     },
+     "pass": true
+    },
+    {
+     "metric": "lufs_spread_lu",
+     "value": 0.20923642495171707,
+     "target": {
+      "max": 0.75
+     },
+     "pass": true
+    },
+    {
+     "metric": "r_dip",
+     "value": 0.7540985083575958,
+     "target": {
+      "max": 0.82
+     },
+     "pass": true
+    },
+    {
+     "metric": "word_accuracy_pct",
+     "value": 72.72727272727273,
+     "target": {
+      "min": 50
+     },
+     "pass": true
+    },
+    {
+     "metric": "sentence_wer_pct",
+     "value": 31.934523809523807,
+     "target": {
+      "max": 40
+     },
+     "pass": true
+    },
+    {
+     "metric": "f0_median_hz",
+     "value": 262.122312795368,
+     "target": {
+      "min": 235,
+      "max": 270
+     },
+     "pass": true
+    },
+    {
+     "metric": "vocal_tract_scale",
+     "value": 1.0429131712832924,
+     "target": {
+      "min": 1.0,
+      "max": 1.08
+     },
+     "pass": true
+    }
+   ]
+  },
+  "_pair": {
+   "summary": {
+    "loudness_difference_lu": 0.020827513419998667,
+    "boy_formants_below_girl_pct": 2.308480261857615,
+    "quality_difference_ovrl": 0.4915872231112215
+   },
+   "checks": [
+    {
+     "metric": "loudness_difference_lu",
+     "value": 0.020827513419998667,
+     "target": {
+      "max": 0.5
+     },
+     "pass": true
+    },
+    {
+     "metric": "boy_formants_below_girl_pct",
+     "value": 2.308480261857615,
+     "target": {
+      "min": 1,
+      "max": 9
+     },
+     "pass": true
+    },
+    {
+     "metric": "quality_difference_ovrl",
+     "value": 0.4915872231112215,
+     "target": {
+      "max": 0.55
+     },
+     "pass": true
+    }
+   ]
   }
+ }
 }

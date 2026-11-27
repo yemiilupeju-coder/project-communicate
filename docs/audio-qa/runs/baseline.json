@@ -1,0 +1,616 @@
+{
+ "label": "baseline",
+ "generation": {
+  "girl": {
+   "kokoro": "af_bella",
+   "reshape": {
+    "formant": 1.16,
+    "median": 285,
+    "range": 1.3,
+    "duration": 1.06
+   },
+   "summary": {
+    "duration_s": 1.2849114583333332,
+    "peak_dbfs": -1.012354742194992,
+    "true_peak_dbtp": -0.7781771376509793,
+    "clipped_samples": 0,
+    "dc_offset": 0.011743977290737884,
+    "lufs": -16.721235133081223,
+    "noise_floor_dbfs": -49.58018775004845,
+    "snr_db": 36.70171971640864,
+    "clicks": 0,
+    "dropouts": 0,
+    "flutter": 0.022345819046330963,
+    "f0_median_hz": 283.99667022933613,
+    "f0_range_st": 11.959106024831259,
+    "hnr_db": 15.04442323746552,
+    "jitter_pct": 1.5750241229637463,
+    "shimmer_pct": 6.574884343594964,
+    "f1_hz": 532.7627849455841,
+    "f2_hz": 2361.0603329478736,
+    "f3_hz": 4082.1970495321593,
+    "voiced_s": 0.75,
+    "f0_spread_st": 0.16603527744833524,
+    "lufs_spread_lu": 1.5750644699090237,
+    "dnsmos_sig": 3.2459548616476135,
+    "dnsmos_bak": 3.8274138020322135,
+    "dnsmos_ovrl": 2.9033221212821907,
+    "dnsmos_p808": 3.8940868377685547,
+    "vocal_tract_scale_vs_base": 1.1500000000000004,
+    "vocal_tract_scale": 1.1500000000000004
+   },
+   "checks": [
+    {
+     "metric": "dnsmos_ovrl",
+     "value": 2.9033221212821907,
+     "target": {
+      "min": 3.25
+     },
+     "pass": false
+    },
+    {
+     "metric": "dnsmos_sig",
+     "value": 3.2459548616476135,
+     "target": {
+      "min": 3.5
+     },
+     "pass": false
+    },
+    {
+     "metric": "dnsmos_bak",
+     "value": 3.8274138020322135,
+     "target": {
+      "min": 3.95
+     },
+     "pass": false
+    },
+    {
+     "metric": "hnr_db",
+     "value": 15.04442323746552,
+     "target": {
+      "min": 16
+     },
+     "pass": false
+    },
+    {
+     "metric": "jitter_pct",
+     "value": 1.5750241229637463,
+     "target": {
+      "max": 1.5
+     },
+     "pass": false
+    },
+    {
+     "metric": "shimmer_pct",
+     "value": 6.574884343594964,
+     "target": {
+      "max": 6
+     },
+     "pass": false
+    },
+    {
+     "metric": "flutter",
+     "value": 0.022345819046330963,
+     "target": {
+      "max": 0.03
+     },
+     "pass": true
+    },
+    {
+     "metric": "clicks",
+     "value": 0,
+     "target": {
+      "max": 0
+     },
+     "pass": true
+    },
+    {
+     "metric": "dropouts",
+     "value": 0,
+     "target": {
+      "max": 0
+     },
+     "pass": true
+    },
+    {
+     "metric": "clipped_samples",
+     "value": 0,
+     "target": {
+      "max": 0
+     },
+     "pass": true
+    },
+    {
+     "metric": "true_peak_dbtp",
+     "value": -0.7781771376509793,
+     "target": {
+      "max": -1.0
+     },
+     "pass": false
+    },
+    {
+     "metric": "lufs",
+     "value": -16.721235133081223,
+     "target": {
+      "min": -17,
+      "max": -15
+     },
+     "pass": true
+    },
+    {
+     "metric": "lufs_spread_lu",
+     "value": 1.5750644699090237,
+     "target": {
+      "max": 0.75
+     },
+     "pass": false
+    },
+    {
+     "metric": "f0_median_hz",
+     "value": 283.99667022933613,
+     "target": {
+      "min": 260,
+      "max": 300
+     },
+     "pass": true
+    },
+    {
+     "metric": "vocal_tract_scale",
+     "value": 1.1500000000000004,
+     "target": {
+      "min": 1.18,
+      "max": 1.3
+     },
+     "pass": false
+    }
+   ]
+  },
+  "boy": {
+   "kokoro": "am_eric",
+   "reshape": {
+    "formant": 1.25,
+    "median": 250,
+    "range": 1.22,
+    "duration": 1.06
+   },
+   "summary": {
+    "duration_s": 1.4137083333333333,
+    "peak_dbfs": -1.012354742194992,
+    "true_peak_dbtp": -0.8179815101834507,
+    "clipped_samples": 0,
+    "dc_offset": 0.004308473089376531,
+    "lufs": -15.448749866847141,
+    "noise_floor_dbfs": -36.03578567223422,
+    "snr_db": 22.9315538882929,
+    "clicks": 0,
+    "dropouts": 0,
+    "flutter": 0.020377492499365584,
+    "f0_median_hz": 251.07146714867247,
+    "f0_range_st": 14.57636172616401,
+    "hnr_db": 16.511492908462074,
+    "jitter_pct": 1.4687562259435465,
+    "shimmer_pct": 5.3679493931764375,
+    "f1_hz": 830.0364421505744,
+    "f2_hz": 2843.7929335683684,
+    "f3_hz": 4029.0717618294666,
+    "voiced_s": 1.12375,
+    "f0_spread_st": 0.1399707487773122,
+    "lufs_spread_lu": 1.0384296683030785,
+    "dnsmos_sig": 3.421956816203574,
+    "dnsmos_bak": 4.040511854341209,
+    "dnsmos_ovrl": 3.165939857781927,
+    "dnsmos_p808": 4.080658912658691,
+    "vocal_tract_scale_vs_base": 1.2550000000000003,
+    "vocal_tract_scale": 1.0855750000000002
+   },
+   "checks": [
+    {
+     "metric": "dnsmos_ovrl",
+     "value": 3.165939857781927,
+     "target": {
+      "min": 3.25
+     },
+     "pass": false
+    },
+    {
+     "metric": "dnsmos_sig",
+     "value": 3.421956816203574,
+     "target": {
+      "min": 3.5
+     },
+     "pass": false
+    },
+    {
+     "metric": "dnsmos_bak",
+     "value": 4.040511854341209,
+     "target": {
+      "min": 3.95
+     },
+     "pass": true
+    },
+    {
+     "metric": "hnr_db",
+     "value": 16.511492908462074,
+     "target": {
+      "min": 16
+     },
+     "pass": true
+    },
+    {
+     "metric": "jitter_pct",
+     "value": 1.4687562259435465,
+     "target": {
+      "max": 1.5
+     },
+     "pass": true
+    },
+    {
+     "metric": "shimmer_pct",
+     "value": 5.3679493931764375,
+     "target": {
+      "max": 6
+     },
+     "pass": true
+    },
+    {
+     "metric": "flutter",
+     "value": 0.020377492499365584,
+     "target": {
+      "max": 0.03
+     },
+     "pass": true
+    },
+    {
+     "metric": "clicks",
+     "value": 0,
+     "target": {
+      "max": 0
+     },
+     "pass": true
+    },
+    {
+     "metric": "dropouts",
+     "value": 0,
+     "target": {
+      "max": 0
+     },
+     "pass": true
+    },
+    {
+     "metric": "clipped_samples",
+     "value": 0,
+     "target": {
+      "max": 0
+     },
+     "pass": true
+    },
+    {
+     "metric": "true_peak_dbtp",
+     "value": -0.8179815101834507,
+     "target": {
+      "max": -1.0
+     },
+     "pass": false
+    },
+    {
+     "metric": "lufs",
+     "value": -15.448749866847141,
+     "target": {
+      "min": -17,
+      "max": -15
+     },
+     "pass": true
+    },
+    {
+     "metric": "lufs_spread_lu",
+     "value": 1.0384296683030785,
+     "target": {
+      "max": 0.75
+     },
+     "pass": false
+    },
+    {
+     "metric": "f0_median_hz",
+     "value": 251.07146714867247,
+     "target": {
+      "min": 230,
+      "max": 265
+     },
+     "pass": true
+    },
+    {
+     "metric": "vocal_tract_scale",
+     "value": 1.0855750000000002,
+     "target": {
+      "min": 1.12,
+      "max": 1.22
+     },
+     "pass": false
+    }
+   ]
+  },
+  "_pair": {
+   "summary": {
+    "loudness_difference_lu": 1.2724852662340815,
+    "boy_formants_below_girl_pct": 5.6021739130434955,
+    "quality_difference_ovrl": 0.2626177364997364
+   },
+   "checks": [
+    {
+     "metric": "loudness_difference_lu",
+     "value": 1.2724852662340815,
+     "target": {
+      "max": 0.5
+     },
+     "pass": false
+    },
+    {
+     "metric": "boy_formants_below_girl_pct",
+     "value": 5.6021739130434955,
+     "target": {
+      "min": 2,
+      "max": 9
+     },
+     "pass": true
+    },
+    {
+     "metric": "quality_difference_ovrl",
+     "value": 0.2626177364997364,
+     "target": {
+      "max": 0.15
+     },
+     "pass": false
+    }
+   ]
+  }
+ },
+ "encoding": {
+  "bitrate": "48k",
+  "summary": {
+   "snr_db": 20.99586951043229,
+   "dnsmos_ovrl_loss": -0.029674675965895236
+  },
+  "checks": [
+   {
+    "metric": "snr_db",
+    "value": 20.99586951043229,
+    "target": {
+     "min": 24
+    },
+    "pass": false
+   },
+   {
+    "metric": "dnsmos_ovrl_loss",
+    "value": -0.029674675965895236,
+    "target": {
+     "max": 0.05
+    },
+    "pass": true
+   }
+  ],
+  "all": {
+   "source": {
+    "dnsmos_ovrl": 2.9033221212821907,
+    "dnsmos_sig": 3.2459548616476135,
+    "bandwidth_hz": 11999.960565620451
+   },
+   "48k": {
+    "snr_db": 20.99586951043229,
+    "log_spectral_distance_db": 12.750084569700375,
+    "bandwidth_hz": 11333.361813718564,
+    "padding_ms": 46.04166666666667,
+    "dnsmos_ovrl": 2.932996797248086,
+    "dnsmos_sig": 3.232379433935496,
+    "kb_per_second": 4.957640903967428
+   },
+   "96k": {
+    "snr_db": 24.150842311308264,
+    "log_spectral_distance_db": 4.9603690569725005,
+    "bandwidth_hz": 11337.1475141553,
+    "padding_ms": 46.04166666666667,
+    "dnsmos_ovrl": 2.9529723639097636,
+    "dnsmos_sig": 3.283832491132605,
+    "kb_per_second": 9.915281807934855
+   },
+   "_chosen": "48k"
+  }
+ },
+ "playback": {
+  "summary": {
+   "capture_gaps": 0,
+   "device_voice_used": 0,
+   "clipped_samples": 0,
+   "clicks": 1,
+   "dropouts": 0,
+   "schedule_error_ms_max": 0.022675736961451247,
+   "clip_integrity_worst_db": -19.53098491796011,
+   "latency_ms_max": 87.54000000003727,
+   "clip_lufs_spread_lu": 1.962959602685722,
+   "girl_boy_lufs_difference": 2.224791009841585
+  },
+  "checks": [
+   {
+    "metric": "capture_gaps",
+    "value": 0,
+    "target": {
+     "max": 0
+    },
+    "pass": true
+   },
+   {
+    "metric": "device_voice_used",
+    "value": 0,
+    "target": {
+     "max": 0
+    },
+    "pass": true
+   },
+   {
+    "metric": "clipped_samples",
+    "value": 0,
+    "target": {
+     "max": 0
+    },
+    "pass": true
+   },
+   {
+    "metric": "clicks",
+    "value": 1,
+    "target": {
+     "max": 0
+    },
+    "pass": false
+   },
+   {
+    "metric": "dropouts",
+    "value": 0,
+    "target": {
+     "max": 0
+    },
+    "pass": true
+   },
+   {
+    "metric": "schedule_error_ms_max",
+    "value": 0.022675736961451247,
+    "target": {
+     "max": 1
+    },
+    "pass": true
+   },
+   {
+    "metric": "clip_integrity_worst_db",
+    "value": -19.53098491796011,
+    "target": {
+     "max": -25
+    },
+    "pass": false
+   },
+   {
+    "metric": "latency_ms_max",
+    "value": 87.54000000003727,
+    "target": {
+     "max": 100
+    },
+    "pass": true
+   },
+   {
+    "metric": "clip_lufs_spread_lu",
+    "value": 1.962959602685722,
+    "target": {
+     "max": 1.0
+    },
+    "pass": false
+   },
+   {
+    "metric": "girl_boy_lufs_difference",
+    "value": 2.224791009841585,
+    "target": {
+     "max": 0.5
+    },
+    "pass": false
+   }
+  ],
+  "joins": {
+   "n": 4,
+   "mean": 57.76643990929608,
+   "min": 53.1519274376393,
+   "max": 63.37868480725639
+  },
+  "sections": {
+   "setup": {
+    "clips": 1,
+    "whole_sentence": true
+   },
+   "Girl: words tapped one by one": {
+    "clips": 3,
+    "whole_sentence": false
+   },
+   "Girl: Speak, first time": {
+    "clips": 3,
+    "whole_sentence": false
+   },
+   "Girl: Speak, again": {
+    "clips": 1,
+    "whole_sentence": true
+   },
+   "Girl: a strip phrase": {
+    "clips": 1,
+    "whole_sentence": true
+   },
+   "Girl: typed sentence": {
+    "clips": 5,
+    "whole_sentence": false
+   },
+   "Boy: words tapped one by one": {
+    "clips": 3,
+    "whole_sentence": false
+   },
+   "Boy: Speak, first time": {
+    "clips": 3,
+    "whole_sentence": false
+   },
+   "Boy: Speak, again": {
+    "clips": 1,
+    "whole_sentence": true
+   },
+   "Boy: a strip phrase": {
+    "clips": 1,
+    "whole_sentence": true
+   },
+   "Boy: typed sentence": {
+    "clips": 4,
+    "whole_sentence": false
+   }
+  },
+  "worst_clips": [
+   {
+    "file": "clips/005.wav",
+    "section": "Girl: Speak, first time",
+    "seconds": 0.49124716553287984,
+    "scheduled_s": 11.207947845804988,
+    "actual_s": 11.20795918367347,
+    "schedule_error_ms": 0.022675736961451247,
+    "residual_db": -19.53098491796011,
+    "latency_ms": 302.1568253968336,
+    "tap": "\ud83d\udd0a\nSpeak",
+    "sound_start_s": 11.222766439909297,
+    "sound_end_s": 11.691315192743764,
+    "lufs": -16.932669831350704,
+    "clicks": 0,
+    "dropouts": 0
+   },
+   {
+    "file": "clips/018.wav",
+    "section": "Boy: Speak, first time",
+    "seconds": 0.5182766439909297,
+    "scheduled_s": 41.38143990929706,
+    "actual_s": 41.381451247165536,
+    "schedule_error_ms": 0.0,
+    "residual_db": -24.58667374476592,
+    "latency_ms": 345.28256235835937,
+    "tap": "\ud83d\udd0a\nSpeak",
+    "sound_start_s": 41.38666666666666,
+    "sound_end_s": 41.88963718820862,
+    "lufs": -16.05156763932506,
+    "clicks": 0,
+    "dropouts": 0
+   },
+   {
+    "file": "clips/012.wav",
+    "section": "Girl: typed sentence",
+    "seconds": 1.1085416666666668,
+    "scheduled_s": 28.229342403628117,
+    "actual_s": 28.229342403628117,
+    "schedule_error_ms": 0.0,
+    "residual_db": -27.81592631042514,
+    "latency_ms": 1610.5649999999437,
+    "tap": "\ud83d\udd0a\nSpeak",
+    "sound_start_s": 28.24421768707483,
+    "sound_end_s": 29.33310657596372,
+    "lufs": -16.693276187159825,
+    "clicks": 1,
+    "dropouts": 0
+   }
+  ]
+ }
+}

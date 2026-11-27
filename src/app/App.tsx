@@ -34,6 +34,7 @@ import {
   makeSentence,
   modelStatus,
   onModelChange,
+  warmUp,
 } from "../voice/deviceVoice";
 import { wordsOf } from "../core/voicePack";
 import { wordTexts } from "../features/communicator/speakable";
@@ -236,6 +237,18 @@ export function App({ demo = false }: { demo?: boolean }) {
     void makeClips(settings.voicePack, wordTexts(added), "later");
   }, [modelReady, settings.voicePack, added]);
 
+  // Keep the voice maker ready while the app is open, so sentences come quickly.
+  useEffect(() => {
+    if (!modelReady || settings.voicePack === "none") return;
+    const voice = settings.voicePack;
+    warmUp(voice);
+    const onShow = () => {
+      if (document.visibilityState === "visible") warmUp(voice);
+    };
+    document.addEventListener("visibilitychange", onShow);
+    return () => document.removeEventListener("visibilitychange", onShow);
+  }, [modelReady, settings.voicePack]);
+
   // Saved sentences are made whole in the background, so they always sound natural.
   const savedMessages = profile?.saved;
   useEffect(() => {
@@ -250,7 +263,7 @@ export function App({ demo = false }: { demo?: boolean }) {
   useEffect(() => {
     if (!modelReady || settings.voicePack === "none" || wordsOf(building).length < 2) return;
     const voice = settings.voicePack;
-    const timer = window.setTimeout(() => void makeSentence(voice, building, "soon", false), 600);
+    const timer = window.setTimeout(() => void makeSentence(voice, building, "soon", false), 300);
     return () => window.clearTimeout(timer);
   }, [modelReady, settings.voicePack, building]);
 

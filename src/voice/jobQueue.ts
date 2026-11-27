@@ -24,6 +24,13 @@ export class JobQueue<T> {
   private readonly waiting: Job<T>[] = [];
   private readonly settle = new Map<Job<T>, (value: T) => void>();
   private busy: Job<T> | null = null;
+  private held = false;
+
+  /**
+   * Holds back "soon" and "later" jobs while `hold()` is true (for example
+   * while audio plays, so making clips never competes with playing them).
+   */
+  constructor(private readonly hold: () => boolean = () => false) {}
 
   /** Jobs not yet started (for tests). */
   pending(): readonly { key: string; priority: Priority }[] {
@@ -72,7 +79,15 @@ export class JobQueue<T> {
   }
 
   private async next(): Promise<void> {
-    if (this.busy || this.waiting.length === 0) return;
+    if (this.busy || this.waiting.length === 0 || this.held) return;
+    if (this.waiting[0]!.priority !== "now" && this.hold()) {
+      this.held = true;
+      setTimeout(() => {
+        this.held = false;
+        void this.next();
+      }, 150);
+      return;
+    }
     const job = this.waiting.shift()!;
     this.busy = job;
     const resolve = this.settle.get(job)!;

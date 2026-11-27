@@ -14,8 +14,52 @@ import { KOKORO_VOCAB } from "./kokoroVocab";
 export const SAMPLE_RATE = 24000;
 const MAX_TOKENS = 510;
 
-/** Runs the model: token ids (with the 0 padding) and a 256-value style → audio samples. */
-export type KokoroRun = (tokens: BigInt64Array, style: Float32Array) => Promise<Float32Array>;
+/**
+ * The model's numeric inputs besides text and style. The app's model has the
+ * in-graph pitch control (research/child-voice/make_pitch_model.py): the
+ * pitch curve Kokoro predicts is rescaled before its decoder generates the
+ * voice, so the child's pitch is made by the model, not shifted afterwards.
+ *   f0Scale  multiplies the whole pitch curve (1 = as predicted)
+ *   f0Range  widens (>1) or narrows (<1) the movement around f0Ref, in log terms
+ *   f0Ref    the centre for f0Range, in Hz (the voice's own predicted median)
+ */
+export interface KokoroInputs {
+  readonly speed: number;
+  readonly f0Scale: number;
+  readonly f0Range: number;
+  readonly f0Ref: number;
+}
+
+/** Kokoro as trained: normal speed, pitch untouched. */
+export const NEUTRAL_INPUTS: KokoroInputs = { speed: 1, f0Scale: 1, f0Range: 1, f0Ref: 200 };
+
+/** Runs the model: token ids (with the 0 padding), a 256-value style and the inputs → audio samples. */
+export type KokoroRun = (
+  tokens: BigInt64Array,
+  style: Float32Array,
+  inputs: KokoroInputs,
+) => Promise<Float32Array>;
+
+/**
+ * The model's input tensors. `tensor` makes one with whichever onnxruntime the
+ * caller uses (web on devices, node in the build scripts).
+ */
+export function kokoroFeeds<T>(
+  tensor: (type: "int64" | "float32", data: BigInt64Array | Float32Array, dims: number[]) => T,
+  tokens: BigInt64Array,
+  style: Float32Array,
+  inputs: KokoroInputs,
+): Record<string, T> {
+  const one = (v: number) => tensor("float32", new Float32Array([v]), [1]);
+  return {
+    tokens: tensor("int64", tokens, [1, tokens.length]),
+    style: tensor("float32", style, [1, 256]),
+    speed: one(inputs.speed),
+    f0_scale: one(inputs.f0Scale),
+    f0_range: one(inputs.f0Range),
+    f0_ref: one(inputs.f0Ref),
+  };
+}
 
 function splitNumber(text: string): string {
   if (text.includes(".")) return text;
@@ -103,11 +147,12 @@ export async function synthesize(
   voice: Float32Array,
   lexicon: Lexicon,
   text: string,
+  inputs: KokoroInputs = NEUTRAL_INPUTS,
 ): Promise<Float32Array> {
   const ids = tokenize(phonemes(lexicon, text));
   if (ids.length === 0) return new Float32Array(0);
   const row = Math.min(ids.length, voice.length / 256) - 1;
   const style = voice.slice(row * 256, row * 256 + 256);
   const tokens = BigInt64Array.from([0, ...ids, 0].map((id) => BigInt(id)));
-  return run(tokens, style);
+  return run(tokens, style, inputs);
 }

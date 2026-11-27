@@ -13,7 +13,7 @@ import * as ort from "onnxruntime-node";
 import { VOICE_PACK_IDS, type VoicePackId } from "../../src/core/voicePack";
 import { renderChildVoice, VOICE_VERSION } from "../../src/voice/childVoices";
 import type { Lexicon } from "../../src/voice/g2p";
-import { SAMPLE_RATE } from "../../src/voice/kokoro";
+import { kokoroFeeds, SAMPLE_RATE, type KokoroRun } from "../../src/voice/kokoro";
 import { LEXICON, MODEL_PARTS, voiceTablePath } from "../../src/voice/voiceModel";
 
 const root = new URL("../../", import.meta.url);
@@ -44,7 +44,9 @@ function mp3(samples: Float32Array): Buffer {
       "-i",
       "pipe:0",
       "-b:a",
-      "48k",
+      // 96 kbps: 48 kbps measurably damaged the voice (scripts/audio-qa/encoding.py:
+      // SNR 21 dB, vs 26 dB here); this is where the gains level off.
+      "96k",
       "-write_xing",
       "0",
       "-id3v2_version",
@@ -65,12 +67,10 @@ async function renderClips(id: VoicePackId) {
   const table = readFileSync(at(`public/${voiceTablePath(id)}`));
   const voice = new Float32Array(table.buffer, table.byteOffset, table.byteLength / 4);
   const lexicon = JSON.parse(readFileSync(at(`public/${LEXICON.path}`), "utf8")) as Lexicon;
-  const run = async (tokens: BigInt64Array, style: Float32Array) => {
-    const out = await session.run({
-      tokens: new ort.Tensor("int64", tokens, [1, tokens.length]),
-      style: new ort.Tensor("float32", style, [1, 256]),
-      speed: new ort.Tensor("float32", new Float32Array([1]), [1]),
-    });
+  const run: KokoroRun = async (tokens, style, inputs) => {
+    const out = await session.run(
+      kokoroFeeds((type, data, dims) => new ort.Tensor(type, data, dims), tokens, style, inputs),
+    );
     return out.audio!.data as Float32Array;
   };
   mkdirSync(cacheDir(id), { recursive: true });
