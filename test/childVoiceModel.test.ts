@@ -16,6 +16,7 @@ import { CHILD_VOICES, renderChildVoice } from "../src/voice/childVoices";
 import type { Lexicon } from "../src/voice/g2p";
 import { kokoroFeeds, SAMPLE_RATE, type KokoroRun } from "../src/voice/kokoro";
 import { loudness, PEAK_CEILING_DBTP, TARGET_LUFS, truePeak } from "../src/voice/loudness";
+import { breathAfterVoice } from "../src/voice/endBreath";
 import { trackPitch } from "../src/voice/reshape";
 import { LEXICON, MODEL_PARTS, voiceTablePath } from "../src/voice/voiceModel";
 
@@ -194,6 +195,14 @@ describe.each(IDS)("the %s voice", (id) => {
     expect(Math.abs(x[0]!)).toBeLessThan(0.01);
     expect(Math.abs(x[x.length - 1]!)).toBeLessThan(0.01);
   }, 60_000);
+
+  it('ends words cleanly: no out-breath heard as an extra sound ("are" as "aren\'t")', async () => {
+    // Words ending on a voiced sound; the boy's delivery used to add 0.1-0.2 s
+    // of breathy hiss after each (ADR 0012).
+    for (const word of ["are", "car", "more", "my", "water", "You are a superstar!"]) {
+      expect(breathAfterVoice(await say(id, word), SAMPLE_RATE), word).toBeLessThan(0.03);
+    }
+  }, 120_000);
 
   it.each(Object.entries(SENTENCES))(
     "still matches the reference sample: %s",

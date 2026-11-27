@@ -5,13 +5,13 @@ export const VOICE_PACK_FILES: Readonly<
   Record<VoicePackId, { audio: string; index: string; bytes: number }>
 > = {
   girl: {
-    audio: "voices/girl-091d56a794.mp3",
-    index: "voices/girl-091d56a794.json",
-    bytes: 8493120,
+    audio: "voices/girl-bcbadda317.mp3",
+    index: "voices/girl-bcbadda317.json",
+    bytes: 8492256,
   },
   boy: {
-    audio: "voices/boy-7d951544e2.mp3",
-    index: "voices/boy-7d951544e2.json",
-    bytes: 8424576,
+    audio: "voices/boy-97fc4fb940.mp3",
+    index: "voices/boy-97fc4fb940.json",
+    bytes: 8093088,
   },
 };

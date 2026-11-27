@@ -50,3 +50,14 @@ Then trimming, fades and loudness as before. The model is unchanged; devices fet
   and `scripts/audio-qa/clarity.py` (American "r" and word recognition), with targets that fail
   ADR 0011's voices.
 - No child recordings used; text-to-speech only.
+
+## Update — Nov 27, 2026: the boy's out-breath
+
+TD heard the boy's "are" as "aren't". The boy's delivery (am_puck's prosody half) ends words with
+0.1–0.2 s of breathy hiss (around 7 kHz, 8–13 dB below the word) after the voice stops, heard as
+an extra "t" or "n't". A hidden full stop after single words did not change it. Now, when the text
+ends on a voiced sound (vowel, r, l, m, n, ng, w, y), a hissy tail after the last voiced frame is
+cut 20 ms after the voice with a 20 ms fade (`src/voice/endBreath.ts`), before the lift. Words that
+end in a consonant keep their ending, and soft, low tails are left alone; the girl's words are
+unchanged. Nothing is added to what anyone sees. Tests: `test/endBreath.test.ts`, and the voice
+test checks "are", "car", "more", "my", "water" and a sentence in both voices.

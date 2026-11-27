@@ -10,9 +10,10 @@
  */
 
 import type { VoicePackId } from "../core/voicePack";
+import { endsVoiced, trimEndBreath } from "./endBreath";
 import { envelopeLift } from "./envelopeLift";
 import type { Lexicon } from "./g2p";
-import { synthesize, SAMPLE_RATE, type KokoroInputs, type KokoroRun } from "./kokoro";
+import { phonemes, synthesize, SAMPLE_RATE, type KokoroInputs, type KokoroRun } from "./kokoro";
 import { finish } from "./reshape";
 
 export interface ChildVoice {
@@ -48,7 +49,7 @@ export const CHILD_VOICES: Readonly<Record<VoicePackId, ChildVoice>> = {
  * Change this when the model, voices, pronunciation or processing change, so
  * saved clips are made again.
  */
-export const VOICE_VERSION = "k82m-int8-f0-lift-misaki-r6";
+export const VOICE_VERSION = "k82m-int8-f0-lift-breath-misaki-r7";
 
 export async function renderChildVoice(
   run: KokoroRun,
@@ -60,7 +61,9 @@ export async function renderChildVoice(
   const voice = CHILD_VOICES[id];
   const raw = await synthesize(run, voiceTable, lexicon, text, voice.inputs);
   if (raw.length === 0) return raw;
-  // Raise the formants evenly, then trim, fade the ends and set every clip to
-  // the same loudness. Nothing else.
-  return finish(envelopeLift(raw, SAMPLE_RATE, voice.lift), SAMPLE_RATE);
+  // Cut the out-breath after a word that ends on a voiced sound (heard as
+  // "aren't" for "are"), raise the formants evenly, then trim, fade the ends
+  // and set every clip to the same loudness. Nothing else.
+  const clean = trimEndBreath(raw, SAMPLE_RATE, endsVoiced(phonemes(lexicon, text)));
+  return finish(envelopeLift(clean, SAMPLE_RATE, voice.lift), SAMPLE_RATE);
 }
