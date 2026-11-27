@@ -1,0 +1,144 @@
+{
+  "_about": "Audio quality targets for the child voices. Changed only with a reason in docs/audio-qa/README.md.",
+  "adult_female_reference": {
+    "f1_hz": 583,
+    "f2_hz": 2430,
+    "f3_hz": 4173
+  },
+  "all": {
+    "dnsmos_ovrl": {
+      "min": 3.25
+    },
+    "dnsmos_sig": {
+      "min": 3.5
+    },
+    "dnsmos_bak": {
+      "min": 3.95
+    },
+    "hnr_db": {
+      "min": 8,
+      "max": 17
+    },
+    "jitter_pct": {
+      "min": 1.2,
+      "max": 2.8
+    },
+    "shimmer_pct": {
+      "max": 9
+    },
+    "flutter": {
+      "max": 0.1
+    },
+    "clicks": {
+      "max": 0
+    },
+    "dropouts": {
+      "max": 0
+    },
+    "clipped_samples": {
+      "max": 0
+    },
+    "true_peak_dbtp": {
+      "max": -1.0
+    },
+    "lufs": {
+      "min": -17,
+      "max": -15
+    },
+    "lufs_spread_lu": {
+      "max": 0.75
+    },
+    "r_dip": {
+      "max": 0.82
+    },
+    "word_accuracy_pct": {
+      "min": 50
+    },
+    "sentence_wer_pct": {
+      "max": 40
+    }
+  },
+  "voices": {
+    "girl": {
+      "f0_median_hz": {
+        "min": 245,
+        "max": 290
+      },
+      "vocal_tract_scale": {
+        "min": 1.04,
+        "max": 1.12
+      },
+      "dnsmos_ovrl": {
+        "min": 2.9
+      },
+      "dnsmos_sig": {
+        "min": 3.35
+      },
+      "dnsmos_bak": {
+        "min": 3.6
+      }
+    },
+    "boy": {
+      "f0_median_hz": {
+        "min": 235,
+        "max": 270
+      },
+      "vocal_tract_scale": {
+        "min": 1.0,
+        "max": 1.08
+      }
+    }
+  },
+  "pair": {
+    "loudness_difference_lu": {
+      "max": 0.5
+    },
+    "boy_formants_below_girl_pct": {
+      "min": 1,
+      "max": 9
+    },
+    "quality_difference_ovrl": {
+      "max": 0.55
+    }
+  },
+  "encoding": {
+    "snr_db": {
+      "min": 24
+    },
+    "dnsmos_ovrl_loss": {
+      "max": 0.05
+    }
+  },
+  "playback": {
+    "capture_gaps": {
+      "max": 0
+    },
+    "device_voice_used": {
+      "max": 0
+    },
+    "clipped_samples": {
+      "max": 0
+    },
+    "clicks": {
+      "max": 0
+    },
+    "dropouts": {
+      "max": 0
+    },
+    "schedule_error_ms_max": {
+      "max": 1
+    },
+    "clip_integrity_worst_db": {
+      "max": -25
+    },
+    "latency_ms_max": {
+      "max": 100
+    },
+    "clip_lufs_spread_lu": {
+      "max": 1.0
+    },
+    "girl_boy_lufs_difference": {
+      "max": 0.5
+    }
+  }
+}

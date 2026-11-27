@@ -1,0 +1,152 @@
+{
+  "girl/A3-source-int8-slower": {
+    "r_dip": 0.7290073237843347,
+    "formant_x": 1.0,
+    "vowel_shape": 0.0
+  },
+  "girl/B-pitch-only": {
+    "r_dip": 0.776152735776081,
+    "formant_x": 0.9792552727320976,
+    "vowel_shape": 0.041309890959401754
+  },
+  "girl/C-timbre-only": {
+    "r_dip": 0.8958925820935671,
+    "formant_x": 1.0135913655449174,
+    "vowel_shape": 0.07853883456484109
+  },
+  "girl/D-generated-shipped": {
+    "r_dip": 0.8844686045602417,
+    "formant_x": 1.0022082447388656,
+    "vowel_shape": 0.07814215199072519
+  },
+  "girl/O1-old-raw": {
+    "r_dip": 0.6833001786029838,
+    "formant_x": 0.9292587027441913,
+    "vowel_shape": 0.1263213261452252
+  },
+  "girl/O3-old-finished": {
+    "r_dip": 0.7662706153355702,
+    "formant_x": 1.095053021214687,
+    "vowel_shape": 0.16468752099976608
+  },
+  "girl/X-C-pitch-only-no-timbre": {
+    "r_dip": 0.7647669628205344,
+    "formant_x": 0.9877972822028992,
+    "vowel_shape": 0.03403472138633319
+  },
+  "girl/X-D1-psola-praat": {
+    "r_dip": 0.7543899351828441,
+    "formant_x": 1.1635654478898332,
+    "vowel_shape": 0.028460625657919403
+  },
+  "girl/X-D2-pitch-model+even-filter": {
+    "r_dip": 0.747544792812735,
+    "formant_x": 1.1814028105849617,
+    "vowel_shape": 0.041445256459962776
+  },
+  "girl/X-E-world": {
+    "r_dip": 0.7614295760340993,
+    "formant_x": 1.1700859301457087,
+    "vowel_shape": 0.040197152971735706
+  },
+  "girl/X-J1-e6-hybrid": {
+    "r_dip": 0.7175777884625988,
+    "formant_x": 1.2430084120120184,
+    "vowel_shape": 0.038196295334069395
+  },
+  "girl/Y-formant-1.04": {
+    "r_dip": 0.7660262791610428,
+    "formant_x": 1.0251905611444951,
+    "vowel_shape": 0.03544524559813186
+  },
+  "girl/Y-formant-1.07": {
+    "r_dip": 0.76730088890072,
+    "formant_x": 1.0713633839696488,
+    "vowel_shape": 0.03144910278444566
+  },
+  "girl/Y-formant-1.10": {
+    "r_dip": 0.7569425589990624,
+    "formant_x": 1.12332852428548,
+    "vowel_shape": 0.0282980759508073
+  },
+  "boy/A3-source-int8-slower": {
+    "r_dip": 0.831419311578627,
+    "formant_x": 1.0,
+    "vowel_shape": 0.0
+  },
+  "boy/B-pitch-only": {
+    "r_dip": 0.8439232101945565,
+    "formant_x": 0.9581619127233856,
+    "vowel_shape": 0.06915494720455313
+  },
+  "boy/C-timbre-only": {
+    "r_dip": 0.9330156407882415,
+    "formant_x": 0.9449894790327859,
+    "vowel_shape": 0.10240950380109007
+  },
+  "boy/D-generated-shipped": {
+    "r_dip": 0.9434999914209755,
+    "formant_x": 0.990355435001003,
+    "vowel_shape": 0.09062842244269995
+  },
+  "boy/O1-old-raw": {
+    "r_dip": 0.8139376861691535,
+    "formant_x": 0.851000501068172,
+    "vowel_shape": 0.11824018618532368
+  },
+  "boy/O3-old-finished": {
+    "r_dip": 0.7130626085066109,
+    "formant_x": 0.9843305753499981,
+    "vowel_shape": 0.10543159915875111
+  },
+  "boy/X-C-pitch-only-no-timbre": {
+    "r_dip": 0.8415594451583922,
+    "formant_x": 0.9564305754081908,
+    "vowel_shape": 0.08535609704510119
+  },
+  "boy/X-D1-psola-praat": {
+    "r_dip": 0.7377245860680233,
+    "formant_x": 1.0479218899052534,
+    "vowel_shape": 0.09761440734320671
+  },
+  "boy/X-D2-pitch-model+even-filter": {
+    "r_dip": 0.7087435153006938,
+    "formant_x": 1.0600741373426865,
+    "vowel_shape": 0.12004578471242941
+  },
+  "boy/X-E-world": {
+    "r_dip": 0.7322038615822347,
+    "formant_x": 1.0369755995707943,
+    "vowel_shape": 0.11161466260879627
+  },
+  "boy/X-J1-e6-hybrid": {
+    "r_dip": 0.866766968200596,
+    "formant_x": 1.1651880718230951,
+    "vowel_shape": 0.0924470149813498
+  },
+  "boy/X-J2b-woman-timbre+pitch-only": {
+    "r_dip": 0.7481218707216518,
+    "formant_x": 0.9274966380510236,
+    "vowel_shape": 0.11353545124825137
+  },
+  "boy/X-J2-woman-timbre+pitch+even-filter": {
+    "r_dip": 0.763177908995872,
+    "formant_x": 1.0325320068599884,
+    "vowel_shape": 0.12307955343161933
+  },
+  "boy/Y-formant-1.04": {
+    "r_dip": 0.7638223448296507,
+    "formant_x": 0.9635995994542823,
+    "vowel_shape": 0.1206047504221158
+  },
+  "boy/Y-formant-1.07": {
+    "r_dip": 0.7712106312242951,
+    "formant_x": 1.0023830970389551,
+    "vowel_shape": 0.12116420991982117
+  },
+  "boy/Y-formant-1.10": {
+    "r_dip": 0.7639470960732327,
+    "formant_x": 1.0469661454567385,
+    "vowel_shape": 0.12357439644624395
+  }
+}

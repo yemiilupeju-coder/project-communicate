@@ -1,0 +1,404 @@
+{
+  "w-fish": {
+    "group": "fricative",
+    "text": "fish",
+    "ph": "fˈɪʃ",
+    "tokens": [48, 156, 102, 131]
+  },
+  "w-seven": {
+    "group": "fricative",
+    "text": "seven",
+    "ph": "sˈɛvən",
+    "tokens": [61, 156, 86, 64, 83, 56]
+  },
+  "w-shoes": {
+    "group": "fricative",
+    "text": "shoes",
+    "ph": "ʃˈuz",
+    "tokens": [131, 156, 63, 68]
+  },
+  "w-fresh": {
+    "group": "fricative",
+    "text": "fresh",
+    "ph": "fɹˈɛʃ",
+    "tokens": [48, 123, 156, 86, 131]
+  },
+  "w-something": {
+    "group": "fricative",
+    "text": "something",
+    "ph": "sˈʌmθˌɪŋ",
+    "tokens": [61, 156, 138, 55, 119, 157, 102, 112]
+  },
+  "w-thank_you": {
+    "group": "fricative",
+    "text": "thank you",
+    "ph": "θˈæŋk ju",
+    "tokens": [119, 156, 72, 112, 53, 16, 52, 63]
+  },
+  "w-five": {
+    "group": "fricative",
+    "text": "five",
+    "ph": "fˈIv",
+    "tokens": [48, 156, 25, 64]
+  },
+  "w-zoo": {
+    "group": "fricative",
+    "text": "zoo",
+    "ph": "zˈu",
+    "tokens": [68, 156, 63]
+  },
+  "w-house": {
+    "group": "fricative",
+    "text": "house",
+    "ph": "hˈWs",
+    "tokens": [50, 156, 39, 61]
+  },
+  "w-sister": {
+    "group": "fricative",
+    "text": "sister",
+    "ph": "sˈɪstəɹ",
+    "tokens": [61, 156, 102, 61, 62, 83, 123]
+  },
+  "w-Peter": {
+    "group": "plosive",
+    "text": "Peter",
+    "ph": "pˈiɾəɹ",
+    "tokens": [58, 156, 51, 125, 83, 123]
+  },
+  "w-paper": {
+    "group": "plosive",
+    "text": "paper",
+    "ph": "pˈApəɹ",
+    "tokens": [58, 156, 24, 58, 83, 123]
+  },
+  "w-cup": {
+    "group": "plosive",
+    "text": "cup",
+    "ph": "kˈʌp",
+    "tokens": [53, 156, 138, 58]
+  },
+  "w-better": {
+    "group": "plosive",
+    "text": "better",
+    "ph": "bˈɛɾəɹ",
+    "tokens": [44, 156, 86, 125, 83, 123]
+  },
+  "w-doctor": {
+    "group": "plosive",
+    "text": "doctor",
+    "ph": "dˈɑktəɹ",
+    "tokens": [46, 156, 69, 53, 62, 83, 123]
+  },
+  "w-big": {
+    "group": "plosive",
+    "text": "big",
+    "ph": "bˈɪɡ",
+    "tokens": [44, 156, 102, 92]
+  },
+  "w-top": {
+    "group": "plosive",
+    "text": "top",
+    "ph": "tˈɑp",
+    "tokens": [62, 156, 69, 58]
+  },
+  "w-kite": {
+    "group": "plosive",
+    "text": "kite",
+    "ph": "kˈIt",
+    "tokens": [53, 156, 25, 62]
+  },
+  "w-dog": {
+    "group": "plosive",
+    "text": "dog",
+    "ph": "dˈɔɡ",
+    "tokens": [46, 156, 76, 92]
+  },
+  "w-help": {
+    "group": "plosive",
+    "text": "help",
+    "ph": "hˈɛlp",
+    "tokens": [50, 156, 86, 54, 58]
+  },
+  "w-street": {
+    "group": "cluster",
+    "text": "street",
+    "ph": "stɹˈit",
+    "tokens": [61, 62, 123, 156, 51, 62]
+  },
+  "w-strength": {
+    "group": "cluster",
+    "text": "strength",
+    "ph": "stɹˈɛŋθ",
+    "tokens": [61, 62, 123, 156, 86, 112, 119]
+  },
+  "w-splash": {
+    "group": "cluster",
+    "text": "splash",
+    "ph": "splˈæʃ",
+    "tokens": [61, 58, 54, 156, 72, 131]
+  },
+  "w-crisp": {
+    "group": "cluster",
+    "text": "crisp",
+    "ph": "kɹˈɪsp",
+    "tokens": [53, 123, 156, 102, 61, 58]
+  },
+  "w-breakfast": {
+    "group": "cluster",
+    "text": "breakfast",
+    "ph": "bɹˈɛkfəst",
+    "tokens": [44, 123, 156, 86, 53, 48, 83, 61, 62]
+  },
+  "w-spring": {
+    "group": "cluster",
+    "text": "spring",
+    "ph": "spɹˈɪŋ",
+    "tokens": [61, 58, 123, 156, 102, 112]
+  },
+  "w-plants": {
+    "group": "cluster",
+    "text": "plants",
+    "ph": "plˈænts",
+    "tokens": [58, 54, 156, 72, 56, 62, 61]
+  },
+  "w-clothes": {
+    "group": "cluster",
+    "text": "clothes",
+    "ph": "klˈOðz",
+    "tokens": [53, 54, 156, 31, 81, 68]
+  },
+  "w-ship": {
+    "group": "vowel",
+    "text": "ship",
+    "ph": "ʃˈɪp",
+    "tokens": [131, 156, 102, 58]
+  },
+  "w-sheep": {
+    "group": "vowel",
+    "text": "sheep",
+    "ph": "ʃˈip",
+    "tokens": [131, 156, 51, 58]
+  },
+  "w-full": {
+    "group": "vowel",
+    "text": "full",
+    "ph": "fˈʊl",
+    "tokens": [48, 156, 135, 54]
+  },
+  "w-fool": {
+    "group": "vowel",
+    "text": "fool",
+    "ph": "fˈul",
+    "tokens": [48, 156, 63, 54]
+  },
+  "w-bed": {
+    "group": "vowel",
+    "text": "bed",
+    "ph": "bˈɛd",
+    "tokens": [44, 156, 86, 46]
+  },
+  "w-bad": {
+    "group": "vowel",
+    "text": "bad",
+    "ph": "bˈæd",
+    "tokens": [44, 156, 72, 46]
+  },
+  "w-cot": {
+    "group": "vowel",
+    "text": "cot",
+    "ph": "kˈɑt",
+    "tokens": [53, 156, 69, 62]
+  },
+  "w-caught": {
+    "group": "vowel",
+    "text": "caught",
+    "ph": "kˈɔt",
+    "tokens": [53, 156, 76, 62]
+  },
+  "w-hat": {
+    "group": "vowel",
+    "text": "hat",
+    "ph": "hˈæt",
+    "tokens": [50, 156, 72, 62]
+  },
+  "w-hot": {
+    "group": "vowel",
+    "text": "hot",
+    "ph": "hˈɑt",
+    "tokens": [50, 156, 69, 62]
+  },
+  "w-boot": {
+    "group": "vowel",
+    "text": "boot",
+    "ph": "bˈut",
+    "tokens": [44, 156, 63, 62]
+  },
+  "w-book": {
+    "group": "vowel",
+    "text": "book",
+    "ph": "bˈʊk",
+    "tokens": [44, 156, 135, 53]
+  },
+  "w-mom": {
+    "group": "nasal",
+    "text": "mom",
+    "ph": "mˈɑm",
+    "tokens": [55, 156, 69, 55]
+  },
+  "w-nine": {
+    "group": "nasal",
+    "text": "nine",
+    "ph": "nˈIn",
+    "tokens": [56, 156, 25, 56]
+  },
+  "w-sing": {
+    "group": "nasal",
+    "text": "sing",
+    "ph": "sˈɪŋ",
+    "tokens": [61, 156, 102, 112]
+  },
+  "w-no": {
+    "group": "nasal",
+    "text": "no",
+    "ph": "nˈO",
+    "tokens": [56, 156, 31]
+  },
+  "w-lunch": {
+    "group": "nasal",
+    "text": "lunch",
+    "ph": "lˈʌnʧ",
+    "tokens": [54, 156, 138, 56, 133]
+  },
+  "w-yes": {
+    "group": "core",
+    "text": "yes",
+    "ph": "jˈɛs",
+    "tokens": [52, 156, 86, 61]
+  },
+  "w-more": {
+    "group": "core",
+    "text": "more",
+    "ph": "mˈɔɹ",
+    "tokens": [55, 156, 76, 123]
+  },
+  "w-stop": {
+    "group": "core",
+    "text": "stop",
+    "ph": "stˈɑp",
+    "tokens": [61, 62, 156, 69, 58]
+  },
+  "w-go": {
+    "group": "core",
+    "text": "go",
+    "ph": "ɡˌO",
+    "tokens": [92, 157, 31]
+  },
+  "w-want": {
+    "group": "core",
+    "text": "want",
+    "ph": "wˈɑnt",
+    "tokens": [65, 156, 69, 56, 62]
+  },
+  "w-water": {
+    "group": "core",
+    "text": "water",
+    "ph": "wˈɔɾəɹ",
+    "tokens": [65, 156, 76, 125, 83, 123]
+  },
+  "w-hungry": {
+    "group": "core",
+    "text": "hungry",
+    "ph": "hˈʌŋɡɹi",
+    "tokens": [50, 156, 138, 112, 92, 123, 51]
+  },
+  "w-bathroom": {
+    "group": "core",
+    "text": "bathroom",
+    "ph": "bˈæθɹˌum",
+    "tokens": [44, 156, 72, 119, 123, 157, 63, 55]
+  },
+  "w-all_done": {
+    "group": "core",
+    "text": "all done",
+    "ph": "ˈɔl dˈʌn",
+    "tokens": [156, 76, 54, 16, 46, 156, 138, 56]
+  },
+  "w-hello": {
+    "group": "core",
+    "text": "hello",
+    "ph": "həlˈO",
+    "tokens": [50, 83, 54, 156, 31]
+  },
+  "s-1": {
+    "group": "sentence",
+    "text": "Can you please come and help me?",
+    "ph": "kˌæn ju plˈiz kˈʌm ænd hˈɛlp mˌi?",
+    "tokens": [
+      53, 157, 72, 56, 16, 52, 63, 16, 58, 54, 156, 51, 68, 16, 53, 156, 138, 55, 16, 72, 56, 46,
+      16, 50, 156, 86, 54, 58, 16, 55, 157, 51, 6
+    ]
+  },
+  "s-2": {
+    "group": "sentence",
+    "text": "I want something to eat.",
+    "ph": "ˌI wˈɑnt sˈʌmθˌɪŋ tʊ ˈit.",
+    "tokens": [
+      157, 25, 16, 65, 156, 69, 56, 62, 16, 61, 156, 138, 55, 119, 157, 102, 112, 16, 62, 135, 16,
+      156, 51, 62, 4
+    ]
+  },
+  "s-3": {
+    "group": "sentence",
+    "text": "The fish swims fast in the street.",
+    "ph": "ðə fˈɪʃ swˈɪmz fˈæst ɪn ðə stɹˈit.",
+    "tokens": [
+      81, 83, 16, 48, 156, 102, 131, 16, 61, 65, 156, 102, 55, 68, 16, 48, 156, 72, 61, 62, 16, 102,
+      56, 16, 81, 83, 16, 61, 62, 123, 156, 51, 62, 4
+    ]
+  },
+  "s-4": {
+    "group": "sentence",
+    "text": "My sister has seven shoes.",
+    "ph": "mˌI sˈɪstəɹ hæz sˈɛvən ʃˈuz.",
+    "tokens": [
+      55, 157, 25, 16, 61, 156, 102, 61, 62, 83, 123, 16, 50, 72, 68, 16, 61, 156, 86, 64, 83, 56,
+      16, 131, 156, 63, 68, 4
+    ]
+  },
+  "s-5": {
+    "group": "sentence",
+    "text": "I need a drink of water, please.",
+    "ph": "ˌI nˈid ɐ dɹˈɪŋk ʌv wˈɔɾəɹ, plˈiz.",
+    "tokens": [
+      157, 25, 16, 56, 156, 51, 46, 16, 70, 16, 46, 123, 156, 102, 112, 53, 16, 138, 64, 16, 65,
+      156, 76, 125, 83, 123, 3, 16, 58, 54, 156, 51, 68, 4
+    ]
+  },
+  "s-6": {
+    "group": "sentence",
+    "text": "Peter put the paper cup on the table.",
+    "ph": "pˈiɾəɹ pˌʊt ðə pˈApəɹ kˈʌp ˌɔn ðə tˈAbᵊl.",
+    "tokens": [
+      58, 156, 51, 125, 83, 123, 16, 58, 157, 135, 62, 16, 81, 83, 16, 58, 156, 24, 58, 83, 123, 16,
+      53, 156, 138, 58, 16, 157, 76, 56, 16, 81, 83, 16, 62, 156, 24, 44, 42, 54, 4
+    ]
+  },
+  "s-7": {
+    "group": "sentence",
+    "text": "Stop, I don't like that.",
+    "ph": "stˈɑp, ˌI dˈOnt lˈIk ðˈæt.",
+    "tokens": [
+      61, 62, 156, 69, 58, 3, 16, 157, 25, 16, 46, 156, 31, 56, 62, 16, 54, 156, 25, 53, 16, 81,
+      156, 72, 62, 4
+    ]
+  },
+  "s-8": {
+    "group": "sentence",
+    "text": "Can we go outside and play?",
+    "ph": "kˌæn wi ɡˌO ˌWtsˈId ænd plˈA?",
+    "tokens": [
+      53, 157, 72, 56, 16, 65, 51, 16, 92, 157, 31, 16, 157, 39, 62, 61, 156, 25, 46, 16, 72, 56,
+      46, 16, 58, 54, 156, 24, 6
+    ]
+  }
+}

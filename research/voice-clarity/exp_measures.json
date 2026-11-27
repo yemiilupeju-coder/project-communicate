@@ -1,0 +1,200 @@
+{
+  "girl/O1-old-raw": {
+    "hf_periodicity": 0.02803749644214805,
+    "fricative_buzz": 0.1735635886075815,
+    "fricative_flatness": 0.18417304753153682,
+    "cv_ratio_db": -19.261430377051944,
+    "hf_share_pct": 0.09561782970374065,
+    "dnsmos_sentences": 3.4860564585949025,
+    "dnsmos_words": 3.1656185836039032
+  },
+  "girl/O3-old-finished": {
+    "hf_periodicity": 0.19677738954597157,
+    "fricative_buzz": 0.2837194658644152,
+    "fricative_flatness": 0.2082930126735667,
+    "cv_ratio_db": -18.209272990151057,
+    "hf_share_pct": 0.06599080565548132,
+    "dnsmos_sentences": 3.1650105240548387,
+    "dnsmos_words": 3.088747481394834
+  },
+  "girl/X-C-pitch-only-no-timbre": {
+    "hf_periodicity": 0.07514873813575774,
+    "fricative_buzz": 0.16783571884393517,
+    "fricative_flatness": 0.24006519799106896,
+    "cv_ratio_db": -10.560686735879807,
+    "hf_share_pct": 4.976232360752802,
+    "dnsmos_sentences": 3.4725959870873653,
+    "dnsmos_words": 3.1293206057256553
+  },
+  "girl/X-D1-psola-praat": {
+    "hf_periodicity": 0.10994283144609834,
+    "fricative_buzz": 0.1722163854176201,
+    "fricative_flatness": 0.23549645008170958,
+    "cv_ratio_db": -11.920131482775249,
+    "hf_share_pct": 3.3919445422906724,
+    "dnsmos_sentences": 3.489816187159288,
+    "dnsmos_words": 3.201038826931992
+  },
+  "girl/X-D2-pitch-model+even-filter": {
+    "hf_periodicity": 0.06595241706691593,
+    "fricative_buzz": 0.17939790748236578,
+    "fricative_flatness": 0.230261467293668,
+    "cv_ratio_db": -10.38567823077005,
+    "hf_share_pct": 4.7605349478267485,
+    "dnsmos_sentences": 3.4272963973023494,
+    "dnsmos_words": 3.1278097819957273
+  },
+  "girl/X-E-world": {
+    "hf_periodicity": 0.13930656452438878,
+    "fricative_buzz": 0.17474153770535633,
+    "fricative_flatness": 0.22442753496409495,
+    "cv_ratio_db": -12.129825705573673,
+    "hf_share_pct": 4.171925068374664,
+    "dnsmos_sentences": 3.3483774578136765,
+    "dnsmos_words": 3.083677087969256
+  },
+  "girl/X-J1-e6-hybrid": {
+    "hf_periodicity": 0.0589408893724697,
+    "fricative_buzz": 0.18537569503772755,
+    "fricative_flatness": 0.22630253900651087,
+    "cv_ratio_db": -11.878752980913434,
+    "hf_share_pct": 3.9143006829988387,
+    "dnsmos_sentences": 3.399994107124849,
+    "dnsmos_words": 3.198698898917586
+  },
+  "girl/Y-formant-1.04": {
+    "hf_periodicity": 0.0834018618506132,
+    "fricative_buzz": 0.1760695758926964,
+    "fricative_flatness": 0.2377241311993229,
+    "cv_ratio_db": -10.550570616646418,
+    "hf_share_pct": 4.9835687267874915,
+    "dnsmos_sentences": 3.4072939563580094,
+    "dnsmos_words": 3.1107405742408623
+  },
+  "girl/Y-formant-1.07": {
+    "hf_periodicity": 0.08007642653667675,
+    "fricative_buzz": 0.1738970407557444,
+    "fricative_flatness": 0.23571760786758592,
+    "cv_ratio_db": -10.427869034191918,
+    "hf_share_pct": 4.905885544088152,
+    "dnsmos_sentences": 3.4322536062148856,
+    "dnsmos_words": 3.1067632824048643
+  },
+  "girl/Y-formant-1.10": {
+    "hf_periodicity": 0.07357702745257673,
+    "fricative_buzz": 0.17781995453654587,
+    "fricative_flatness": 0.2338310110141027,
+    "cv_ratio_db": -10.34856463046301,
+    "hf_share_pct": 4.832839323887749,
+    "dnsmos_sentences": 3.3843578912380834,
+    "dnsmos_words": 3.132303909970783
+  },
+  "boy/O1-old-raw": {
+    "hf_periodicity": 0.015055656039753456,
+    "fricative_buzz": 0.15434256858573994,
+    "fricative_flatness": 0.2883248162572399,
+    "cv_ratio_db": -22.141123923044358,
+    "hf_share_pct": 0.49509530798310325,
+    "dnsmos_sentences": 3.3590710825366203,
+    "dnsmos_words": 2.8151275725292146
+  },
+  "boy/O3-old-finished": {
+    "hf_periodicity": 0.16158752687955288,
+    "fricative_buzz": 0.15836347739082712,
+    "fricative_flatness": 0.2879458213557033,
+    "cv_ratio_db": -21.355855972047838,
+    "hf_share_pct": 0.23172033507199513,
+    "dnsmos_sentences": 3.4923664068464055,
+    "dnsmos_words": 3.0519226001544415
+  },
+  "boy/X-C-pitch-only-no-timbre": {
+    "hf_periodicity": 0.029128461710848437,
+    "fricative_buzz": 0.1858974056914819,
+    "fricative_flatness": 0.24709196843231404,
+    "cv_ratio_db": -20.222663531227717,
+    "hf_share_pct": 0.541136781138087,
+    "dnsmos_sentences": 3.3573509180045424,
+    "dnsmos_words": 2.8547489548459026
+  },
+  "boy/X-D1-psola-praat": {
+    "hf_periodicity": 0.23686689067025316,
+    "fricative_buzz": 0.19177742673611015,
+    "fricative_flatness": 0.25232002777550305,
+    "cv_ratio_db": -21.824318537636408,
+    "hf_share_pct": 0.5622293057422789,
+    "dnsmos_sentences": 3.492600606413402,
+    "dnsmos_words": 2.9447295945687864
+  },
+  "boy/X-D2-pitch-model+even-filter": {
+    "hf_periodicity": 0.056240989818118106,
+    "fricative_buzz": 0.18946111669037677,
+    "fricative_flatness": 0.2226201434243611,
+    "cv_ratio_db": -20.10855700477721,
+    "hf_share_pct": 0.5230013200096668,
+    "dnsmos_sentences": 3.2805944277378827,
+    "dnsmos_words": 2.8243364106121907
+  },
+  "boy/X-E-world": {
+    "hf_periodicity": 0.2568796062548837,
+    "fricative_buzz": 0.16561862333752775,
+    "fricative_flatness": 0.250530408954386,
+    "cv_ratio_db": -21.215475158085898,
+    "hf_share_pct": 0.760787897403278,
+    "dnsmos_sentences": 3.2764274929534105,
+    "dnsmos_words": 2.882526731794013
+  },
+  "boy/X-J1-e6-hybrid": {
+    "hf_periodicity": 0.1025669793735512,
+    "fricative_buzz": 0.17038920855284814,
+    "fricative_flatness": 0.24200626639300712,
+    "cv_ratio_db": -21.52717834048801,
+    "hf_share_pct": 0.6992022295792898,
+    "dnsmos_sentences": 3.4311784734331203,
+    "dnsmos_words": 3.0052327868385786
+  },
+  "boy/X-J2b-woman-timbre+pitch-only": {
+    "hf_periodicity": 0.13258906806504697,
+    "fricative_buzz": 0.16723927045755504,
+    "fricative_flatness": 0.22524770874861727,
+    "cv_ratio_db": -13.520665441240583,
+    "hf_share_pct": 3.975810021635086,
+    "dnsmos_sentences": 3.5888046355220307,
+    "dnsmos_words": 3.277789357734737
+  },
+  "boy/X-J2-woman-timbre+pitch+even-filter": {
+    "hf_periodicity": 0.12750241219712216,
+    "fricative_buzz": 0.16619593514057934,
+    "fricative_flatness": 0.22598272243482123,
+    "cv_ratio_db": -13.442965310717385,
+    "hf_share_pct": 3.7832979493670993,
+    "dnsmos_sentences": 3.541205676956846,
+    "dnsmos_words": 3.2313265008087946
+  },
+  "boy/Y-formant-1.04": {
+    "hf_periodicity": 0.15065891171294438,
+    "fricative_buzz": 0.16950578033840494,
+    "fricative_flatness": 0.22525761835777366,
+    "cv_ratio_db": -13.462890019492498,
+    "hf_share_pct": 3.995519252996596,
+    "dnsmos_sentences": 3.562245481423781,
+    "dnsmos_words": 3.2580977651615703
+  },
+  "boy/Y-formant-1.07": {
+    "hf_periodicity": 0.14496755906912676,
+    "fricative_buzz": 0.1678369594979838,
+    "fricative_flatness": 0.22364709503732189,
+    "cv_ratio_db": -13.409219620719789,
+    "hf_share_pct": 3.909292100913941,
+    "dnsmos_sentences": 3.5544613390487254,
+    "dnsmos_words": 3.2655534536751003
+  },
+  "boy/Y-formant-1.10": {
+    "hf_periodicity": 0.12160125273191447,
+    "fricative_buzz": 0.1668422281538202,
+    "fricative_flatness": 0.22332373018429144,
+    "cv_ratio_db": -13.341093108767556,
+    "hf_share_pct": 3.788858837551541,
+    "dnsmos_sentences": 3.5578842500767407,
+    "dnsmos_words": 3.2663148489247633
+  }
+}

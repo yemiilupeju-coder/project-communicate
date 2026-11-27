@@ -1,0 +1,326 @@
+{
+  "girl/A-source-fp32": {
+    "hf_periodicity": 0.05505312622520347,
+    "fricative_buzz": 0.16387132341726157,
+    "fricative_flatness": 0.2445804452511046,
+    "cv_ratio_db": -12.030124897048587,
+    "hf_share_pct": 4.278133941311685,
+    "dnsmos_sentences": 3.521085818002194,
+    "dnsmos_words": 3.2130260842731233
+  },
+  "girl/A2-source-int8": {
+    "hf_periodicity": 0.0486614614322267,
+    "fricative_buzz": 0.1664804954675233,
+    "fricative_flatness": 0.2416382330494862,
+    "cv_ratio_db": -12.041839713142032,
+    "hf_share_pct": 4.186987795290493,
+    "dnsmos_sentences": 3.5004439522662443,
+    "dnsmos_words": 3.1871339008511725
+  },
+  "girl/A3-source-int8-slower": {
+    "hf_periodicity": 0.048507556789589006,
+    "fricative_buzz": 0.16402322957435192,
+    "fricative_flatness": 0.23500928814611965,
+    "cv_ratio_db": -11.505777639056008,
+    "hf_share_pct": 4.378888074840818,
+    "dnsmos_sentences": 3.52196687777993,
+    "dnsmos_words": 3.2014250661457373
+  },
+  "girl/B-pitch-only": {
+    "hf_periodicity": 0.06963485072990208,
+    "fricative_buzz": 0.16808477206290565,
+    "fricative_flatness": 0.24233401868793622,
+    "cv_ratio_db": -11.22150639125279,
+    "hf_share_pct": 4.771917401088609,
+    "dnsmos_sentences": 3.4314153339891487,
+    "dnsmos_words": 3.042517188742757
+  },
+  "girl/C-timbre-only": {
+    "hf_periodicity": 0.03462587669235944,
+    "fricative_buzz": 0.1886220550164909,
+    "fricative_flatness": 0.2140835652121788,
+    "cv_ratio_db": -13.229106032659137,
+    "hf_share_pct": 4.668896134883639,
+    "dnsmos_sentences": 3.502243720707094,
+    "dnsmos_words": 3.2293661319270375
+  },
+  "girl/D-generated-shipped": {
+    "hf_periodicity": 0.0557313709067157,
+    "fricative_buzz": 0.19276475738739243,
+    "fricative_flatness": 0.21561457709275786,
+    "cv_ratio_db": -12.831924143291655,
+    "hf_share_pct": 5.174843580003769,
+    "dnsmos_sentences": 3.3417521164666066,
+    "dnsmos_words": 3.043680757220213
+  },
+  "girl/D32-generated-fp32": {
+    "hf_periodicity": 0.05921224540571483,
+    "fricative_buzz": 0.191321852397255,
+    "fricative_flatness": 0.217435780242111,
+    "cv_ratio_db": -12.525202879830012,
+    "hf_share_pct": 5.853771752781338,
+    "dnsmos_sentences": 3.38296618695929,
+    "dnsmos_words": 3.0192444743441595
+  },
+  "girl/E-finished": {
+    "hf_periodicity": 0.0561056695761752,
+    "fricative_buzz": 0.19373836688793572,
+    "fricative_flatness": 0.21413787391267103,
+    "cv_ratio_db": -12.19994536657182,
+    "hf_share_pct": 5.169601809410822,
+    "dnsmos_sentences": 3.233485806988249,
+    "dnsmos_words": 2.963560755420872
+  },
+  "girl/F-rate-48k": {
+    "hf_periodicity": 0.056685528913394,
+    "fricative_buzz": 0.2048999169011313,
+    "fricative_flatness": 0.20641706597980575,
+    "cv_ratio_db": -12.241767270224434,
+    "hf_share_pct": 5.123246776679205,
+    "dnsmos_sentences": 3.2333386622454636,
+    "dnsmos_words": 2.963540371745198
+  },
+  "girl/G-mp3-128k-48k": {
+    "hf_periodicity": 0.0698736867270936,
+    "fricative_buzz": 0.2062180552277726,
+    "fricative_flatness": 0.0836788571972139,
+    "cv_ratio_db": -12.983041725461446,
+    "hf_share_pct": 4.540133772388337,
+    "dnsmos_sentences": 3.349405868451489,
+    "dnsmos_words": 3.04238613385476
+  },
+  "girl/G-mp3-160k-48k": {
+    "hf_periodicity": 0.07062594954514965,
+    "fricative_buzz": 0.20616601520162262,
+    "fricative_flatness": 0.08362087136554336,
+    "cv_ratio_db": -13.007000733935644,
+    "hf_share_pct": 4.544554546711937,
+    "dnsmos_sentences": 3.3302952176952334,
+    "dnsmos_words": 3.046997512356884
+  },
+  "girl/G-mp3-96k-48k": {
+    "hf_periodicity": 0.07025704821509622,
+    "fricative_buzz": 0.20837272677531038,
+    "fricative_flatness": 0.08534446576605974,
+    "cv_ratio_db": -13.027726907578726,
+    "hf_share_pct": 4.53439376089308,
+    "dnsmos_sentences": 3.3332920510784985,
+    "dnsmos_words": 3.0567687864696027
+  },
+  "girl/G-opus-64k-48k": {
+    "hf_periodicity": 0.05593693938511518,
+    "fricative_buzz": 0.20655249669183742,
+    "fricative_flatness": 0.20708870920330805,
+    "cv_ratio_db": -12.1871751073807,
+    "hf_share_pct": 5.178538129443214,
+    "dnsmos_sentences": 3.274633623091905,
+    "dnsmos_words": 2.9428419169104876
+  },
+  "girl/H-device-playback-48k": {
+    "hf_periodicity": 0.05700386028744893,
+    "fricative_buzz": 0.20512641636958,
+    "fricative_flatness": 0.20404260891867232,
+    "cv_ratio_db": -11.646872679392496,
+    "hf_share_pct": 5.1232363477585805,
+    "dnsmos_sentences": 3.159682439855039,
+    "dnsmos_words": 2.930445845591042
+  },
+  "girl/H-pack-playback-mp3-128k-48k": {
+    "hf_periodicity": 0.06343231302068342,
+    "fricative_buzz": 0.20770260859373008,
+    "fricative_flatness": 0.08167347545615637,
+    "cv_ratio_db": -12.039362786308168,
+    "hf_share_pct": 4.539810380292317,
+    "dnsmos_sentences": 3.2391192367285826,
+    "dnsmos_words": 2.9725043544605954
+  },
+  "girl/H-pack-playback-mp3-160k-48k": {
+    "hf_periodicity": 0.06114059194220394,
+    "fricative_buzz": 0.20855857822285165,
+    "fricative_flatness": 0.0834821530251936,
+    "cv_ratio_db": -12.034199275667705,
+    "hf_share_pct": 4.544268668644012,
+    "dnsmos_sentences": 3.2139928803097093,
+    "dnsmos_words": 2.9952964134292173
+  },
+  "girl/H-pack-playback-mp3-96k-48k": {
+    "hf_periodicity": 0.06297723619865854,
+    "fricative_buzz": 0.20870342266411704,
+    "fricative_flatness": 0.08374993404574528,
+    "cv_ratio_db": -12.10029593725053,
+    "hf_share_pct": 4.534150304302337,
+    "dnsmos_sentences": 3.116534294237837,
+    "dnsmos_words": 3.007953576000377
+  },
+  "girl/H-pack-playback-opus-64k-48k": {
+    "hf_periodicity": 0.057961137593026776,
+    "fricative_buzz": 0.20730062099176216,
+    "fricative_flatness": 0.20654679299512524,
+    "cv_ratio_db": -11.71012836789328,
+    "hf_share_pct": 5.178533453789968,
+    "dnsmos_sentences": 3.181961696572426,
+    "dnsmos_words": 2.9590361010191146
+  },
+  "boy/A-source-fp32": {
+    "hf_periodicity": 0.012737760169858626,
+    "fricative_buzz": 0.16702419356563372,
+    "fricative_flatness": 0.2480830772820042,
+    "cv_ratio_db": -20.303964281839036,
+    "hf_share_pct": 0.5320352576673031,
+    "dnsmos_sentences": 3.421415336183679,
+    "dnsmos_words": 2.5265035766956903
+  },
+  "boy/A2-source-int8": {
+    "hf_periodicity": 0.006278870021402539,
+    "fricative_buzz": 0.1621015710223142,
+    "fricative_flatness": 0.26568009050824815,
+    "cv_ratio_db": -20.542711545550635,
+    "hf_share_pct": 0.4722164062753556,
+    "dnsmos_sentences": 3.3819709443252877,
+    "dnsmos_words": 2.657268476244119
+  },
+  "boy/A3-source-int8-slower": {
+    "hf_periodicity": 0.011670947038948271,
+    "fricative_buzz": 0.15995047285460748,
+    "fricative_flatness": 0.26218088727230654,
+    "cv_ratio_db": -20.602733869401234,
+    "hf_share_pct": 0.47914705194887663,
+    "dnsmos_sentences": 3.4009666518417245,
+    "dnsmos_words": 2.7319710432725013
+  },
+  "boy/B-pitch-only": {
+    "hf_periodicity": 0.02515625034271551,
+    "fricative_buzz": 0.16173532056827136,
+    "fricative_flatness": 0.2620739762485351,
+    "cv_ratio_db": -20.60221052926684,
+    "hf_share_pct": 0.48787119144958163,
+    "dnsmos_sentences": 3.3581663918552156,
+    "dnsmos_words": 2.7753449955150153
+  },
+  "boy/C-timbre-only": {
+    "hf_periodicity": 0.06681746574644969,
+    "fricative_buzz": 0.17302176487654014,
+    "fricative_flatness": 0.19418159866140092,
+    "cv_ratio_db": -17.92359170459566,
+    "hf_share_pct": 2.128714268169706,
+    "dnsmos_sentences": 3.1831833140766332,
+    "dnsmos_words": 2.707148440395514
+  },
+  "boy/D-generated-shipped": {
+    "hf_periodicity": 0.054734337425541874,
+    "fricative_buzz": 0.1943538587763584,
+    "fricative_flatness": 0.18659601999742925,
+    "cv_ratio_db": -22.715984072004044,
+    "hf_share_pct": 1.245868806801145,
+    "dnsmos_sentences": 3.2844476085395913,
+    "dnsmos_words": 3.0102296088250933
+  },
+  "boy/D32-generated-fp32": {
+    "hf_periodicity": 0.0541179145607816,
+    "fricative_buzz": 0.19408436254503103,
+    "fricative_flatness": 0.19128737675167223,
+    "cv_ratio_db": -22.683462824140275,
+    "hf_share_pct": 1.447064256857312,
+    "dnsmos_sentences": 3.3256044607533513,
+    "dnsmos_words": 3.021225042785392
+  },
+  "boy/E-finished": {
+    "hf_periodicity": 0.056132329713751976,
+    "fricative_buzz": 0.19271369363270166,
+    "fricative_flatness": 0.18813369792339762,
+    "cv_ratio_db": -21.597340326460582,
+    "hf_share_pct": 1.2468357890371293,
+    "dnsmos_sentences": 3.2179494776210884,
+    "dnsmos_words": 2.9297498798374644
+  },
+  "boy/F-rate-48k": {
+    "hf_periodicity": 0.06062169486036791,
+    "fricative_buzz": 0.20045994191035124,
+    "fricative_flatness": 0.18047401976735042,
+    "cv_ratio_db": -21.620285957578627,
+    "hf_share_pct": 1.2427569429079692,
+    "dnsmos_sentences": 3.2179205883075053,
+    "dnsmos_words": 2.929131851043885
+  },
+  "boy/G-mp3-128k-48k": {
+    "hf_periodicity": 0.060004612531043916,
+    "fricative_buzz": 0.19957418314975833,
+    "fricative_flatness": 0.07838948121468894,
+    "cv_ratio_db": -22.218130308484273,
+    "hf_share_pct": 1.1538078321350946,
+    "dnsmos_sentences": 3.3508753903155495,
+    "dnsmos_words": 2.9903981857422566
+  },
+  "boy/G-mp3-160k-48k": {
+    "hf_periodicity": 0.06026200525605765,
+    "fricative_buzz": 0.19990684980664958,
+    "fricative_flatness": 0.078450097687813,
+    "cv_ratio_db": -22.21639012533521,
+    "hf_share_pct": 1.154130720903003,
+    "dnsmos_sentences": 3.3414143512153123,
+    "dnsmos_words": 2.985257650015688
+  },
+  "boy/G-mp3-96k-48k": {
+    "hf_periodicity": 0.060545160750295215,
+    "fricative_buzz": 0.19933275101476272,
+    "fricative_flatness": 0.07840719745552292,
+    "cv_ratio_db": -22.213863630143422,
+    "hf_share_pct": 1.1556473128379336,
+    "dnsmos_sentences": 3.366153048298698,
+    "dnsmos_words": 3.00048697906869
+  },
+  "boy/G-opus-64k-48k": {
+    "hf_periodicity": 0.06167228136264231,
+    "fricative_buzz": 0.19997563957593847,
+    "fricative_flatness": 0.17420020132915523,
+    "cv_ratio_db": -21.515492333306206,
+    "hf_share_pct": 1.2482643600494143,
+    "dnsmos_sentences": 3.2122552964488946,
+    "dnsmos_words": 2.9058158608947364
+  },
+  "boy/H-device-playback-48k": {
+    "hf_periodicity": 0.057339384101558685,
+    "fricative_buzz": 0.20666088722435455,
+    "fricative_flatness": 0.176653613767557,
+    "cv_ratio_db": -21.025478226797922,
+    "hf_share_pct": 1.2427458753661504,
+    "dnsmos_sentences": 3.291341886420642,
+    "dnsmos_words": 2.9575636482775565
+  },
+  "boy/H-pack-playback-mp3-128k-48k": {
+    "hf_periodicity": 0.06113796511080945,
+    "fricative_buzz": 0.20782068225882971,
+    "fricative_flatness": 0.07544966871860548,
+    "cv_ratio_db": -21.365433738345192,
+    "hf_share_pct": 1.153730521126399,
+    "dnsmos_sentences": 3.21161881945978,
+    "dnsmos_words": 2.9531468945780643
+  },
+  "boy/H-pack-playback-mp3-160k-48k": {
+    "hf_periodicity": 0.06091966020962669,
+    "fricative_buzz": 0.20792448042355186,
+    "fricative_flatness": 0.07572225250531697,
+    "cv_ratio_db": -21.3516019336761,
+    "hf_share_pct": 1.1540595775558835,
+    "dnsmos_sentences": 3.2125294926091237,
+    "dnsmos_words": 3.010733120588061
+  },
+  "boy/H-pack-playback-mp3-96k-48k": {
+    "hf_periodicity": 0.06133482932980677,
+    "fricative_buzz": 0.2049329120200116,
+    "fricative_flatness": 0.07650421574029793,
+    "cv_ratio_db": -21.43654199630495,
+    "hf_share_pct": 1.1555730378816997,
+    "dnsmos_sentences": 3.305148566689123,
+    "dnsmos_words": 2.964147400081999
+  },
+  "boy/H-pack-playback-opus-64k-48k": {
+    "hf_periodicity": 0.05628418443968933,
+    "fricative_buzz": 0.2049703631906339,
+    "fricative_flatness": 0.17413750128579536,
+    "cv_ratio_db": -21.088013648986816,
+    "hf_share_pct": 1.248255367316897,
+    "dnsmos_sentences": 3.312338242291501,
+    "dnsmos_words": 2.8738235845707987
+  }
+}

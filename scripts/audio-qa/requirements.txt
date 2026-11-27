@@ -1,0 +1,8 @@
+numpy
+scipy
+librosa
+praat-parselmouth
+pyloudnorm
+onnxruntime
+matplotlib
+pocketsphinx

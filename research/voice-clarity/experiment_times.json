@@ -1,0 +1,14 @@
+{
+  "girl/X-C-pitch-only-no-timbre": 33.3,
+  "girl/X-D1-psola-praat": 34.3,
+  "girl/X-D2-pitch-model+even-filter": 36.7,
+  "girl/X-E-world": 454.4,
+  "boy/X-C-pitch-only-no-timbre": 29.0,
+  "boy/X-D1-psola-praat": 29.6,
+  "boy/X-D2-pitch-model+even-filter": 29.1,
+  "boy/X-E-world": 425.9,
+  "girl/X-J1-e6-hybrid": 32.5,
+  "boy/X-J1-e6-hybrid": 29.1,
+  "boy/X-J2-woman-timbre+pitch+even-filter": 29.3,
+  "boy/X-J2b-woman-timbre+pitch-only": 29.1
+}

@@ -74,3 +74,74 @@ keeps up, else the system voice, else a large-text display.
   sentence being built (only the newest guess), then background work.
 - Joined words are tighter for everyone, with or without the voice maker: the silence around
   each clip (padding, and MP3 decoding) is trimmed and the gap between words is 35 ms.
+
+## Update — Nov 26, 2026 (later): seamless sentences, smoother voices
+
+- Speak now waits up to 1.5 s for a new sentence when the device should have it ready by then
+  (it learns how fast it is); only slower devices hear joined words first. Sentences being built
+  are made after a 0.3 s pause.
+- The voice maker stays loaded while the app is open (let go after 2 minutes in the
+  background), and loads as soon as the app starts, so the first sentence isn't slowed by it.
+- The site is cross-origin isolated (`public/_headers`: COOP `same-origin`, COEP
+  `require-corp`), which lets the engine use up to 4 threads: about twice as fast. The engine's
+  helper threads start from `voice-model/ort-wasm-simd-threaded.mjs` (precached). If the engine
+  can't start with threads on a device, it starts again with one. The app loads nothing from
+  other sites; the old voice spike pages that fetch models from other hosts may no longer work.
+- Smoother child voices: pitch is measured between samples, its frame-to-frame wobble is
+  smoothed (50 ms, in octaves), and the reshaped periods are placed between samples too. Jitter
+  fell by about a quarter and the girl's harmonics-to-noise ratio rose from 14.7 to 16.2 dB.
+  `VOICE_VERSION` is `k82m-int8-misaki-r2`, so devices make their clips again.
+
+## Update — Nov 26, 2026 (evening): why the voices sounded choppy, and the fix
+
+Measured on the same sentences (Praat: harmonics-to-noise ratio, cycle-to-cycle jitter, and
+"flutter", the share of loudness changes at 30–150 Hz):
+
+- The playback path was not the cause: whole sentences play as one clip, with no clicks or
+  dropouts inside (now checked in `e2e/device-voice-smoke.mjs`).
+- Root cause 1, the reshaping: to raise the pitch, PSOLA used the nearest original period for
+  each new one, so some periods were repeated and others skipped. The bigger the pitch change,
+  the stronger that repeat-skip pattern, heard as a rough, choppy flutter. Now each new period
+  blends the two original periods around it, and breath and hiss (which have no periods) are
+  taken from exactly where we are instead of repeating 10 ms pieces. Boy (same base voice):
+  jitter 2.6% → 1.2%, flutter 0.136 → 0.089; girl: jitter 1.9% → 1.2%, HNR 14.2 → 16.9 dB.
+- Root cause 2, the boy's base voice: `am_michael` is the roughest of Kokoro's US voices (jitter
+  3.4%, HNR 8.9 dB, creaky) and, being low, needed the biggest change (pitch ×2.2). The boy now
+  starts from `am_eric` (higher and smoother): flutter 0.019, jitter 1.15%, HNR 16.7 dB.
+- Making clips leaves one processor core free and waits while audio plays, so it can't starve
+  playback on a busy tablet.
+- `VOICE_VERSION` is `k82m-int8-misaki-r3`; packs re-rendered. Devices that already have the
+  voice maker fetch the new voice table (0.5 MB) by themselves.
+
+## Update — Nov 26, 2026 (night): measured, not judged by ear
+
+An independent audio-QA process now guides the voices (`docs/audio-qa/`, `scripts/audio-qa/`):
+Praat voice measures, ITU-R BS.1770 loudness, Microsoft's DNSMOS (a neural predictor of human
+quality ratings), and a capture of what the running app actually plays, sample by sample, to
+separate generation, encoding, scheduling and browser-playback problems. Targets are in
+`scripts/audio-qa/targets.json`; runs are compared before and after.
+
+What the baseline found, and the fixes:
+
+- Generation: neither voice sounded young enough (vocal-tract scale 1.15 girl, 1.09 boy,
+  against 1.12–1.30 for children), the girl's base voice (`af_bella`) reshaped poorly (DNSMOS
+  OVRL 2.9), and loudness varied by 1–1.6 LU between sentences and 1.3 LU between the voices.
+  Now: girl from `af_nova` (formants +26%, 285 Hz), boy from `af_kore` (+16%, 250 Hz), the two
+  Kokoro voices that measured cleanest after reshaping; every clip is set to −16 LUFS with a
+  gentle peak limiter (`src/voice/loudness.ts`) instead of to a fixed peak.
+- Encoding: 48 kbps MP3 cost 5 dB of SNR; packs are now 96 kbps.
+- Playback: clips arrived bit-exact and on time, but three were glitched while the voice maker
+  was making a sentence at the same moment (the processor was busy). The sentence is now made
+  after the joined words finish playing, and the engine leaves two cores free.
+
+## Update — Nov 26, 2026: child voices generated, not reshaped
+
+- The reshaping above is replaced: the child voices are now generated inside Kokoro (pitch set in
+  the model, vocal tract set by a learned style move). Girl from `af_heart`, boy from `am_puck`.
+  See ADR 0011.
+
+## Update — Nov 27, 2026: style move removed
+
+- The learned style move made single words sound British and muffled. The voices now use
+  untouched styles (girl `af_heart`; boy `af_heart`'s timbre with `am_puck`'s delivery), pitch set
+  in the model, and one even formant lift (`src/voice/envelopeLift.ts`). See ADR 0012.
