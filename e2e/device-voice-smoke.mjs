@@ -175,7 +175,7 @@ check(
   now.clips > before.clips && now.device.length === before.device.length,
 );
 
-// Whole sentences: said word by word at first if not ready, then in one go.
+// Whole sentences: always said in one go, never as flat joined words (Speak waits for it).
 const tapWords = async (words, gap) => {
   for (const w of words) {
     await btn(new RegExp(`^${w}$`)).click();
@@ -191,11 +191,25 @@ const speakCount = async (wait = 900) => {
 };
 await btn(/^Clear/).click();
 await btn(/^Words$/).click();
-await tapWords(["I", "can", "do", "it"], 350);
-let said = await speakCount();
+await tapWords(["I", "can", "do", "it"], 0);
+const atSpeak = await counts();
+const tSpeak = Date.now();
+await btn(/Speak$/).click();
+let after = await counts();
+while (after.clips === atSpeak.clips && Date.now() - tSpeak < 12000) {
+  await page.waitForTimeout(250);
+  after = await counts();
+}
+const waited = (Date.now() - tSpeak) / 1000;
+await page.waitForTimeout(1500); // joined words would start several clips
+after = await counts();
+let said = {
+  clips: after.clips - atSpeak.clips,
+  device: after.device.length - atSpeak.device.length,
+};
 check(
-  `a new sentence is said at once (${said.clips === 1 ? "whole" : `${said.clips} word clips`} while it is made)`,
-  said.clips >= 1 && said.device === 0,
+  `a new sentence is said whole, not as joined words (${said.clips} clip, after ${waited.toFixed(1)} s)`,
+  said.clips === 1 && said.device === 0,
 );
 let sentenceSaved = false;
 const t4 = Date.now();
@@ -227,6 +241,30 @@ check(
   `a sentence built with a pause plays whole straight away (${said.clips} clip)`,
   said.clips === 1,
 );
+
+// Just after the app opens (as after an update), before the voice maker has
+// loaded: a new sentence still waits to be said whole, never flat.
+await page.reload();
+await page.waitForSelector(".board .cell");
+await btn(/^Words$/).click();
+await tapWords(["it", "can", "look"], 0);
+{
+  const start = await counts();
+  const t = Date.now();
+  await btn(/Speak$/).click();
+  let now = await counts();
+  while (now.clips === start.clips && Date.now() - t < 15000) {
+    await page.waitForTimeout(250);
+    now = await counts();
+  }
+  const secs = (Date.now() - t) / 1000;
+  await page.waitForTimeout(1500);
+  now = await counts();
+  check(
+    `right after opening, a new sentence is said whole after ${secs.toFixed(1)} s (${now.clips - start.clips} clip)`,
+    now.clips - start.clips === 1 && now.device.length === start.device.length,
+  );
+}
 
 // Offline: the added word is still said in the child's voice.
 await page.evaluate(() => navigator.serviceWorker.ready);

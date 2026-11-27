@@ -145,3 +145,13 @@ What the baseline found, and the fixes:
 - The learned style move made single words sound British and muffled. The voices now use
   untouched styles (girl `af_heart`; boy `af_heart`'s timbre with `am_puck`'s delivery), pitch set
   in the model, and one even formant lift (`src/voice/envelopeLift.ts`). See ADR 0012.
+
+## Update — Nov 27, 2026 (later): sentences are never said flat
+
+- Speak used to wait for a new sentence only when it expected it within 1.5 s; otherwise it said
+  the words joined first, which sounds flat. That happened every time the app had just opened
+  (before it had timed itself) and after each voice update (saved sentences are remade in the new
+  voice). Now Speak always waits for the whole sentence when the device has the voice maker, up
+  to 10 s; only a device that can't make it in that time hears joined words. A second tap while
+  it is being made doesn't say it twice. Without the voice maker, sentences are still joined from
+  word clips. Tested in `e2e/device-voice-smoke.mjs`, including right after the app opens.

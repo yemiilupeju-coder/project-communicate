@@ -13,7 +13,6 @@ import {
   makeSentence,
   modelStatus,
   sentenceClip,
-  sentenceEta,
   setPlaybackCheck,
   wordClip,
   wordSampleRate,
@@ -235,11 +234,16 @@ async function prepared(
 /** How long to wait for the device to make a missing word before using the device voice. */
 const MAKE_WAIT_MS = 5000;
 /**
- * The longest Speak waits for a new sentence to be made in one go. If the
- * device can't make it that quickly, the words are said joined straight away
- * instead (and the sentence is still finished and saved, for next time).
+ * The longest Speak waits for a new sentence to be made in one go (ADR 0004,
+ * Nov 27 update). A sentence is never said as flat, joined words while the
+ * device can make it whole; only if it can't within this time (a struggling
+ * device) are the words joined instead, and the sentence is still finished and
+ * saved for next time.
  */
-const SENTENCE_WAIT_MS = 1500;
+const WHOLE_WAIT_MS = 10000;
+
+/** Sentences Speak is waiting on, so a second tap doesn't say it twice. */
+const waitingFor = new Set<string>();
 
 const within = <T>(promise: Promise<T>, ms: number) =>
   Promise.race([
@@ -273,10 +277,11 @@ function play(ctx: AudioContext, buffers: readonly AudioBuffer[]): "started" {
 /**
  * Says the text in the child's voice. With `whole` (Speak, and sentences), a
  * sentence is said in one go when the device can make it (the voice maker is
- * downloaded), so it sounds like speech; otherwise, and while it is being
- * made, it is joined from word clips: built-in ones from the pack, and ones
- * made on this device. "unavailable" means the caller should use the device
- * voice instead, for the whole message.
+ * downloaded), so it sounds like speech; a new sentence is waited for rather
+ * than said as flat, joined words. Without the voice maker (or if it can't
+ * make the sentence in time) it is joined from word clips: built-in ones from
+ * the pack, and ones made on this device. "unavailable" means the caller
+ * should use the device voice instead, for the whole message.
  */
 export async function playPack(
   id: VoicePackId,
@@ -296,15 +301,19 @@ export async function playPack(
   const sentence = whole && wordsOf(text).length > 1 && !pack.index[clipKey(text)];
   if (sentence && (hasSentence(id, text) || modelStatus().state === "saved")) {
     const ready = hasSentence(id, text);
-    const eta = ready ? 0 : sentenceEta(id, text);
-    // Wait only if it should be ready soon; a little longer than expected is fine.
-    const wait = !plan ? MAKE_WAIT_MS : eta <= SENTENCE_WAIT_MS ? eta * 1.25 + 300 : 0;
-    const made = makeSentence(id, text, "now", true);
-    if (ready ? await made : wait > 0 && (await within(made, wait))) {
-      const buffer = await prepared(ctx, `${id}:${sentenceKey(text)}`, () =>
-        sentenceClip(id, text),
-      );
-      if (buffer) return play(ctx, [buffer]);
+    const key = `${id}:${sentenceKey(text)}`;
+    // Speak tapped again while this sentence is being made: it will be said once.
+    if (!ready && waitingFor.has(key)) return "started";
+    // Wait for the natural, whole sentence rather than saying the words flat.
+    waitingFor.add(key);
+    try {
+      const made = makeSentence(id, text, "now", true);
+      if (ready ? await made : await within(made, WHOLE_WAIT_MS)) {
+        const buffer = await prepared(ctx, key, () => sentenceClip(id, text));
+        if (buffer) return play(ctx, [buffer]);
+      }
+    } finally {
+      waitingFor.delete(key);
     }
     if (!plan) {
       void makeClips(id, missing(), "later");
